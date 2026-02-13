@@ -15,7 +15,7 @@ const AboutHero = () => {
         <img
           src="https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/rU6KZDbo6lsc7taa2/926z-2023-02-19-misha-shum-k15-64-7-l8x073-ypi_thumbnail-1080_04.png"
           alt="About Pathology Lab"
-          className="w-full h-full object-cover object-[center_10%]"
+          className="w-full h-full object-cover object-center"
           loading="eager"
         />
         {/* Adjusted Overlay: Professional depth with gradient */}
@@ -47,10 +47,28 @@ const AboutHero = () => {
             damping: 20,
             delay: 0.4,
           }}
-          className="text-white text-3xl md:text-5xl font-semibold uppercase tracking-tight mb-8"
+          className="text-white text-3xl md:text-5xl font-black uppercase tracking-tighter mb-8 leading-tight max-w-4xl mx-auto"
         >
-          About Our Laboratory
+          Organizing Diagnostics into a <br />
+          <span className="text-secondary">Structured Ecosystem</span>
         </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 100,
+            damping: 20,
+            delay: 0.5,
+          }}
+          className="text-white/80 text-sm md:text-lg max-w-3xl mx-auto mb-10 font-medium leading-relaxed"
+        >
+          We are a digital healthcare platform focused on organizing pathology
+          laboratory information into a structured and accessible system. Our
+          goal is to improve diagnostic awareness, transparency, and
+          connectivity across healthcare stakeholders.
+        </motion.p>
 
         {/* Breadcrumbs with clean style */}
         <motion.div

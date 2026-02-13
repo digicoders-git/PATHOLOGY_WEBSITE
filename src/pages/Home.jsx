@@ -2,6 +2,16 @@ import React, { Suspense, lazy } from "react";
 import Hero from "../components/home/Hero";
 
 // Lazy loading sections for performance optimization
+const SnapshotSection = lazy(
+  () => import("../components/home/SnapshotSection"),
+);
+const WhatWeOffer = lazy(() => import("../components/home/WhatWeOffer"));
+const MobileAppPromotion = lazy(
+  () => import("../components/home/MobileAppPromotion"),
+);
+const NetworkStrength = lazy(
+  () => import("../components/home/NetworkStrength"),
+);
 const AboutSection = lazy(() => import("../components/home/AboutSection"));
 const StatsSection = lazy(() => import("../components/home/StatsSection"));
 const MainServices = lazy(() => import("../components/home/MainServices"));
@@ -24,6 +34,10 @@ const Home = () => {
     <main>
       <Hero />
       <Suspense fallback={<SectionLoader />}>
+        <SnapshotSection />
+        <WhatWeOffer />
+        <MobileAppPromotion />
+        <NetworkStrength />
         <AboutSection />
         <StatsSection />
         <MainServices />

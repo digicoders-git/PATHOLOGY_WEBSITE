@@ -22,12 +22,12 @@ const Hero = () => {
           loading="eager"
           fetchpriority="high"
         />
-        {/* Optimized Overlays */}
-        <div className="absolute inset-0 bg-primary/30 mix-blend-multiply"></div>
-        <div className="absolute inset-0 bg-linear-to-r from-primary/80 via-primary/5 to-transparent"></div>
+        {/* Optimized Overlays (Simplified for performance) */}
+        <div className="absolute inset-0 bg-primary/40 md:bg-primary/30"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-primary/80 via-primary/20 to-transparent"></div>
       </motion.div>
 
-      <div className="container mx-auto px-6 relative z-10 pt-20">
+      <div className="container mx-auto px-6 relative z-10 pt-32 pb-20 md:pt-20 md:pb-0">
         <div className="max-w-xl">
           {/* Top Badge */}
           <motion.div
@@ -39,10 +39,10 @@ const Hero = () => {
               damping: 20,
               delay: 0.2,
             }}
-            className="inline-block bg-secondary px-3 py-1 rounded-md mb-6 shadow-lg"
+            className="bg-secondary hidden md:inline-block px-3 py-1 rounded-md mb-6 shadow-lg"
           >
             <span className="text-white text-[10px] md:text-xs font-bold uppercase tracking-wider">
-              Welcome to Syntalab
+              Digital Diagnostics Ecosystem
             </span>
           </motion.div>
 
@@ -56,14 +56,14 @@ const Hero = () => {
               damping: 20,
               delay: 0.4,
             }}
-            className="text-white text-4xl md:text-5xl lg:text-5xl font-bold leading-[1.2] mb-6 tracking-tight"
+            className="text-white text-3xl md:text-4xl lg:text-4xl font-bold leading-[1.2] mb-6 tracking-tight drop-shadow-md"
           >
-            Pioneering Discoveries <br />
-            for a Better Tomorrow
+            A Connected Pathology Network <br />
+            for Reliable Diagnostics
           </motion.h1>
 
           {/* Description */}
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -72,11 +72,18 @@ const Hero = () => {
               damping: 20,
               delay: 0.6,
             }}
-            className="text-gray-100 text-sm md:text-base max-w-md mb-10 leading-relaxed opacity-90 font-medium"
+            className="space-y-4 mb-5"
           >
-            Our laboratory transforms complex data into meaningful breakthroughs
-            that impact health, industry, and sustainability.
-          </motion.p>
+            <p className="text-white md:text-gray-100 text-sm md:text-base max-w-md leading-relaxed font-medium tracking-tight drop-shadow-sm">
+              We connect patients, diagnostic laboratories, and healthcare
+              providers through a centralized digital platform designed for
+              transparency, accessibility, and efficient test management.
+            </p>
+            <p className="text-white md:text-secondary font-bold text-xs md:text-sm max-w-md leading-relaxed uppercase tracking-wide drop-shadow-sm bg-secondary/30 md:bg-transparent p-3 md:p-0 rounded-lg inline-block">
+              Explore laboratories, understand diagnostic services, and access
+              reports through our mobile applications.
+            </p>
+          </motion.div>
 
           {/* Action Buttons */}
           <motion.div
@@ -119,7 +126,7 @@ const Hero = () => {
         >
           <path
             d="M0 120 L0 30 C 480 100, 960 100, 1440 30 L 1440 120 Z"
-            fill="white"
+            className="fill-background"
           />
         </svg>
       </div>

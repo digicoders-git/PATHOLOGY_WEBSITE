@@ -107,7 +107,7 @@ const LabExpertise = () => {
             <div className="flex items-center gap-2 mb-4">
               <div className="w-10 h-[2px] bg-secondary"></div>
               <span className="text-secondary font-black text-[10px] md:text-xs uppercase tracking-[0.2em] block">
-                About Syntalab
+                Our Mission
               </span>
             </div>
 
