@@ -61,6 +61,7 @@ const Footer = () => {
               </div>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed font-medium">
+            Making Diagnostic Testing Affordable, Reliable, and Patient-Focused. <br />
               Clinical pathology laboratory providing diagnostic testing and
               sample analysis services. We specialize in providing accurate and
               reliable results.
@@ -101,26 +102,24 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3: Lab Services */}
+          {/* Column 3: Legal Links */}
           <div>
             <h4 className="text-lg font-black uppercase tracking-widest mb-8 flex items-center gap-2">
               <span className="w-6 h-[2px] bg-secondary"></span>
-              Lab Services
+              Legal Links
             </h4>
             <ul className="space-y-4">
               {[
-                { name: "Hematology Testing", path: "/hematology" },
-                { name: "Biochemistry Testing", path: "/biochemistry" },
-                { name: "Microbiology Testing", path: "/microbiology" },
-                { name: "Immunology Testing", path: "/immunology" },
-              ].map((service, i) => (
+                { name: "Privacy Policy", path: "/privacy-policy" },
+                { name: "Terms of Conditions", path: "/terms-of-service" },
+              ].map((link, i) => (
                 <li key={i}>
                   <Link
-                    to={service.path}
+                    to={link.path}
                     className="text-white/70 hover:text-secondary text-sm font-bold flex items-center gap-2 transition-all hover:translate-x-2 group"
                   >
                     <FaChevronRight className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {service.name}
+                    {link.name}
                   </Link>
                 </li>
               ))}
@@ -135,7 +134,7 @@ const Footer = () => {
             </h4>
             <div className="space-y-6">
               <div className="flex gap-4 items-start">
-                <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-secondary text-lg flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-secondary text-lg shrink-0">
                   <FaPhoneAlt />
                 </div>
                 <div>
@@ -148,7 +147,7 @@ const Footer = () => {
                 </div>
               </div>
               <div className="flex gap-4 items-start">
-                <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-secondary text-lg flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-secondary text-lg shrink-0">
                   <FaEnvelope />
                 </div>
                 <div>
@@ -161,7 +160,7 @@ const Footer = () => {
                 </div>
               </div>
               <div className="flex gap-4 items-start">
-                <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-secondary text-lg flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-secondary text-lg shrink-0">
                   <FaMapMarkerAlt />
                 </div>
                 <div>
@@ -179,7 +178,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/50 text-xs font-bold uppercase tracking-[0.1em] text-center md:text-left">
+          <p className="text-white/50 text-xs font-bold uppercase tracking-widest text-center md:text-left">
             © {currentYear} Design and Developed by{" "}
             <a
               href="https://digicoders.in"
@@ -190,20 +189,6 @@ const Footer = () => {
             </a>
             .
           </p>
-          <div className="flex gap-8">
-            <NavLink
-              to="/privacy-policy"
-              className="text-white/50 hover:text-white text-[10px] font-black uppercase tracking-widest transition-colors"
-            >
-              Privacy Policy
-            </NavLink>
-            <NavLink
-              to="/terms-of-service"
-              className="text-white/50 hover:text-white text-[10px] font-black uppercase tracking-widest transition-colors"
-            >
-              Terms of Service
-            </NavLink>
-          </div>
         </div>
       </div>
     </footer>

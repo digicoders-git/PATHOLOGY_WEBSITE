@@ -20,14 +20,14 @@ const Hero = () => {
           alt="Laboratory Scientist"
           className="w-full h-full object-cover object-top"
           loading="eager"
-          fetchpriority="high"
+          fetchPriority="high"
         />
         {/* Optimized Overlays (Simplified for performance) */}
         <div className="absolute inset-0 bg-primary/40 md:bg-primary/30"></div>
         <div className="absolute inset-0 bg-linear-to-r from-primary/80 via-primary/20 to-transparent"></div>
       </motion.div>
 
-      <div className="container mx-auto px-6 relative z-10 pt-32 pb-20 md:pt-20 md:pb-0">
+      <div className="container mx-auto px-6 relative z-10 pt-32 pb-20 md:pt-15 md:pb-0">
         <div className="max-w-xl">
           {/* Top Badge */}
           <motion.div
@@ -75,9 +75,9 @@ const Hero = () => {
             className="space-y-4 mb-5"
           >
             <p className="text-white md:text-gray-100 text-sm md:text-base max-w-md leading-relaxed font-medium tracking-tight drop-shadow-sm">
-              We connect patients, diagnostic laboratories, and healthcare
-              providers through a centralized digital platform designed for
-              transparency, accessibility, and efficient test management.
+              Affordable, Reliable and Patient-Friendly Diagnostic Access Our
+              goal is to make quality pathology testing accessible at reasonable
+              costs while maintaining accuracy and patient comfort.
             </p>
             <p className="text-white md:text-secondary font-bold text-xs md:text-sm max-w-md leading-relaxed uppercase tracking-wide drop-shadow-sm bg-secondary/30 md:bg-transparent p-3 md:p-0 rounded-lg inline-block">
               Explore laboratories, understand diagnostic services, and access

@@ -9,6 +9,7 @@ const WhatWeOffer = lazy(() => import("../components/home/WhatWeOffer"));
 const MobileAppPromotion = lazy(
   () => import("../components/home/MobileAppPromotion"),
 );
+const OurCommitment = lazy(() => import("../components/home/OurCommitment"));
 const NetworkStrength = lazy(
   () => import("../components/home/NetworkStrength"),
 );
@@ -34,11 +35,12 @@ const Home = () => {
     <main>
       <Hero />
       <Suspense fallback={<SectionLoader />}>
+        <OurCommitment />
         <SnapshotSection />
         <WhatWeOffer />
         <MobileAppPromotion />
         <NetworkStrength />
-        <AboutSection />
+        {/* <AboutSection /> */}
         <StatsSection />
         <MainServices />
         <QualityAssurance />

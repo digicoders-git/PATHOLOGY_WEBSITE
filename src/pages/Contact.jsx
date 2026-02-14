@@ -1,5 +1,9 @@
 import React, { useEffect, Suspense, lazy } from "react";
 import ContactHero from "../components/contact/ContactHero";
+import OfficeDetails from "../components/contact/OfficeDetails";
+import PartnershipQueries from "../components/contact/PartnershipQueries";
+import ResponseDisclaimer from "../components/contact/ResponseDisclaimer";
+import GoogleMapSection from "../components/contact/GoogleMapSection";
 
 const ContactDetails = lazy(
   () => import("../components/contact/ContactDetails"),
@@ -19,9 +23,13 @@ const Contact = () => {
   return (
     <main>
       <ContactHero />
-      <Suspense fallback={<SectionLoader />}>
+      <OfficeDetails />
+      <GoogleMapSection />
+      <PartnershipQueries />
+      <ResponseDisclaimer />
+      {/* <Suspense fallback={<SectionLoader />}>
         <ContactDetails />
-      </Suspense>
+      </Suspense> */}
     </main>
   );
 };

@@ -25,3 +25,9 @@ website
 admin panel
 pathology app
 user app
+
+
+client advise  => 
+sasta testing goal me 
+our goal me patient freindly bat aaye 
+koi bhi test sasta and realiable ho

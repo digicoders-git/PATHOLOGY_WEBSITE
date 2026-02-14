@@ -8,7 +8,7 @@ const MissionVision = () => {
       icon: FaBullseye,
       title: "Mission",
       content:
-        "To make diagnostic information accessible, structured, and reliable for patients and laboratories through technology-driven solutions.",
+        "Our mission is to make diagnostic testing affordable, reliable, and patient-friendly so that healthcare diagnostics remain accessible to everyone.",
       color: "secondary",
     },
     {
@@ -48,7 +48,7 @@ const MissionVision = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              className="bg-white p-10 rounded-3xl shadow-xl shadow-primary/5 border border-gray-50 group hover:border-secondary transition-all duration-500 flex flex-col items-start gap-6 relative overflow-hidden"
+              className="bg-white p-10 rounded-xl shadow-xl shadow-primary/5 border border-gray-50 group hover:border-secondary transition-all duration-500 flex flex-col items-start gap-6 relative overflow-hidden"
             >
               {/* Corner Accent */}
               <div
@@ -56,7 +56,7 @@ const MissionVision = () => {
               ></div>
 
               <div
-                className={`w-16 h-16 rounded-2xl bg-${goal.color}/10 flex items-center justify-center text-${goal.color} text-2xl group-hover:bg-${goal.color} group-hover:text-white transition-all duration-300 shadow-sm`}
+                className={`w-16 h-16 rounded-xl bg-${goal.color}/10 flex items-center justify-center text-${goal.color} text-2xl group-hover:bg-${goal.color} group-hover:text-white transition-all duration-300 shadow-sm`}
               >
                 <goal.icon />
               </div>

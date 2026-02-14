@@ -12,7 +12,7 @@ const Registration = () => {
     <main>
       <RegistrationHero />
       <RegistrationForm />
-      <RegistrationNote />
+      {/* <RegistrationNote /> */}
     </main>
   );
 };

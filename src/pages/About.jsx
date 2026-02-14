@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import AboutHero from "../components/about/AboutHero";
 import MissionVision from "../components/about/MissionVision";
+import NetworkOverview from "../components/about/NetworkOverview";
+import MultiLabSupport from "../components/about/MultiLabSupport";
+import LabTransparency from "../components/about/LabTransparency";
+import QualityFocus from "../components/about/QualityFocus";
 import LabExpertise from "../components/about/LabExpertise";
 import LabStandards from "../components/about/LabStandards";
 import EquipmentTesting from "../components/about/EquipmentTesting";
@@ -15,7 +19,11 @@ const About = () => {
     <main>
       <AboutHero />
       <MissionVision />
-      <LabExpertise />
+      <NetworkOverview />
+      <MultiLabSupport />
+      <LabTransparency />
+      <QualityFocus />
+      {/* <LabExpertise /> */}
       <LabStandards />
       <EquipmentTesting />
       <DataConfidentiality />

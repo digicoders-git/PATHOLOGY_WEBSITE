@@ -46,10 +46,24 @@ const ServicesHero = () => {
             damping: 20,
             delay: 0.4,
           }}
-          className="text-white text-3xl md:text-5xl font-semibold uppercase tracking-tight mb-8"
+          className="text-white text-3xl md:text-5xl font-semibold uppercase tracking-tight mb-6"
         >
           Tests & Services
         </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 100,
+            damping: 20,
+            delay: 0.5,
+          }}
+          className="text-white/90 text-lg md:text-xl font-medium max-w-3xl mx-auto mb-8 leading-relaxed"
+        >
+          We aim to ensure that diagnostic tests remain cost-effective without compromising accuracy, while maintaining a patient-friendly diagnostic environment.
+        </motion.p>
 
         {/* Breadcrumbs with clean style */}
         <motion.div

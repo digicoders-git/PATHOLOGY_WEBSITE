@@ -1,5 +1,9 @@
 import React, { useEffect, Suspense, lazy } from "react";
 import ServicesHero from "../components/services/ServicesHero";
+import CommonTestCategories from "../components/services/CommonTestCategories";
+import SubTestExplanation from "../components/services/SubTestExplanation";
+import DiagnosticAwareness from "../components/services/DiagnosticAwareness";
+import LabResponsibility from "../components/services/LabResponsibility";
 
 // Lazy loading sections for performance
 const HematologyTesting = lazy(
@@ -29,12 +33,16 @@ const Services = () => {
   return (
     <main>
       <ServicesHero />
-      <Suspense fallback={<SectionLoader />}>
+      <CommonTestCategories />
+      <SubTestExplanation />
+      <DiagnosticAwareness />
+      <LabResponsibility />
+      {/* <Suspense fallback={<SectionLoader />}>
         <HematologyTesting />
         <BiochemistryTesting />
         <MicrobiologyTesting />
         <ImmunologyTesting />
-      </Suspense>
+      </Suspense> */}
     </main>
   );
 };

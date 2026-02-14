@@ -16,10 +16,11 @@ const RegistrationForm = () => {
     <section className="py-12 bg-background min-h-screen relative overflow-hidden">
       {/* Background Pathology Watermark - Full Secondary Theme */}
       <div className="absolute inset-0 pointer-events-none bg-secondary/5 overflow-hidden">
-        <img
-          src="https://images.pexels.com/photos/5910956/pexels-photo-5910956.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          alt=""
-          className="w-full h-full object-cover opacity-[0.05] grayscale brightness-50 contrast-125"
+        <div
+          className="w-full h-full bg-fixed bg-cover bg-center opacity-[0.05] grayscale brightness-50 contrast-125"
+          style={{
+            backgroundImage: `url(https://images.pexels.com/photos/5910956/pexels-photo-5910956.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)`,
+          }}
         />
         {/* Deep Secondary Gradient Overlay */}
         <div className="absolute inset-0 bg-linear-to-b from-secondary/10 via-transparent to-secondary/5"></div>

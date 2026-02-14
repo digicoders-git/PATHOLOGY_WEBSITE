@@ -32,6 +32,7 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about-lab" },
     { name: "Tests & Services", path: "/tests-services" },
+    { name: "Mobile App", path: "/mobile-app" },
     { name: "Contact Us", path: "/contact" },
   ];
 
@@ -113,7 +114,7 @@ const Navbar = () => {
               <span
                 className={`${isScrolled ? "text-sm md:text-base" : "text-base md:text-lg"} font-black text-primary leading-none tracking-tight uppercase transition-all duration-300`}
               >
-                Pathology
+                Easy Test Lab
               </span>
               <span className="text-[9px] md:text-[10px] font-bold text-secondary tracking-[0.2em] leading-none mt-1 uppercase">
                 Center

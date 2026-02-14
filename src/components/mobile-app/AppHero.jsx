@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const ContactHero = () => {
+const AppHero = () => {
   return (
     <section className="relative min-h-[500px] flex items-center justify-center overflow-hidden pt-44 pb-20 bg-primary">
-      {/* Background with Professional Gradient Overlay */}
+      {/* Background with Professional Image and Overlay */}
       <motion.div
         initial={{ scale: 1.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -13,12 +13,13 @@ const ContactHero = () => {
         className="absolute inset-0 z-0 will-change-transform"
       >
         <img
-          src="https://i.pinimg.com/originals/c3/75/8c/c3758c5bf323a3d673d3424cea60510b.jpg?nii=t"
-          alt="Contact Pathology Lab"
-          className="w-full h-full object-cover object-[center_40%]"
+          src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop"
+          alt="Mobile Health Application"
+          className="w-full h-full object-cover object-center"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-primary/40"></div>
+        {/* Professional depth with gradient overlay */}
+        <div className="absolute inset-0 bg-primary/60"></div>
         <div className="absolute inset-0 bg-linear-to-t from-primary via-transparent to-transparent"></div>
       </motion.div>
 
@@ -32,9 +33,9 @@ const ContactHero = () => {
             damping: 20,
             delay: 0.2,
           }}
-          className="text-secondary font-bold text-xs md:text-sm uppercase tracking-[0.4em] mb-4 block drop-shadow-sm"
+          className="text-secondary font-bold text-xs md:text-sm uppercase tracking-[0.4em] mb-4 block"
         >
-          Get In Touch
+          DIGITAL CONNECTIVITY
         </motion.span>
 
         <motion.h1
@@ -46,9 +47,9 @@ const ContactHero = () => {
             damping: 20,
             delay: 0.4,
           }}
-          className="text-white text-3xl md:text-5xl font-semibold uppercase tracking-tight mb-6 leading-tight"
+          className="text-white text-3xl md:text-5xl font-black uppercase tracking-tighter mb-8 leading-tight max-w-4xl mx-auto"
         >
-          Contact Lab
+          App <span className="text-secondary">Overview</span>
         </motion.h1>
 
         <motion.p
@@ -60,10 +61,10 @@ const ContactHero = () => {
             damping: 20,
             delay: 0.5,
           }}
-          className="text-white/90 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-8 leading-relaxed"
+          className="text-white/80 text-sm md:text-lg max-w-3xl mx-auto mb-10 font-medium leading-relaxed"
         >
-          For general inquiries, partnership information, or platform-related
-          questions, feel free to reach out.
+          Our mobile applications bridge the gap between patients and pathology
+          laboratories by providing structured digital interaction.
         </motion.p>
 
         {/* Breadcrumbs with clean style */}
@@ -82,11 +83,11 @@ const ContactHero = () => {
             Home
           </Link>
           <span className="w-1.5 h-1.5 bg-secondary rounded-full"></span>
-          <span className="text-white/70">Contact Lab</span>
+          <span className="text-white/70">Mobile App</span>
         </motion.div>
       </div>
     </section>
   );
 };
 
-export default ContactHero;
+export default AppHero;

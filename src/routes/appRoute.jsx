@@ -9,11 +9,13 @@ import Hematology from "../pages/Hematology";
 import Biochemistry from "../pages/Biochemistry";
 import Microbiology from "../pages/Microbiology";
 import Immunology from "../pages/Immunology";
+import MobileApp from "../pages/MobileApp";
 
 const appRoute = [
   { path: "/", element: Home },
   { path: "/about-lab", element: About },
   { path: "/tests-services", element: Services },
+  { path: "/mobile-app", element: MobileApp },
   { path: "/registration", element: Registration },
   { path: "/contact", element: Contact },
   { path: "/privacy-policy", element: PrivacyPolicy },

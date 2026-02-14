@@ -46,7 +46,7 @@ const EquipmentTesting = () => {
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
             className="lg:w-1/2 relative will-change-transform"
           >
-            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl group">
+            <div className="relative z-10 rounded-xl overflow-hidden shadow-2xl group">
               <img
                 src="https://st.depositphotos.com/1067336/2279/i/600/depositphotos_22791150-stock-photo-laboratories-experiment.jpg"
                 alt="Modern Laboratory Equipment"

@@ -24,14 +24,15 @@ const Section = ({ title, icon: Icon, children, index }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay: index * 0.05 }}
-    className="bg-pure-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100 mb-8 group hover:border-secondary/20 transition-all duration-300 relative overflow-hidden"
+    className="bg-pure-white p-6 md:p-8 rounded-xl shadow-sm border mb-8 group border-secondary/20 transition-all duration-300 relative overflow-hidden"
   >
     {/* Pathology Background Watermark - Full Secondary Theme */}
     <div className="absolute inset-0 pointer-events-none bg-secondary/5">
-      <img
-        src="https://images.pexels.com/photos/5910956/pexels-photo-5910956.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        alt=""
-        className="w-full h-full object-cover opacity-[0.12] grayscale brightness-50 contrast-125"
+      <div
+        className="w-full h-full bg-fixed bg-cover bg-center opacity-[0.12] grayscale brightness-50 contrast-125"
+        style={{
+          backgroundImage: `url(https://www.umhs-sk.org/hubfs/how-to-become-a-pathologist-physician.jpg)`,
+        }}
       />
       {/* Deep Secondary Gradient Overlay */}
       <div className="absolute inset-0 bg-linear-to-br from-secondary/20 via-transparent to-secondary/10"></div>
@@ -121,7 +122,7 @@ const ModernDropdown = ({
                     onChange(optValue);
                     setIsOpen(false);
                   }}
-                  className="w-full text-left px-4 py-3 text-sm font-medium text-primary/70 hover:bg-background hover:text-secondary transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-3 text-sm font-medium bg-background text-secondary transition-colors cursor-pointer"
                 >
                   {optLabel}
                 </button>
@@ -183,7 +184,7 @@ const InputField = ({
           />
           <label
             htmlFor={name}
-            className={`flex flex-col items-center justify-center border-2 border-dashed ${error ? "border-red-500" : "border-gray-200"} rounded-lg p-4 transition-all cursor-pointer hover:bg-background/50 hover:border-secondary/30`}
+            className={`flex flex-col items-center justify-center border-2 border-dashed ${error ? "border-red-500" : "border-gray-200"} rounded-lg p-4 transition-all cursor-pointer bg-background/50 border-secondary/30`}
           >
             <FaUpload className="text-primary/20 group-hover:text-secondary transition-colors mb-2" />
             <span className="text-[10px] font-bold text-primary/40 uppercase tracking-tighter">

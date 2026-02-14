@@ -112,7 +112,7 @@ const DataConfidentiality = () => {
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
             className="lg:w-2/5 order-1 lg:order-2 will-change-transform"
           >
-            <div className="relative p-12 bg-primary rounded-[3rem] shadow-2xl overflow-hidden group">
+            <div className="relative p-12 bg-primary rounded-xl shadow-2xl overflow-hidden group">
               {/* Inner Decorative Patterns */}
               <div className="absolute inset-0 opacity-10 pointer-events-none">
                 <svg
