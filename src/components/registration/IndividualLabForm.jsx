@@ -23,12 +23,13 @@ const Section = ({ title, icon: Icon, children, index }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay: index * 0.05 }}
-    className="bg-pure-white p-6 md:p-8 rounded-xl shadow-sm border mb-8 group border-secondary/20 transition-all duration-300 relative overflow-hidden"
+    className="bg-pure-white p-6 md:p-8 rounded-xl shadow-sm border mb-8 group border-secondary/20 transition-all duration-300 relative"
+    style={{ zIndex: 50 - index }}
   >
     {/* Pathology Background Watermark - Full Secondary Theme */}
-    <div className="absolute inset-0 pointer-events-none bg-secondary/5">
+    <div className="absolute inset-0 pointer-events-none bg-secondary/5 overflow-hidden rounded-xl">
       <div
-        className="w-full h-full bg-fixed bg-cover bg-center opacity-[0.12] grayscale brightness-50 contrast-125"
+        className="w-full h-full bg-cover bg-center opacity-[0.12] grayscale brightness-50 contrast-125"
         style={{
           backgroundImage: `url(https://www.umhs-sk.org/hubfs/how-to-become-a-pathologist-physician.jpg)`,
         }}
@@ -91,7 +92,7 @@ const ModernDropdown = ({ label, options, value, onChange, error }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute z-50 top-full left-0 w-full mt-2 bg-white border border-gray-100 rounded-lg shadow-xl overflow-hidden"
+            className="absolute z-50 top-full left-0 w-full mt-1 bg-white border border-gray-100 rounded-xl shadow-2xl overflow-hidden"
           >
             {options.map((opt) => (
               <button
@@ -258,7 +259,8 @@ const IndividualLabForm = () => {
     specialization: "",
     pathologyDocs: null,
     certifications: [{ name: "", file: null }],
-    pricingItems: [{ test: "", price: "" }],
+    pricingItems: [{ test: "", price: "", discountPrice: "" }],
+    ambulanceService: false,
   });
 
   const [availableTests, setAvailableTests] = useState([]);
@@ -348,7 +350,10 @@ const IndividualLabForm = () => {
   const handleAddPricing = () => {
     setFormData((prev) => ({
       ...prev,
-      pricingItems: [...prev.pricingItems, { test: "", price: "" }],
+      pricingItems: [
+        ...prev.pricingItems,
+        { test: "", price: "", discountPrice: "" },
+      ],
     }));
   };
 
@@ -386,6 +391,7 @@ const IndividualLabForm = () => {
         homeCollection: formData.homeCollection,
         is24x7: formData.is24x7,
         emergency: formData.emergency,
+        ambulanceService: formData.ambulanceService,
         openTime: formData.openTime,
         closeTime: formData.closeTime,
         weeklyOff: formData.weeklyOff,
@@ -418,7 +424,11 @@ const IndividualLabForm = () => {
       // Append pricing items as 'test' array [{name, price}]
       const testArray = formData.pricingItems
         .filter((item) => item.test && item.price)
-        .map((item) => ({ name: item.test, price: item.price }));
+        .map((item) => ({
+          name: item.test,
+          price: item.price,
+          discountPrice: item.discountPrice,
+        }));
       data.append("test", JSON.stringify(testArray));
 
       // Append certifications data and separate files
@@ -712,6 +722,13 @@ const IndividualLabForm = () => {
           value={formData.emergency}
           onChange={handleChange}
         />
+        <InputField
+          label="Ambulance Service"
+          name="ambulanceService"
+          type="checkbox"
+          value={formData.ambulanceService}
+          onChange={handleChange}
+        />
       </Section>
 
       <Section title="Certification & Documents" icon={FaCertificate} index={5}>
@@ -800,6 +817,16 @@ const IndividualLabForm = () => {
                     handlePricingChange(index, "price", e.target.value)
                   }
                   placeholder="e.g. 1200"
+                />
+                <InputField
+                  label="Discount Price (₹)"
+                  name={`discount_price_${index}`}
+                  type="number"
+                  value={item.discountPrice}
+                  onChange={(e) =>
+                    handlePricingChange(index, "discountPrice", e.target.value)
+                  }
+                  placeholder="e.g. 999"
                 />
               </div>
             ))}
