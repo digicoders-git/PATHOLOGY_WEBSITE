@@ -71,6 +71,14 @@ const ModernDropdown = ({ label, options, value, onChange, error }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const getDisplayLabel = () => {
+    if (!value) return `Select ${label}`;
+    const selected = options.find((opt) =>
+      typeof opt === "object" ? opt.value === value : opt === value,
+    );
+    return typeof selected === "object" ? selected.label : selected;
+  };
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -79,7 +87,7 @@ const ModernDropdown = ({ label, options, value, onChange, error }) => {
         className={`w-full bg-background border ${error ? "border-red-500" : "border-gray-200"} p-3.5 rounded-lg text-primary font-medium flex justify-between items-center text-sm transition-all focus:ring-2 focus:ring-primary/10 cursor-pointer`}
       >
         <span className={value ? "text-primary" : "text-primary/40"}>
-          {value || `Select ${label}`}
+          {getDisplayLabel()}
         </span>
         <FaChevronDown
           className={`text-xs transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
@@ -92,21 +100,25 @@ const ModernDropdown = ({ label, options, value, onChange, error }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute z-50 top-full left-0 w-full mt-1 bg-white border border-gray-100 rounded-xl shadow-2xl overflow-hidden"
+            className="absolute z-50 top-full left-0 w-full mt-1 bg-white border border-gray-100 rounded-xl shadow-2xl overflow-hidden max-h-60 overflow-y-auto"
           >
-            {options.map((opt) => (
-              <button
-                key={opt}
-                type="button"
-                onClick={() => {
-                  onChange(opt);
-                  setIsOpen(false);
-                }}
-                className="w-full text-left px-4 py-3 text-sm font-medium text-primary/70 hover:bg-background hover:text-secondary transition-colors cursor-pointer"
-              >
-                {opt}
-              </button>
-            ))}
+            {options.map((opt) => {
+              const optValue = typeof opt === "object" ? opt.value : opt;
+              const optLabel = typeof opt === "object" ? opt.label : opt;
+              return (
+                <button
+                  key={optValue}
+                  type="button"
+                  onClick={() => {
+                    onChange(optValue);
+                    setIsOpen(false);
+                  }}
+                  className="w-full text-left px-4 py-3 text-sm font-medium text-primary/70 hover:bg-background hover:text-secondary transition-colors cursor-pointer"
+                >
+                  {optLabel}
+                </button>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>
@@ -272,7 +284,7 @@ const IndividualLabForm = () => {
   useEffect(() => {
     const fetchTests = async () => {
       try {
-        const resData = await getTestServices({ limit: 100 });
+        const resData = await getTestServices({ limit: 100, status: true });
         if (resData.success) {
           setAvailableTests(resData.data);
         }
@@ -802,11 +814,15 @@ const IndividualLabForm = () => {
                 <InputField
                   label="Test Name"
                   name={`price_test_${index}`}
+                  type="select"
+                  options={availableTests.map((t) => ({
+                    value: t._id,
+                    label: t.title,
+                  }))}
                   value={item.test}
                   onChange={(e) =>
                     handlePricingChange(index, "test", e.target.value)
                   }
-                  placeholder="e.g. Complete Thyroid Profile"
                 />
                 <InputField
                   label="Price (₹)"

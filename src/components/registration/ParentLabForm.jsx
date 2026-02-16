@@ -301,7 +301,7 @@ const ParentLabForm = () => {
     const initData = async () => {
       try {
         const [testsRes, parentsRes] = await Promise.all([
-          getTestServices({ limit: 100 }),
+          getTestServices({ limit: 100, status: true }),
           getParents(),
         ]);
 
@@ -814,11 +814,14 @@ const ParentLabForm = () => {
                 <InputField
                   label="Test Name"
                   name={`price_test_${index}`}
+                  type="select"
+                  options={availableTests}
+                  valueKey="title"
+                  idKey="_id"
                   value={item.test}
                   onChange={(e) =>
                     handlePricingChange(index, "test", e.target.value)
                   }
-                  placeholder="e.g. Complete Thyroid Profile"
                 />
                 <InputField
                   label="Price (₹)"
@@ -851,7 +854,7 @@ const ParentLabForm = () => {
             </button>
           </div>
 
-          <div className="pt-6 border-t border-gray-100">
+          {/* <div className="pt-6 border-t border-gray-100">
             <InputField
               label="Pathology Related Documents"
               name="pathologyDocs"
@@ -863,7 +866,7 @@ const ParentLabForm = () => {
               Please upload your laboratory registration, building fitness, or
               fire NOC documents.
             </p>
-          </div>
+          </div> */}
         </div>
       </Section>
 
