@@ -244,6 +244,7 @@ const ParentLabForm = () => {
     establishmentYear: "",
     registrationNumber: "",
     fullAddress: "",
+    areaName: "",
     city: "",
     state: "",
     pincode: "",
@@ -325,6 +326,7 @@ const ParentLabForm = () => {
     if (!formData.registrationNumber?.trim())
       newErrors.registrationNumber = "Required";
     if (!formData.fullAddress?.trim()) newErrors.fullAddress = "Required";
+    if (!formData.areaName?.trim()) newErrors.areaName = "Required";
     if (!formData.city?.trim()) newErrors.city = "Required";
     if (!formData.pincode?.trim()) newErrors.pincode = "Required";
     else if (!/^\d{6}$/.test(formData.pincode))
@@ -408,6 +410,7 @@ const ParentLabForm = () => {
         registrationNumber: formData.registrationNumber,
         description: formData.description,
         fullAddress: formData.fullAddress,
+        areaName: formData.areaName,
         city: formData.city,
         state: formData.state,
         pincode: formData.pincode,
@@ -602,6 +605,15 @@ const ParentLabForm = () => {
             required
           />
         </div>
+        <InputField
+          label="Area Name"
+          name="areaName"
+          value={formData.areaName}
+          onChange={handleChange}
+          error={errors.areaName}
+          placeholder="Area Name"
+          required
+        />
         <InputField
           label="City"
           name="city"
@@ -870,7 +882,7 @@ const ParentLabForm = () => {
         </div>
       </Section>
 
-      <Section title="Operation Timings" icon={FaClock} index={7}>
+      <Section title="Operational Timings" icon={FaClock} index={7}>
         <InputField
           label="Opening Time"
           name="openTime"
