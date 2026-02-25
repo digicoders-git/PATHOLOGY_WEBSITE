@@ -289,6 +289,7 @@ const ParentLabForm = () => {
     certifications: [{ name: "", file: null }],
     pricingItems: [{ test: "", price: "", discountPrice: "" }],
     ambulanceService: false,
+    password: "",
   });
 
   const [availableTests, setAvailableTests] = useState([]);
@@ -338,6 +339,9 @@ const ParentLabForm = () => {
     else if (!/\S+@\S+\.\S+/.test(formData.email))
       newErrors.email = "Invalid format";
     if (!formData.ownerName?.trim()) newErrors.ownerName = "Required";
+    if (!formData.password?.trim()) newErrors.password = "Required";
+    else if (formData.password.length < 6)
+      newErrors.password = "Min 6 characters";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -431,6 +435,7 @@ const ParentLabForm = () => {
         bankName: formData.bankName,
         accountNumber: formData.accountNumber,
         ifscCode: formData.ifscCode,
+        password: formData.password,
         status: true,
         source: "website",
       };
@@ -671,6 +676,16 @@ const ParentLabForm = () => {
           value={formData.whatsapp}
           onChange={handleChange}
           placeholder="98XXXXXXXX"
+        />
+        <InputField
+          label="Account Password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          error={errors.password}
+          placeholder="Create a strong password"
+          required
         />
       </Section>
 
