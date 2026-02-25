@@ -10,6 +10,7 @@ import {
   FaMapMarkerAlt,
   FaChevronRight,
 } from "react-icons/fa";
+import logo from "../assets/logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -36,32 +37,25 @@ const Footer = () => {
           {/* Column 1: Lab Info */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 bg-secondary rounded-xl flex items-center justify-center transition-transform group-hover:rotate-12">
-                <svg
-                  className="w-6 h-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2.5"
-                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.628.282a2 2 0 01-1.998 0l-.628-.282a6 6 0 00-3.86-.517l-2.387.477a2 2 0 00-1.022.547l-1.16 1.16a2 2 0 001.218 3.395L8.683 20.35a6 6 0 004.634 0l6.626-2.228a2 2 0 001.218-3.395l-1.16-1.16zM15 7a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
+              <div className="w-12 h-12 flex items-center justify-center transition-transform group-hover:scale-110">
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-black leading-none tracking-tight uppercase">
-                  Pathology
+                  LABO INDIA
                 </span>
-                <span className="text-[10px] font-bold text-secondary tracking-[0.2em] leading-none mt-1 uppercase">
+                {/* <span className="text-[10px] font-bold text-secondary tracking-[0.2em] leading-none mt-1 uppercase">
                   Center
-                </span>
+                </span> */}
               </div>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed font-medium">
-            Making Diagnostic Testing Affordable, Reliable, and Patient-Focused. <br />
+              Making Diagnostic Testing Affordable, Reliable, and
+              Patient-Focused. <br />
               Clinical pathology laboratory providing diagnostic testing and
               sample analysis services. We specialize in providing accurate and
               reliable results.

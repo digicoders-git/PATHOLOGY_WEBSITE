@@ -3,7 +3,7 @@ import { FaGooglePlay, FaApple } from "react-icons/fa";
 
 const FixedAppDownload = () => {
   return (
-    <div className="fixed right-0 top-1/2 -translate-y-1/2 z-9999 flex flex-col gap-3">
+    <div className="fixed right-0 top-1/2 -translate-y-1/2 z-9999 flex flex-col gap-3 items-end">
       {/* Android Download Link */}
       <a
         href="#"
