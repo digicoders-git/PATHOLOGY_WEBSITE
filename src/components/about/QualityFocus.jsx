@@ -1,130 +1,88 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaAward, FaFlask, FaShieldAlt, FaSync } from "react-icons/fa";
+import { FaMicroscope, FaVial, FaUserMd, FaCheckCircle } from "react-icons/fa";
 
 const QualityFocus = () => {
-  const qualityPillars = [
+  const qualitySteps = [
     {
-      icon: FaAward,
-      title: "Standardized Practices",
-      description:
-        "Implementing uniform operational and diagnostic protocols across our entire lab network to ensure consistency.",
+      title: "Sample Integrity",
+      desc: "Standard protocols for collection.",
+      icon: FaVial,
     },
     {
-      icon: FaFlask,
-      title: "Accurate Diagnostics",
-      description:
-        "Focus on precision and reliability in sharing diagnostic information through verified digital verification.",
+      title: "Precision Testing",
+      desc: "Advanced automated analyzers.",
+      icon: FaMicroscope,
     },
     {
-      icon: FaShieldAlt,
-      title: "Compliance & Safety",
-      description:
-        "Strict adherence to national and international healthcare standards for patient safety and data integrity.",
-    },
-    {
-      icon: FaSync,
-      title: "Continuous Improvement",
-      description:
-        "Regular audits and technology updates to maintain the highest quality of healthcare service delivery.",
+      title: "Expert Validation",
+      desc: "Rigorous pathology review.",
+      icon: FaUserMd,
     },
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      {/* Background Subtle Elements */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-secondary/5 to-transparent"></div>
+    <section className="py-16 bg-gray-50 relative overflow-hidden">
+      <div className="container mx-auto px-6 max-w-6xl">
+        <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="w-full lg:w-1/2">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight uppercase tracking-tight"
+            >
+              Uncompromising{" "}
+              <span className="text-secondary">Quality Focus</span>
+            </motion.h2>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="inline-block px-4 py-2 rounded-xl bg-secondary/10 text-secondary font-bold text-sm mb-6 uppercase tracking-widest">
-              Uncompromising Standards
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black text-primary mb-8 leading-tight">
-              Our Commitment to{" "}
-              <span className="text-secondary italic">Quality Focus</span>
-            </h2>
-            <p className="text-lg text-primary/70 font-medium leading-relaxed mb-10 max-w-xl">
-              We encourage standardized lab practices and accurate diagnostic
-              information sharing across our network to ensure every report is a
-              step towards better health.
+            <p className="text-gray-500 text-sm md:text-base mb-6 leading-relaxed">
+              We ensure diagnostic accuracy through standardized protocols and
+              advanced technological integration at every stage.
             </p>
 
-            <div className="space-y-6">
-              {qualityPillars.slice(0, 2).map((pillar, index) => (
-                <div
-                  key={index}
-                  className="flex gap-6 p-6 rounded-xl bg-gray-50 border border-transparent hover:border-secondary/20 hover:bg-white transition-all duration-300"
-                >
-                  <div className="w-14 h-14 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0">
-                    <pillar.icon className="text-2xl text-secondary" />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold text-primary mb-2">
-                      {pillar.title}
-                    </h4>
-                    <p className="text-primary/60 font-medium text-sm leading-relaxed">
-                      {pillar.description}
-                    </p>
-                  </div>
+            <div className="space-y-3">
+              {[
+                "NABL standard alignment",
+                "Automated data syncing",
+                "Stringent QC markers",
+              ].map((point, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <FaCheckCircle className="text-secondary text-sm" />
+                  <span className="text-gray-700 text-xs font-bold uppercase tracking-tight">
+                    {point}
+                  </span>
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
-            {/* Visual Representation of Quality */}
-            <div className="grid grid-cols-1 gap-6">
-              {qualityPillars.slice(2, 4).map((pillar, index) => (
-                <div
+          <div className="w-full lg:w-1/2">
+            <div className="grid grid-cols-1 gap-4">
+              {qualitySteps.map((step, index) => (
+                <motion.div
                   key={index}
-                  className="flex gap-6 p-6 rounded-xl bg-gray-50 border border-transparent hover:border-secondary/20 hover:bg-white transition-all duration-300"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white p-6 rounded-2xl border border-gray-100 flex items-center gap-4 shadow-sm hover:shadow-xl hover:shadow-gray-200/50 transition-all group"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0">
-                    <pillar.icon className="text-2xl text-secondary" />
+                  <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-secondary text-xl group-hover:bg-secondary group-hover:text-white transition-all shadow-sm">
+                    <step.icon />
                   </div>
                   <div>
-                    <h4 className="text-xl font-bold text-primary mb-2">
-                      {pillar.title}
-                    </h4>
-                    <p className="text-primary/60 font-medium text-sm leading-relaxed">
-                      {pillar.description}
+                    <h3 className="text-sm font-bold text-gray-900 uppercase tracking-tight">
+                      {step.title}
+                    </h3>
+                    <p className="text-gray-500 text-[10px] leading-relaxed">
+                      {step.desc}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-
-            {/* Trust Banner */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="mt-8 p-10 bg-linear-to-br from-primary to-primary-dark rounded-xl text-white shadow-2xl relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-              <div className="relative z-10">
-                <blockquote className="text-xl font-medium italic mb-6 leading-relaxed">
-                  "Quality is not an act, it is a habit. We build that habit
-                  into every digital interaction."
-                </blockquote>
-                <div className="h-1 w-20 bg-secondary rounded-full"></div>
-              </div>
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

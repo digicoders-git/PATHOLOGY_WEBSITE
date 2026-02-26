@@ -4,86 +4,25 @@ import { motion } from "framer-motion";
 
 const ContactHero = () => {
   return (
-    <section className="relative min-h-[500px] flex items-center justify-center overflow-hidden pt-44 pb-20 bg-primary">
-      {/* Background with Professional Gradient Overlay */}
-      <motion.div
-        initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute inset-0 z-0 will-change-transform"
-      >
-        <img
-          src="https://i.pinimg.com/originals/c3/75/8c/c3758c5bf323a3d673d3424cea60510b.jpg?nii=t"
-          alt="Contact Pathology Lab"
-          className="w-full h-full object-cover object-[center_40%]"
-          loading="eager"
-        />
-        <div className="absolute inset-0 bg-primary/40"></div>
-        <div className="absolute inset-0 bg-linear-to-t from-primary via-transparent to-transparent"></div>
-      </motion.div>
-
+    <section className="relative flex items-center justify-center overflow-hidden pt-40 pb-10 bg-secondary">
       <div className="container mx-auto px-6 relative z-10 text-center">
-        <motion.span
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            damping: 20,
-            delay: 0.2,
-          }}
-          className="text-secondary font-bold text-xs md:text-sm uppercase tracking-[0.4em] mb-4 block drop-shadow-sm"
+          className="text-white text-3xl md:text-5xl font-bold uppercase tracking-tighter mb-4 leading-tight"
         >
-          Get In Touch
-        </motion.span>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            damping: 20,
-            delay: 0.4,
-          }}
-          className="text-white text-3xl md:text-5xl font-semibold uppercase tracking-tight mb-6 leading-tight"
-        >
-          Contact Lab
+          Contact <span className="opacity-70">Us</span>
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            damping: 20,
-            delay: 0.5,
-          }}
-          className="text-white/90 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-8 leading-relaxed"
+          transition={{ delay: 0.1 }}
+          className="text-white/90 text-sm md:text-base font-medium max-w-xl mx-auto mb-0 leading-relaxed italic"
         >
-          For general inquiries, partnership information, or platform-related
-          questions, feel free to reach out.
+          "For general inquiries, partnership information, or platform-related
+          questions, feel free to reach out to our dedicated support team."
         </motion.p>
-
-        {/* Breadcrumbs with clean style */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            damping: 20,
-            delay: 0.6,
-          }}
-          className="flex items-center justify-center gap-3 text-white/90 text-xs md:text-sm font-medium uppercase tracking-[0.2em] bg-white/10 backdrop-blur-md w-fit mx-auto px-8 py-3 rounded-full border border-white/20 shadow-xl will-change-transform"
-        >
-          <Link to="/" className="hover:text-secondary transition-colors">
-            Home
-          </Link>
-          <span className="w-1.5 h-1.5 bg-secondary rounded-full"></span>
-          <span className="text-white/70">Contact Lab</span>
-        </motion.div>
       </div>
     </section>
   );

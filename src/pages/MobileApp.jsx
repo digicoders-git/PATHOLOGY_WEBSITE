@@ -18,7 +18,7 @@ const MobileApp = () => {
       <LabAppFeatures />
       <SecurityDataHandling />
       <AppAvailability />
-      {/* <DownloadCTA /> */}
+      <DownloadCTA />
       {/* Additional app features and sections can be added here */}
     </main>
   );

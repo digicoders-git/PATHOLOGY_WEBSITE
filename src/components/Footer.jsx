@@ -18,7 +18,6 @@ const Footer = () => {
   const quickLinks = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about-lab" },
-    { name: "Tests & Services", path: "/tests-services" },
     { name: "Registration", path: "/registration" },
     { name: "Contact Us", path: "/contact" },
   ];

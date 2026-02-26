@@ -32,7 +32,6 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about-lab" },
-    { name: "Tests & Services", path: "/tests-services" },
     { name: "Mobile App", path: "/mobile-app" },
     { name: "Contact Us", path: "/contact" },
   ];
@@ -110,7 +109,7 @@ const Navbar = () => {
                 LABO INDIA
               </span>
               {/* <span className="text-[9px] md:text-[10px] font-bold text-secondary tracking-[0.25em] leading-none uppercase -mt-0.5">
-                Center
+                Connecting Pathology Labs
               </span> */}
             </div>
           </Link>
@@ -129,10 +128,16 @@ const Navbar = () => {
                   }`
                 }
               >
-                {link.name.toUpperCase()}
-                <span
-                  className={`absolute bottom-0 left-4 right-4 h-0.5 bg-secondary transform origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100 ${window.location.pathname === link.path ? "scale-x-100" : ""}`}
-                ></span>
+                {({ isActive }) => (
+                  <>
+                    {link.name.toUpperCase()}
+                    <span
+                      className={`absolute bottom-0 left-4 right-4 h-0.5 bg-secondary transform origin-left transition-transform duration-300 group-hover:scale-x-100 ${
+                        isActive ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    ></span>
+                  </>
+                )}
               </NavLink>
             ))}
           </div>

@@ -15,15 +15,14 @@ const NetworkStrength = lazy(
 );
 const AboutSection = lazy(() => import("../components/home/AboutSection"));
 const StatsSection = lazy(() => import("../components/home/StatsSection"));
-const MainServices = lazy(() => import("../components/home/MainServices"));
+
 const QualityAssurance = lazy(
   () => import("../components/home/QualityAssurance"),
 );
+const HowItWorks = lazy(() => import("../components/home/HowItWorks"));
 const SampleCollection = lazy(
   () => import("../components/home/SampleCollection"),
 );
-const Testimonials = lazy(() => import("../components/home/Testimonials"));
-const CTA = lazy(() => import("../components/home/CTA"));
 
 // Loading fallback component
 const SectionLoader = () => (
@@ -35,18 +34,19 @@ const Home = () => {
     <main>
       <Hero />
       <Suspense fallback={<SectionLoader />}>
+        <HowItWorks />
         <OurCommitment />
         <SnapshotSection />
         <WhatWeOffer />
         <MobileAppPromotion />
         <NetworkStrength />
         {/* <AboutSection /> */}
-        <StatsSection />
-        <MainServices />
-        <QualityAssurance />
-        <SampleCollection />
-        <Testimonials />
-        <CTA />
+        {/* <StatsSection /> */}
+
+        {/* <QualityAssurance /> */}
+        {/* <SampleCollection /> */}
+        {/* <Testimonials /> */}
+        {/* <CTA /> */}
       </Suspense>
     </main>
   );

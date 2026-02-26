@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense, lazy } from "react";
 import ContactHero from "../components/contact/ContactHero";
 import OfficeDetails from "../components/contact/OfficeDetails";
+import ContactForm from "../components/contact/ContactForm";
 import PartnershipQueries from "../components/contact/PartnershipQueries";
 import ResponseDisclaimer from "../components/contact/ResponseDisclaimer";
 import GoogleMapSection from "../components/contact/GoogleMapSection";
@@ -24,12 +25,10 @@ const Contact = () => {
     <main>
       <ContactHero />
       <OfficeDetails />
+      <ContactForm />
       <GoogleMapSection />
       <PartnershipQueries />
       <ResponseDisclaimer />
-      {/* <Suspense fallback={<SectionLoader />}>
-        <ContactDetails />
-      </Suspense> */}
     </main>
   );
 };
