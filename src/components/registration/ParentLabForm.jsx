@@ -20,35 +20,25 @@ import { createRegistration, getParents } from "../../apis/registration";
 
 const Section = ({ title, icon: Icon, children, index }) => (
   <motion.div
-    initial={{ opacity: 0, y: 10 }}
+    initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ delay: index * 0.05 }}
-    className="bg-pure-white p-6 md:p-8 rounded-xl shadow-sm border mb-8 group border-secondary/20 transition-all duration-300 relative"
-    style={{ zIndex: 50 - index }}
+    transition={{ delay: index * 0.05, duration: 0.5, ease: "easeOut" }}
+    className="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100 mb-8 group transition-all duration-300 relative overflow-hidden ring-1 ring-gray-200/50"
   >
-    {/* Pathology Background Watermark - Full Secondary Theme */}
-    <div className="absolute inset-0 pointer-events-none bg-secondary/5 overflow-hidden rounded-xl">
-      <div
-        className="w-full h-full bg-cover bg-center opacity-[0.12] grayscale brightness-50 contrast-125"
-        style={{
-          backgroundImage: `url(https://www.umhs-sk.org/hubfs/how-to-become-a-pathologist-physician.jpg)`,
-        }}
-      />
-      {/* Deep Secondary Gradient Overlay */}
-      <div className="absolute inset-0 bg-linear-to-br from-secondary/20 via-transparent to-secondary/10"></div>
-    </div>
+    {/* Minimal Accent Bar */}
+    <div className="absolute top-0 left-0 w-full h-1 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
     <div className="relative z-10">
-      <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gray-50">
-        <div className="w-10 h-10 bg-background rounded-lg flex items-center justify-center text-secondary text-lg group-hover:scale-110 transition-transform duration-500">
+      <div className="flex items-center gap-4 mb-8 pb-4 border-b border-gray-50">
+        <div className="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center text-primary text-lg group-hover:bg-primary group-hover:text-white transition-all duration-300">
           <Icon />
         </div>
         <div>
           <h3 className="text-primary font-bold text-lg md:text-xl tracking-tight">
             {title}
           </h3>
-          <div className="h-0.5 w-10 bg-secondary/20 rounded-full mt-1"></div>
+          <div className="h-0.5 w-8 bg-secondary rounded-full mt-1.5 transition-all duration-500 group-hover:w-16"></div>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -94,13 +84,17 @@ const ModernDropdown = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full bg-background border ${error ? "border-red-500" : "border-gray-200"} p-3.5 rounded-lg text-primary font-medium flex justify-between items-center text-sm transition-all focus:ring-2 focus:ring-primary/10 cursor-pointer`}
+        className={`w-full bg-white border ${error ? "border-red-500" : "border-gray-200"} p-3 rounded-lg text-primary font-medium flex justify-between items-center text-sm transition-all hover:border-primary/40 focus:ring-2 focus:ring-primary/5 cursor-pointer shadow-xs outline-none`}
       >
-        <span className={value ? "text-primary" : "text-primary/40"}>
+        <span
+          className={
+            value ? "text-primary font-semibold" : "text-primary/30 font-medium"
+          }
+        >
           {labelToShow}
         </span>
         <FaChevronDown
-          className={`text-xs transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          className={`text-[10px] transition-transform duration-300 opacity-40 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 
@@ -110,25 +104,32 @@ const ModernDropdown = ({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute z-50 top-full left-0 w-full mt-1 bg-white border border-gray-100 rounded-xl shadow-2xl overflow-hidden max-h-60 overflow-y-auto"
+            className="absolute z-[100] top-full left-0 w-full mt-1 bg-white border border-gray-100 rounded-lg shadow-xl overflow-hidden max-h-60 overflow-y-auto"
           >
-            {options.map((opt, idx) => {
-              const optLabel = typeof opt === "object" ? opt[valueKey] : opt;
-              const optValue = typeof opt === "object" ? opt[idKey] : opt;
-              return (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => {
-                    onChange(optValue);
-                    setIsOpen(false);
-                  }}
-                  className="w-full text-left px-4 py-3 text-sm font-medium text-primary/70 hover:bg-background hover:text-secondary transition-colors cursor-pointer"
-                >
-                  {optLabel}
-                </button>
-              );
-            })}
+            <div className="p-1">
+              {options.map((opt, idx) => {
+                const optLabel = typeof opt === "object" ? opt[valueKey] : opt;
+                const optValue = typeof opt === "object" ? opt[idKey] : opt;
+                const isSelected = value === optValue;
+                return (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      onChange(optValue);
+                      setIsOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-2.5 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer mb-0.5 last:mb-0 ${
+                      isSelected
+                        ? "bg-primary text-white"
+                        : "text-primary/60 hover:bg-primary/5 hover:text-primary"
+                    }`}
+                  >
+                    {optLabel}
+                  </button>
+                );
+              })}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -150,10 +151,17 @@ const InputField = ({
   idKey,
 }) => {
   return (
-    <div className="space-y-2">
-      <label className="text-primary/70 font-semibold text-[11px] uppercase tracking-wider flex items-center gap-2 cursor-pointer select-none">
-        {label} {required && <span className="text-secondary">*</span>}
-      </label>
+    <div className="space-y-1.5">
+      <div className="flex justify-between items-end px-1">
+        <label className="text-primary/50 font-bold text-[9px] uppercase tracking-widest flex items-center gap-1.5 cursor-pointer select-none">
+          {label}{" "}
+          {required && (
+            <span className="text-secondary text-[14px] leading-none -mt-0.5">
+              *
+            </span>
+          )}
+        </label>
+      </div>
 
       {type === "select" ? (
         <ModernDropdown
@@ -172,10 +180,10 @@ const InputField = ({
           onChange={onChange}
           placeholder={placeholder}
           rows="3"
-          className={`w-full bg-background border ${error ? "border-red-500" : "border-gray-200"} p-3.5 rounded-lg text-primary font-medium focus:ring-2 focus:ring-primary/10 outline-none transition-all text-sm min-h-[80px]`}
+          className={`w-full bg-white border ${error ? "border-red-500" : "border-gray-200"} p-3 rounded-lg text-primary font-semibold focus:ring-2 focus:ring-primary/5 outline-none transition-all text-sm min-h-[90px] shadow-xs hover:border-primary/40 resize-none`}
         />
       ) : type === "file" ? (
-        <div className="relative group">
+        <div className="relative group/file">
           <input
             type="file"
             name={name}
@@ -185,25 +193,42 @@ const InputField = ({
           />
           <label
             htmlFor={name}
-            className={`flex flex-col items-center justify-center border-2 border-dashed ${error ? "border-red-500" : "border-gray-200"} rounded-lg p-4 transition-all cursor-pointer bg-background/50 border-secondary/30`}
+            className={`flex flex-col items-center justify-center border-2 border-dashed ${error ? "border-red-500" : "border-gray-100"} rounded-lg p-6 transition-all cursor-pointer bg-gray-50/20 hover:bg-white hover:border-primary/40`}
           >
-            <FaUpload className="text-primary/20 group-hover:text-secondary transition-colors mb-2" />
-            <span className="text-[10px] font-bold text-primary/40 uppercase tracking-tighter">
+            <div className="w-10 h-10 bg-white shadow-xs rounded-lg flex items-center justify-center mb-3 border border-gray-50 group-hover/file:scale-105 transition-all">
+              <FaUpload className="text-primary/30 group-hover/file:text-secondary transition-colors text-xs" />
+            </div>
+            <span className="text-[9px] font-bold text-primary/40 uppercase tracking-widest text-center">
               {value ? "File Selected" : `Upload ${label}`}
             </span>
+            {value && (
+              <span className="mt-2 text-[8px] text-secondary font-bold break-all max-w-[180px] text-center bg-secondary/5 px-2 py-0.5 rounded-full">
+                {typeof value === "object" ? value.name : "Selected"}
+              </span>
+            )}
           </label>
         </div>
       ) : type === "checkbox" ? (
         <div
-          className="flex items-center gap-3 p-3.5 bg-background rounded-lg border border-gray-200 hover:border-secondary/20 cursor-pointer transition-all active:scale-95"
+          className={`flex items-center gap-4 p-3 rounded-lg border transition-all duration-300 cursor-pointer shadow-xs select-none ${
+            value
+              ? "bg-primary/[0.02] border-primary/20"
+              : "bg-white border-gray-100 hover:border-primary/30"
+          }`}
           onClick={() => onChange({ target: { name, value: !value } })}
         >
           <div
-            className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${value ? "bg-secondary border-secondary" : "border-gray-300"}`}
+            className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${
+              value
+                ? "bg-secondary border-secondary scale-105"
+                : "bg-white border-gray-200"
+            }`}
           >
             {value && <FaCheckCircle className="text-white text-[10px]" />}
           </div>
-          <span className="text-primary font-semibold text-xs uppercase tracking-tight select-none">
+          <span
+            className={`font-bold text-[10px] uppercase tracking-wider transition-colors duration-300 ${value ? "text-primary" : "text-primary/50"}`}
+          >
             {label}
           </span>
         </div>
@@ -220,13 +245,13 @@ const InputField = ({
           }}
           min={type === "number" ? "0" : undefined}
           placeholder={placeholder}
-          className={`w-full bg-background border ${error ? "border-red-500" : "border-gray-200"} p-3.5 rounded-lg text-primary font-medium focus:ring-2 focus:ring-primary/10 outline-none transition-all text-sm`}
+          className={`w-full bg-white border ${error ? "border-red-500" : "border-gray-200"} p-3 rounded-lg text-primary font-semibold focus:ring-2 focus:ring-primary/5 outline-none transition-all text-sm shadow-xs hover:border-primary/40`}
         />
       )}
 
       {error && (
-        <p className="text-red-500 text-[10px] font-semibold uppercase tracking-tight flex items-center gap-1 mt-1">
-          <FaExclamationCircle /> {error}
+        <p className="text-red-500 text-[9px] font-bold uppercase tracking-widest flex items-center gap-1.5 px-1">
+          <FaExclamationCircle className="text-[10px]" /> {error}
         </p>
       )}
     </div>
@@ -494,21 +519,30 @@ const ParentLabForm = () => {
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="max-w-4xl mx-auto py-16 text-center"
+        className="max-w-4xl mx-auto py-16 text-center px-4"
       >
-        <div className="bg-pure-white p-12 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center">
-          <FaCheckCircle className="text-secondary text-5xl mb-6" />
+        <div className="bg-white p-10 md:p-16 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center">
+          <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mb-8">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+            >
+              <FaCheckCircle className="text-secondary text-5xl" />
+            </motion.div>
+          </div>
           <h2 className="text-2xl font-bold text-primary uppercase tracking-tight mb-4">
-            Parent Lab Submitted
+            Registration Complete
           </h2>
-          <p className="text-primary/60 font-medium mb-8 max-w-sm">
-            Registration sent successfully. Our team will review the details.
+          <p className="text-primary/50 font-semibold mb-10 max-w-sm leading-relaxed text-xs">
+            Parent lab registration has been submitted successfully for
+            verification.
           </p>
           <button
             onClick={() => setIsSuccess(false)}
-            className="bg-primary text-white px-8 py-3.5 rounded-lg font-bold uppercase text-xs tracking-widest hover:bg-secondary transition-all"
+            className="bg-primary text-white px-10 py-3.5 rounded-lg font-bold uppercase text-[10px] tracking-widest transition-all hover:bg-primary/90"
           >
-            Go Back
+            Continue to Web
           </button>
         </div>
       </motion.div>
@@ -516,11 +550,11 @@ const ParentLabForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-7xl mx-auto px-4">
+    <form onSubmit={handleSubmit} className="max-w-7xl mx-auto px-6 pb-24">
       <Section title="Parent Organization" icon={FaBuilding} index={0}>
         <div className="md:col-span-3">
           <InputField
-            label="Select Parent Lab"
+            label="Associate Partner"
             name="parent"
             type="select"
             options={parentOptions}
@@ -530,23 +564,23 @@ const ParentLabForm = () => {
             onChange={handleChange}
             error={errors.parent}
             required
-            placeholder="Choose Parent Lab"
+            placeholder="Search & Select Partner"
           />
         </div>
       </Section>
 
-      <Section title="Basic Lab Information" icon={FaHospital} index={1}>
+      <Section title="Laboratory Information" icon={FaHospital} index={1}>
         <InputField
-          label="Lab Name"
+          label="Lab Registered Name"
           name="labName"
           value={formData.labName}
           onChange={handleChange}
           error={errors.labName}
-          placeholder="City Diagnostic Center"
+          placeholder="e.g. City Diagnostic & Research Center"
           required
         />
         <InputField
-          label="Lab Type"
+          label="Laboratory Category"
           name="labType"
           type="select"
           options={["Pathology", "Diagnostic Center", "Radiology"]}
@@ -556,31 +590,31 @@ const ParentLabForm = () => {
           required
         />
         <InputField
-          label="Establishment Year"
+          label="Year of Establishment"
           name="establishmentYear"
           type="number"
           value={formData.establishmentYear}
           onChange={handleChange}
-          placeholder="2020"
+          placeholder="e.g. 2020"
         />
         <InputField
-          label="Registration Number"
+          label="Govt Registration No."
           name="registrationNumber"
           value={formData.registrationNumber}
           onChange={handleChange}
           error={errors.registrationNumber}
-          placeholder="REG123456"
+          placeholder="e.g. REG123456"
           required
         />
         <InputField
-          label="Lab Logo"
+          label="Upload Lab Logo"
           name="labLogo"
           type="file"
           value={formData.labLogo}
           onChange={handleChange}
         />
         <InputField
-          label="Lab Banner"
+          label="Upload Lab Banner"
           name="labBanner"
           type="file"
           value={formData.labBanner}
@@ -588,12 +622,12 @@ const ParentLabForm = () => {
         />
         <div className="md:col-span-3">
           <InputField
-            label="Lab Description"
+            label="Professional Description"
             name="description"
             type="textarea"
             value={formData.description}
             onChange={handleChange}
-            placeholder="Brief about your services"
+            placeholder="Introduce your laboratory and service standards..."
           />
         </div>
       </Section>
@@ -601,56 +635,56 @@ const ParentLabForm = () => {
       <Section title="Address Details" icon={FaMapMarkerAlt} index={2}>
         <div className="md:col-span-2 lg:col-span-3">
           <InputField
-            label="Full Address"
+            label="Complete Office Address"
             name="fullAddress"
             value={formData.fullAddress}
             onChange={handleChange}
             error={errors.fullAddress}
-            placeholder="Street, Area, Building"
+            placeholder="Street, Building, Flat Number, Landmark..."
             required
           />
         </div>
         <InputField
-          label="Area Name"
+          label="Local Area Name"
           name="areaName"
           value={formData.areaName}
           onChange={handleChange}
           error={errors.areaName}
-          placeholder="Area Name"
+          placeholder="e.g. Indira Nagar"
           required
         />
         <InputField
-          label="City"
+          label="City / District"
           name="city"
           value={formData.city}
           onChange={handleChange}
           error={errors.city}
-          placeholder="City Name"
+          placeholder="e.g. Lucknow"
           required
         />
         <InputField
-          label="State"
+          label="State / Province"
           name="state"
           value={formData.state}
           onChange={handleChange}
           error={errors.state}
-          placeholder="State Name"
+          placeholder="e.g. Uttar Pradesh"
           required
         />
         <InputField
-          label="Pincode"
+          label="Postal Pincode"
           name="pincode"
           value={formData.pincode}
           onChange={handleChange}
           error={errors.pincode}
-          placeholder="400001"
+          placeholder="e.g. 226016"
           required
         />
       </Section>
 
-      <Section title="Contact Details" icon={FaPhoneAlt} index={3}>
+      <Section title="Contact Information" icon={FaPhoneAlt} index={3}>
         <InputField
-          label="Primary Phone"
+          label="Primary Phone Contact"
           name="phone"
           type="tel"
           value={formData.phone}
@@ -660,7 +694,7 @@ const ParentLabForm = () => {
           required
         />
         <InputField
-          label="Email Address"
+          label="Official Email ID"
           name="email"
           type="email"
           value={formData.email}
@@ -670,37 +704,39 @@ const ParentLabForm = () => {
           required
         />
         <InputField
-          label="WhatsApp Number"
+          label="WhatsApp Support No."
           name="whatsapp"
           type="tel"
           value={formData.whatsapp}
           onChange={handleChange}
           placeholder="98XXXXXXXX"
         />
-        <InputField
-          label="Account Password"
-          name="password"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-          error={errors.password}
-          placeholder="Create a strong password"
-          required
-        />
+        <div className="md:col-span-2">
+          <InputField
+            label="Laboratory Account Password"
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+            error={errors.password}
+            placeholder="Minimum 6 characters"
+            required
+          />
+        </div>
       </Section>
 
-      <Section title="Lab Owner Details" icon={FaUserTie} index={4}>
+      <Section title="Laboratory Owner Details" icon={FaUserTie} index={4}>
         <InputField
-          label="Owner Name"
+          label="Registered Owner Name"
           name="ownerName"
           value={formData.ownerName}
           onChange={handleChange}
           error={errors.ownerName}
-          placeholder="Owner Name"
+          placeholder="e.g. Mr. Rajesh Singh"
           required
         />
         <InputField
-          label="Owner Phone"
+          label="Owner Mobile Contact"
           name="ownerPhone"
           type="tel"
           value={formData.ownerPhone}
@@ -708,7 +744,7 @@ const ParentLabForm = () => {
           placeholder="98XXXXXXXX"
         />
         <InputField
-          label="Owner Email"
+          label="Owner Personal Email"
           name="ownerEmail"
           type="email"
           value={formData.ownerEmail}
@@ -717,206 +753,219 @@ const ParentLabForm = () => {
         />
       </Section>
 
-      <Section title="Tests & Services" icon={FaVial} index={5}>
+      <Section title="Services & Diagnostics" icon={FaVial} index={5}>
         <div className="md:col-span-3 space-y-4">
-          <label className="text-primary/70 font-semibold text-[11px] uppercase tracking-wider">
-            Choose Available Tests
+          <label className="text-primary/50 font-bold text-[9px] uppercase tracking-widest px-1">
+            Available Medical Tests
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {loading ? (
-              <div className="col-span-full py-4 text-center opacity-50 text-xs font-bold uppercase tracking-widest">
-                Loading Tests...
+              <div className="col-span-full py-12 text-center opacity-30 text-[9px] font-bold uppercase tracking-widest">
+                Fetching catalog...
               </div>
             ) : availableTests.length > 0 ? (
-              availableTests.map((test) => (
-                <div
-                  key={test._id}
-                  onClick={() => handleTestToggle(test._id)}
-                  className={`p-3 rounded-lg border text-xs font-semibold uppercase tracking-tight cursor-pointer transition-all flex items-center justify-between ${
-                    formData.selectedTests.includes(test._id)
-                      ? "bg-secondary/10 border-secondary text-secondary"
-                      : "bg-background border-gray-100 text-primary/60 hover:border-secondary/30"
-                  }`}
-                >
-                  {test.title}
-                  {formData.selectedTests.includes(test._id) && (
-                    <FaCheckCircle />
-                  )}
-                </div>
-              ))
+              availableTests.map((test) => {
+                const isSelected = formData.selectedTests.includes(test._id);
+                return (
+                  <div
+                    key={test._id}
+                    onClick={() => handleTestToggle(test._id)}
+                    className={`p-3.5 rounded-lg border text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center justify-between shadow-xs ${
+                      isSelected
+                        ? "bg-primary text-white border-primary shadow-md shadow-primary/10"
+                        : "bg-white border-gray-100 text-primary/60 hover:border-primary/40"
+                    }`}
+                  >
+                    <span className="truncate pr-2">{test.title}</span>
+                    {isSelected && (
+                      <FaCheckCircle className="text-secondary text-[14px]" />
+                    )}
+                  </div>
+                );
+              })
             ) : (
-              <div className="col-span-full py-4 text-center opacity-50 text-xs font-bold uppercase tracking-widest">
+              <div className="col-span-full py-10 text-center opacity-40 text-[9px] font-bold uppercase tracking-widest bg-gray-50/50 rounded-xl border border-dashed border-gray-100">
                 No tests available
               </div>
             )}
           </div>
         </div>
-        <InputField
-          label="Home Collection"
-          name="homeCollection"
-          type="checkbox"
-          value={formData.homeCollection}
-          onChange={handleChange}
-        />
-        <InputField
-          label="24x7 Service"
-          name="is24x7"
-          type="checkbox"
-          value={formData.is24x7}
-          onChange={handleChange}
-        />
-        <InputField
-          label="Emergency Service"
-          name="emergency"
-          type="checkbox"
-          value={formData.emergency}
-          onChange={handleChange}
-        />
-        <InputField
-          label="Ambulance Service"
-          name="ambulanceService"
-          type="checkbox"
-          value={formData.ambulanceService}
-          onChange={handleChange}
-        />
-      </Section>
 
-      <Section title="Certification & Documents" icon={FaCertificate} index={6}>
-        <div className="md:col-span-3 space-y-6">
-          <div className="space-y-4">
-            {formData.certifications.map((cert, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end bg-background/50 p-4 rounded-lg"
-              >
-                <InputField
-                  label="Certification Name"
-                  name={`cert_name_${index}`}
-                  value={cert.name}
-                  onChange={(e) =>
-                    handleCertChange(index, "name", e.target.value)
-                  }
-                  placeholder="e.g. ISO 9001"
-                />
-                <div className="relative group">
-                  <label className="text-primary/70 font-semibold text-[11px] uppercase mb-2 block">
-                    Upload Copy
-                  </label>
-                  <input
-                    type="file"
-                    className="hidden"
-                    id={`cert_file_${index}`}
-                    onChange={(e) =>
-                      handleCertChange(index, "file", e.target.files[0])
-                    }
-                  />
-                  <label
-                    htmlFor={`cert_file_${index}`}
-                    className="flex items-center gap-3 bg-white border border-gray-200 p-3.5 rounded-lg text-xs font-bold text-primary/40 cursor-pointer hover:border-secondary/30 transition-all uppercase"
-                  >
-                    <FaUpload className="text-secondary" />{" "}
-                    {cert.file ? cert.file.name : "Select File"}
-                  </label>
-                </div>
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={handleAddCert}
-              className="text-secondary font-bold text-[10px] uppercase tracking-widest hover:underline flex items-center gap-2"
-            >
-              + Add Another Certification
-            </button>
-          </div>
-
-          <div className="space-y-4 pt-6 mt-6 border-t border-gray-100">
-            <h4 className="text-xs font-bold text-primary/40 uppercase tracking-widest border-b pb-2">
-              Custom Test Pricing
-            </h4>
-            {formData.pricingItems.map((item, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-background/50 p-4 rounded-lg"
-              >
-                <InputField
-                  label="Test Name"
-                  name={`price_test_${index}`}
-                  type="select"
-                  options={availableTests}
-                  valueKey="title"
-                  idKey="_id"
-                  value={item.test}
-                  onChange={(e) =>
-                    handlePricingChange(index, "test", e.target.value)
-                  }
-                />
-                <InputField
-                  label="Price (₹)"
-                  name={`price_value_${index}`}
-                  type="number"
-                  value={item.price}
-                  onChange={(e) =>
-                    handlePricingChange(index, "price", e.target.value)
-                  }
-                  placeholder="e.g. 1200"
-                />
-                <InputField
-                  label="Discount Price (₹)"
-                  name={`discount_price_${index}`}
-                  type="number"
-                  value={item.discountPrice}
-                  onChange={(e) =>
-                    handlePricingChange(index, "discountPrice", e.target.value)
-                  }
-                  placeholder="e.g. 999"
-                />
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={handleAddPricing}
-              className="text-secondary font-bold text-[10px] uppercase tracking-widest hover:underline flex items-center gap-2"
-            >
-              + Add Another Pricing
-            </button>
-          </div>
-
-          {/* <div className="pt-6 border-t border-gray-100">
-            <InputField
-              label="Pathology Related Documents"
-              name="pathologyDocs"
-              type="file"
-              value={formData.pathologyDocs}
-              onChange={handleChange}
-            />
-            <p className="text-[10px] text-primary/40 mt-1 uppercase font-semibold">
-              Please upload your laboratory registration, building fitness, or
-              fire NOC documents.
-            </p>
-          </div> */}
+        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 mt-6 border-t border-gray-50">
+          <InputField
+            label="Home Collection"
+            name="homeCollection"
+            type="checkbox"
+            value={formData.homeCollection}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Round-The-Clock"
+            name="is24x7"
+            type="checkbox"
+            value={formData.is24x7}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Emergency Support"
+            name="emergency"
+            type="checkbox"
+            value={formData.emergency}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Ambulance Support"
+            name="ambulanceService"
+            type="checkbox"
+            value={formData.ambulanceService}
+            onChange={handleChange}
+          />
         </div>
       </Section>
 
-      <Section title="Operational Timings" icon={FaClock} index={7}>
+      <Section title="Certifications & Files" icon={FaCertificate} index={6}>
+        <div className="md:col-span-3 space-y-8">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between px-1">
+              <h4 className="text-[9px] font-bold text-primary/40 uppercase tracking-widest">
+                Clinical Records
+              </h4>
+              <button
+                type="button"
+                onClick={handleAddCert}
+                className="flex items-center gap-1.5 bg-primary/5 hover:bg-primary text-primary hover:text-white px-4 py-2 rounded-lg transition-all border border-primary/5 text-[9px] font-extrabold uppercase tracking-widest"
+              >
+                + Add New
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6">
+              {formData.certifications.map((cert, index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50/20 p-6 rounded-xl border border-gray-100 relative group/cert shadow-xs"
+                >
+                  <InputField
+                    label="Certificate Title"
+                    name={`cert_name_${index}`}
+                    value={cert.name}
+                    onChange={(e) =>
+                      handleCertChange(index, "name", e.target.value)
+                    }
+                    placeholder="e.g. ISO Certified"
+                  />
+                  <div className="space-y-2">
+                    <label className="text-primary/50 font-bold text-[9px] uppercase tracking-widest block px-1">
+                      Soft Copy
+                    </label>
+                    <input
+                      type="file"
+                      className="hidden"
+                      id={`cert_file_${index}`}
+                      onChange={(e) =>
+                        handleCertChange(index, "file", e.target.files[0])
+                      }
+                    />
+                    <label
+                      htmlFor={`cert_file_${index}`}
+                      className="flex items-center gap-4 bg-white border border-gray-100 p-3 rounded-lg text-[9px] font-bold text-primary/30 cursor-pointer hover:border-primary/40 transition-all uppercase tracking-widest shadow-xs"
+                    >
+                      <FaUpload className="text-secondary text-xs" />
+                      <span className="truncate max-w-[150px]">
+                        {cert.file ? cert.file.name : "Select File"}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-8 pt-8 mt-8 border-t border-gray-50">
+            <div className="flex items-center justify-between px-1">
+              <h4 className="text-[9px] font-bold text-primary/40 uppercase tracking-widest">
+                Priority Pricing
+              </h4>
+              <button
+                type="button"
+                onClick={handleAddPricing}
+                className="flex items-center gap-1.5 bg-primary/5 hover:bg-primary text-primary hover:text-white px-4 py-2 rounded-lg transition-all border border-primary/5 text-[9px] font-extrabold uppercase tracking-widest"
+              >
+                + Add Rate
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6">
+              {formData.pricingItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-50/20 p-6 rounded-xl border border-gray-100 shadow-xs"
+                >
+                  <InputField
+                    label="Medical Test"
+                    name={`price_test_${index}`}
+                    type="select"
+                    options={availableTests.map((t) => ({
+                      value: t._id,
+                      label: t.title,
+                    }))}
+                    value={item.test}
+                    onChange={(e) =>
+                      handlePricingChange(index, "test", e.target.value)
+                    }
+                  />
+                  <InputField
+                    label="Standard Rate (₹)"
+                    name={`price_value_${index}`}
+                    type="number"
+                    value={item.price}
+                    onChange={(e) =>
+                      handlePricingChange(index, "price", e.target.value)
+                    }
+                    placeholder="e.g. 2000"
+                  />
+                  <InputField
+                    label="Discount Rate (₹)"
+                    name={`discount_price_${index}`}
+                    type="number"
+                    value={item.discountPrice}
+                    onChange={(e) =>
+                      handlePricingChange(
+                        index,
+                        "discountPrice",
+                        e.target.value,
+                      )
+                    }
+                    placeholder="e.g. 1499"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Operational Hours" icon={FaClock} index={7}>
         <InputField
-          label="Opening Time"
+          label="Opening Clock"
           name="openTime"
           type="time"
           value={formData.openTime}
           onChange={handleChange}
         />
         <InputField
-          label="Closing Time"
+          label="Closing Clock"
           name="closeTime"
           type="time"
           value={formData.closeTime}
           onChange={handleChange}
         />
         <InputField
-          label="Weekly Off"
+          label="Weekly Holiday"
           name="weeklyOff"
           type="select"
           options={[
+            "None (Open All Week)",
             "Sunday",
             "Monday",
             "Tuesday",
@@ -930,11 +979,11 @@ const ParentLabForm = () => {
         />
       </Section>
 
-      <Section title="Payment Info" icon={FaCreditCard} index={8}>
+      <Section title="Digital Payments" icon={FaCreditCard} index={8}>
         <InputField
-          label="UPI ID"
+          label="Business UPI ID"
           name="upiId"
-          placeholder="lab@upi"
+          placeholder="id@bank"
           value={formData.upiId}
           onChange={handleChange}
         />
@@ -948,27 +997,31 @@ const ParentLabForm = () => {
         <InputField
           label="Account Number"
           name="accountNumber"
-          placeholder="XXXXXXXXXXXX"
+          placeholder="Carefully check"
           value={formData.accountNumber}
           onChange={handleChange}
         />
         <InputField
-          label="IFSC Code"
+          label="Swift / IFSC Code"
           name="ifscCode"
-          placeholder="HDFC000XXXX"
+          placeholder="e.g. HDFC0001234"
           value={formData.ifscCode}
           onChange={handleChange}
         />
       </Section>
 
-      <div className="mt-12 mb-20 flex justify-center">
+      <div className="mt-16 mb-24 flex flex-col items-center gap-6">
         <button
           type="submit"
           disabled={submitting}
-          className="bg-secondary cursor-pointer text-white px-20 py-4 rounded-lg font-bold uppercase text-sm tracking-widest hover:bg-primary transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="group bg-primary text-white px-16 py-4 rounded-lg font-bold uppercase text-[10px] tracking-widest transition-all shadow-md hover:-translate-y-1 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {submitting ? "Submitting Application..." : "Submit Application"}
+          {submitting ? "Processing branch..." : "Register Branch"}
         </button>
+        <p className="text-[9px] text-primary/40 font-bold uppercase tracking-widest text-center leading-relaxed max-w-xs">
+          By registering, you confirm all provided branch credentials comply
+          with Clinical Partner standards.
+        </p>
       </div>
     </form>
   );

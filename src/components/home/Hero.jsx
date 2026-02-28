@@ -1,142 +1,190 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
-import { FaHeartbeat, FaMicroscope } from "react-icons/fa";
+import { FaMicroscope } from "react-icons/fa";
+import logo from "../../assets/logo.png";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[50vh] lg:min-h-[65vh] flex items-center overflow-hidden bg-[#EF3E36] pt-10 md:pt-28">
-      {/* Background Decorative Elements */}
-      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[400px] h-[400px] rounded-full bg-white blur-3xl"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[300px] h-[300px] rounded-full bg-white blur-3xl"></div>
+    <section className="relative min-h-[70vh] lg:min-h-[80vh] flex items-center overflow-hidden bg-secondary pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-28">
+      {/* Premium Multi-Layer Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-20%] right-[-15%] w-[600px] h-[600px] rounded-full bg-white/20 blur-[120px] mix-blend-soft-light animate-pulse"></div>
+        <div className="absolute bottom-[-15%] left-[-10%] w-[500px] h-[500px] rounded-full bg-black/10 blur-[100px] mix-blend-multiply"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1)_0%,transparent_50%)]"></div>
       </div>
 
-      <div className="container mx-auto px-6 lg:px-12 relative z-10 max-w-6xl py-4 lg:py-6">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-10">
-          {/* Left Content Area */}
-          <div className="w-full lg:w-1/2 text-left">
+      <div className="container mx-auto px-4 lg:px-12 relative z-20 max-w-7xl">
+        {/* Desktop Layout - Symmetrical 3-Column Arrangement */}
+        <div className="hidden lg:flex flex-row items-center justify-between h-full">
+          {/* Column 1: Text Section (35%) */}
+          <div className="w-[55%] text-left">
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-4 tracking-tight font-sans">
+              <h1 className="text-4xl lg:text-[52px] font-black text-white leading-[1.05] mb-6 tracking-tighter font-sans drop-shadow-2xl">
                 India’s Largest <br />
-                <span className="">Connected Pathology</span> <br />
-                <span className="">Network for Labs</span>
+                <span className="text-white/80 italic font-medium">
+                  Pathology
+                </span>{" "}
+                <br />
+                <span className="">Digital Hub</span>
               </h1>
-
-              <p className="text-white/90 text-xs md:text-sm font-normal max-w-sm mb-6 leading-relaxed font-sans">
-                Connect your laboratory with a modern digital ecosystem, expand
-                your reach, and deliver seamless diagnostic reports — all on one
-                platform.
+              <p className="text-white/90 text-base font-normal max-w-sm mb-10 leading-relaxed font-sans opacity-80 border-l-2 border-white/20 pl-6">
+                We offer a digital marketplace for Pathology/ Diagnostic labs.
+                Patients can search pathology in their area.
               </p>
-
-              <div className="flex items-center justify-start">
+              <div className="flex items-center gap-5">
                 <NavLink
-                  to="/downloadApp"
-                  className="bg-white text-[#EF3E36] px-6 py-2.5 rounded-md font-bold text-sm transition-all shadow-xl hover:bg-gray-50 active:scale-95 font-sans"
+                  to="/mobile-app"
+                  className="group bg-white text-secondary px-8 py-3.5 rounded-2xl font-black text-[11px] transition-all shadow-xl hover:shadow-white/10 hover:-translate-y-1 active:scale-95 flex items-center gap-2 font-sans uppercase tracking-widest"
                 >
                   Download App
+                  <div className="w-1.5 h-1.5 rounded-full bg-secondary group-hover:scale-110 transition-transform"></div>
                 </NavLink>
+                {/* <button className="text-white/80 font-bold text-xs underline underline-offset-8 hover:text-white transition-colors uppercase tracking-widest">
+                  Learn More
+                </button> */}
               </div>
             </motion.div>
           </div>
 
-          {/* Right Mobile Mockup Area */}
-          <div className="w-full lg:w-1/2 relative flex justify-center items-center h-[300px] md:h-[400px]">
-            {/* Phone Mockup 1 (Left Back) */}
+          {/* Column 2: Center Logo Phone (30%) - PERFECTLY STRAIGHT & CENTERED */}
+          <div className="w-[30%] flex justify-center items-center">
             <motion.div
-              initial={{ opacity: 0, x: 0, rotate: 0 }}
-              animate={{ opacity: 1, x: -50, rotate: -15 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="absolute z-10 w-[90px] md:w-[130px] lg:w-[160px] aspect-[9/19.5] bg-gray-900 rounded-[22px] md:rounded-[30px] border-4 md:border-[7px] border-gray-800 shadow-2xl overflow-hidden hidden md:block"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              className="w-[185px] aspect-[9/19.5] bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center p-6 relative transform-none"
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 md:w-24 h-3 md:h-6 bg-gray-800 rounded-b-lg z-30"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl"></div>
               <img
-                src="https://image.winudf.com/v2/image1/Y29tLm1lZGljYWwucGF0aG9sb2d5X3NjcmVlbl8yXzE2MTE1NTE1MThfMDE1/screen-0.jpg?fakeurl=1&type=.jpg"
-                alt="App Interface"
-                className="w-full h-full object-cover opacity-40"
+                src={logo}
+                alt="Logo"
+                className="w-22 object-contain mb-4 drop-shadow-xl"
               />
+              <div className="text-center space-y-1">
+                <span className="text-secondary font-black text-lg tracking-tighter block">
+                  LABO INDIA
+                </span>
+                <div className="w-8 h-[1.5px] bg-secondary/10 mx-auto rounded-full"></div>
+                <span className="text-secondary/60 font-bold text-[9px] uppercase tracking-widest block">
+                  Connecting Pathology Labs
+                </span>
+              </div>
+              <div className="absolute bottom-6 w-1/4 h-1 bg-gray-100 rounded-full"></div>
             </motion.div>
+          </div>
 
-            {/* Phone Mockup 3 (Right Back) */}
+          {/* Column 3: Right App Phone (35%) - SAME SIZE & STRAIGHT */}
+          <div className="w-[35%] flex justify-end items-center">
             <motion.div
-              initial={{ opacity: 0, x: 0, rotate: 0 }}
-              animate={{ opacity: 1, x: 50, rotate: 15 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="absolute z-10 w-[90px] md:w-[130px] lg:w-[160px] aspect-[9/19.5] bg-gray-900 rounded-[22px] md:rounded-[30px] border-[4px] md:border-[7px] border-gray-800 shadow-2xl overflow-hidden hidden md:block"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1 }}
+              className="w-[185px] aspect-[9/19.5] bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] overflow-hidden relative transform-none"
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 md:w-24 h-3 md:h-6 bg-gray-800 rounded-b-lg z-30"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-20"></div>
               <img
-                src="https://image.winudf.com/v2/image1/Y29tLnN1bnBhdGhvbG9neWxhYl9zY3JlZW5fMV8xNTUxNDMxMzk5XzA2Ng/screen-1.jpg?fakeurl=1&type=.jpg"
+                src="https://i.pinimg.com/originals/db/aa/21/dbaa21da2f2a51d2cb5b9b18657fed54.jpg"
                 alt="App Interface"
-                className="w-full h-full object-cover opacity-40"
+                className="w-full h-full object-cover"
               />
-            </motion.div>
-
-            {/* Phone Mockup 2 (Center Front - Main) */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="relative z-30 w-[110px] md:w-[150px] lg:w-[180px] aspect-[9/19.5] bg-white rounded-[22px] md:rounded-[30px] border-[4px] md:border-[7px] border-gray-900 shadow-[0_25px_50px_rgba(0,0,0,0.3)] overflow-hidden"
-            >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 md:w-24 h-3 md:h-6 bg-gray-900 rounded-b-lg z-40"></div>
-              <div className="h-full w-full bg-white flex flex-col pt-6 p-2 md:p-3">
-                <div className="w-full h-6 md:h-8 bg-gray-100 rounded-md mb-4 flex items-center px-1.5">
-                  <div className="w-2.5 md:w-4 h-2.5 md:h-4 rounded-full bg-gray-200"></div>
-                  <div className="ml-2 w-1/2 h-1 md:h-2 bg-gray-200 rounded"></div>
-                </div>
-                <div className="grid grid-cols-2 gap-2 mb-4">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="aspect-square bg-[#EF3E36]/5 rounded-lg border border-[#EF3E36]/10 flex flex-col items-center justify-center p-2"
-                    >
-                      <div className="w-5 md:w-8 h-5 md:h-8 rounded-full bg-[#EF3E36]/20 flex items-center justify-center mb-1">
-                        <FaMicroscope className="text-[#EF3E36] text-[8px] md:text-[12px]" />
-                      </div>
-                      <div className="w-3/4 h-1 md:h-2 bg-[#EF3E36]/20 rounded"></div>
-                    </div>
-                  ))}
-                </div>
-                <div className="w-full h-18 md:h-24 bg-gray-50 rounded-lg mb-4 p-2 md:p-3 font-bold text-[8px] md:text-[10px]">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-gray-400 font-normal">
-                      Total Revenue
-                    </span>
-                    <span className="text-green-500">₹ 1.2L</span>
-                  </div>
-                  <div className="w-full h-6 md:h-10 bg-gray-100 rounded flex items-end gap-1 px-1">
-                    {[3, 6, 4, 8, 5, 9, 7].map((h, i) => (
-                      <div
-                        key={i}
-                        style={{ height: h * 10 + "%" }}
-                        className="flex-1 bg-secondary/40 rounded-t-[1px]"
-                      ></div>
-                    ))}
-                  </div>
-                </div>
-                <div className="mt-auto w-full bg-[#EF3E36] h-8 md:h-11 rounded-lg flex items-center justify-center text-white text-[9px] md:text-xs font-bold uppercase tracking-widest shadow-lg shadow-[#EF3E36]/20">
-                  Manage Lab
-                </div>
+              <div className="absolute inset-x-0 bottom-0 py-3 bg-secondary text-white text-[10px] font-black text-center uppercase tracking-widest">
+                Live Health Reports
               </div>
             </motion.div>
           </div>
         </div>
+
+        {/* Professional Mobile View - 60vh Concept */}
+        <div className="lg:hidden flex flex-row items-center justify-between mt-15 h-[45vh] w-full px-2">
+          {/* Left Column: Symmetrically Balanced (32%) */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex flex-col gap-2 w-[32%] items-start"
+          >
+            <div className="space-y-0.5">
+              <div className="w-5 h-0.5 bg-white/40 mb-2"></div>
+              <h1 className="text-[18px] md:text-xl font-black text-white leading-[1.1] uppercase tracking-tight font-sans italic drop-shadow-2xl">
+                India’s <br />
+                <span className="text-white/80 italic font-medium">
+                  Largest
+                </span>{" "}
+                <br />
+                <span className="relative inline-block">
+                  Pathology
+                  <span className="absolute bottom-0 left-0 w-full h-[3px] bg-white/20 -skew-x-12"></span>
+                </span>{" "}
+                <br />
+                <span className="">Network</span>
+              </h1>
+            </div>
+            <div className="flex gap-1 mt-2">
+              <div className="w-1 h-1 rounded-full bg-white"></div>
+              <div className="w-4 h-1 rounded-full bg-white/30"></div>
+            </div>
+          </motion.div>
+
+          {/* Center Column: Perfectly Horizontally Centered (36%) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-[36%] flex justify-center z-20"
+          >
+            <div className="w-[110px] aspect-[9/19.5] bg-white rounded-[28px] border-[5px] border-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] relative flex flex-col items-center justify-center p-4">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3 bg-black rounded-b-xl z-20"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-[22px]"></div>
+              <img
+                src={logo}
+                alt="Logo"
+                className="w-22 object-contain mb-3 drop-shadow-lg"
+              />
+              <div className="text-center">
+                <span className="text-secondary font-black text-[8px] uppercase block tracking-tight">
+                  LABO INDIA
+                </span>
+                <span className="text-secondary/60 font-bold text-[4px] uppercase tracking-widest block mt-1">
+                  Connecting Pathology Labs
+                </span>
+              </div>
+              <div className="absolute bottom-4 w-1/4 h-[3px] bg-gray-100 rounded-full"></div>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Symmetrically Balanced (32%) */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="w-[32%] flex justify-end items-center"
+          >
+            <div className="w-[90px] aspect-[9/19.5] bg-white rounded-[22px] border-4 border-gray-950 shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] overflow-hidden relative">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-3 bg-gray-950 rounded-b-lg z-20"></div>
+              <img
+                src="https://i.pinimg.com/originals/db/aa/21/dbaa21da2f2a51d2cb5b9b18657fed54.jpg"
+                alt="App"
+                className="w-full h-full object-cover opacity-100"
+              />
+              <div className="absolute inset-x-0 bottom-0 py-1 bg-secondary text-white text-[5px] font-black text-center uppercase tracking-tighter">
+                Live Reports
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
-      {/* Wave Divider */}
-      <div className="absolute bottom-[-1px] left-0 w-full z-10">
+      {/* Premium Shape Transition */}
+      <div className="absolute -bottom-px left-0 w-full z-10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 120"
-          className="w-full h-auto"
+          className="w-full h-auto drop-shadow-[-10px_-10px_20px_rgba(0,0,0,0.05)]"
         >
           <path
-            fill="#F5F7FA"
+            fill="#f1f5f9"
             fillOpacity="1"
             d="M0,64L80,58.7C160,53,320,43,480,53.3C640,64,800,96,960,96C1120,96,1280,64,1360,48L1440,32L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
           ></path>

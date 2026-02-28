@@ -92,9 +92,12 @@ const Navbar = () => {
       >
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
           {/* Logo Area */}
-          <Link to="/" className="flex items-center gap-3 py-1 group">
+          <Link
+            to="/"
+            className="flex items-center gap-1.5 md:gap-3 py-1 group"
+          >
             <div
-              className={`transition-all duration-300 ${isScrolled ? "w-10 h-10 md:w-11 md:h-11" : "w-12 h-12 md:w-14 md:h-14"} flex items-center justify-center relative`}
+              className={`transition-all duration-300 ${isScrolled ? "w-8 h-8 md:w-11 md:h-11" : "w-10 h-10 md:w-14 md:h-14"} flex items-center justify-center relative`}
             >
               <img
                 src={logo}
@@ -102,15 +105,15 @@ const Navbar = () => {
                 className="w-full h-full object-contain"
               />
             </div>
-            <div className="flex flex-col justify-center border-l border-gray-100 pl-3 h-10 md:h-12">
+            <div className="flex flex-col justify-center border-l border-gray-100 pl-2 md:pl-3 h-8 md:h-12">
               <span
-                className={`${isScrolled ? "text-sm md:text-base" : "text-base md:text-lg"} font-black text-primary leading-none tracking-tight uppercase transition-all duration-300`}
+                className={`${isScrolled ? "text-[11px] md:text-base" : "text-[13px] md:text-lg"} font-black text-primary leading-none tracking-tight uppercase transition-all duration-300`}
               >
                 LABO INDIA
               </span>
-              {/* <span className="text-[9px] md:text-[10px] font-bold text-secondary tracking-[0.25em] leading-none uppercase -mt-0.5">
+              <span className="text-[7px] md:text-[10px] font-bold text-secondary tracking-[0.15em] md:tracking-[0.25em] leading-none uppercase mt-1 md:mt-2">
                 Connecting Pathology Labs
-              </span> */}
+              </span>
             </div>
           </Link>
 
@@ -146,7 +149,9 @@ const Navbar = () => {
           <div className="flex items-center gap-4">
             <NavLink
               to="/registration"
-              className={`bg-primary hover:bg-secondary hover:text-white text-white ${isScrolled ? "px-5 py-1.5 text-[10px]" : "px-6 py-2 text-[10px]"} rounded-lg font-black transition-all active:scale-95 uppercase tracking-widest shadow-lg shadow-primary/10`}
+              className={({ isActive }) =>
+                `${isActive ? "bg-secondary text-white" : "bg-primary text-white"} hover:bg-secondary hover:text-white ${isScrolled ? "px-5 py-1.5 text-[10px]" : "px-6 py-2 text-[10px]"} rounded-lg font-black transition-all active:scale-95 uppercase tracking-widest shadow-lg shadow-primary/10`
+              }
             >
               Registration
             </NavLink>

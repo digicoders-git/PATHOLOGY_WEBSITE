@@ -22,7 +22,7 @@ const steps = [
   },
   {
     icon: <FaClipboardCheck className="text-2xl" />,
-    title: "Treatment",
+    title: "Test",
     desc: "Visit lab for tests and consultation",
     color: "bg-white text-secondary border-gray-100",
   },
@@ -36,7 +36,7 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section className="py-16 bg-gray-50 relative overflow-hidden">
+    <section className="py-16 bg-[#f1f5f9] relative overflow-hidden">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
