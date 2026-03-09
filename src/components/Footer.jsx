@@ -36,23 +36,26 @@ const Footer = () => {
           {/* Column 1: Lab Info */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-12 h-12 flex items-center justify-center transition-transform group-hover:scale-110">
+              <div className="w-20 h-20 bg-white rounded-lg flex items-center justify-center p-2 transition-transform group-hover:scale-110">
                 <img
                   src={logo}
                   alt="Logo"
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-black leading-none tracking-tight uppercase">
+
+              <div className="flex flex-col w-[220px]">
+                <span className="text-3xl font-black leading-none tracking-tight uppercase text-white">
                   LABO INDIA
                 </span>
-                {/* <span className="text-[10px] font-bold text-secondary tracking-[0.2em] leading-none mt-1 uppercase">
-                  Center
-                </span> */}
+
+                <span className="text-[9px] font-bold text-red-500 uppercase tracking-widest mt-1">
+                  Connecting Pathology Labs
+                </span>
               </div>
+
             </Link>
-            <p className="text-white/70 text-sm leading-relaxed font-medium">
+            <p className="text-white text-sm leading-relaxed font-medium">
               Making Diagnostic Testing Affordable, Reliable, and
               Patient-Focused. <br />
               Clinical pathology laboratory providing diagnostic testing and
@@ -85,7 +88,7 @@ const Footer = () => {
                 <li key={i}>
                   <Link
                     to={link.path}
-                    className="text-white/70 hover:text-secondary text-sm font-bold flex items-center gap-2 transition-all hover:translate-x-2 group"
+                    className="text-white hover:text-secondary text-sm font-bold flex items-center gap-2 transition-all hover:translate-x-2 group"
                   >
                     <FaChevronRight className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity" />
                     {link.name}
@@ -109,7 +112,7 @@ const Footer = () => {
                 <li key={i}>
                   <Link
                     to={link.path}
-                    className="text-white/70 hover:text-secondary text-sm font-bold flex items-center gap-2 transition-all hover:translate-x-2 group"
+                    className="text-white hover:text-secondary text-sm font-bold flex items-center gap-2 transition-all hover:translate-x-2 group"
                   >
                     <FaChevronRight className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity" />
                     {link.name}
@@ -131,7 +134,7 @@ const Footer = () => {
                   <FaPhoneAlt />
                 </div>
                 <div>
-                  <div className="text-[10px] font-black uppercase text-white/40 tracking-widest mb-1">
+                  <div className="text-[10px] font-black uppercase text-white tracking-widest mb-1">
                     Call Support
                   </div>
                   <div className="font-bold text-sm text-white">
@@ -144,7 +147,7 @@ const Footer = () => {
                   <FaEnvelope />
                 </div>
                 <div>
-                  <div className="text-[10px] font-black uppercase text-white/40 tracking-widest mb-1">
+                  <div className="text-[10px] font-black uppercase text-white tracking-widest mb-1">
                     Email Us
                   </div>
                   <div className="font-bold text-sm text-white">
@@ -157,7 +160,7 @@ const Footer = () => {
                   <FaMapMarkerAlt />
                 </div>
                 <div>
-                  <div className="text-[10px] font-black uppercase text-white/40 tracking-widest mb-1">
+                  <div className="text-[10px] font-black uppercase text-white tracking-widest mb-1">
                     Laboratory Location
                   </div>
                   <div className="font-bold text-sm text-white leading-snug">

@@ -47,11 +47,10 @@ const Navbar = () => {
     <header className="fixed w-full top-0 z-50 shadow-sm transition-all duration-300 text-primary font-sans">
       {/* Top Navbar */}
       <div
-        className={`bg-primary text-pure-white transition-all duration-300 overflow-hidden ${
-          isScrolled
-            ? "max-h-0 py-0"
-            : "max-h-24 md:max-h-20 py-1.5 md:py-1 border-b border-white/5"
-        }`}
+        className={`bg-primary text-pure-white transition-all duration-300 overflow-hidden ${isScrolled
+          ? "max-h-0 py-0"
+          : "max-h-24 md:max-h-20 py-1.5 md:py-1 border-b border-white/5"
+          }`}
       >
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center h-full">
           <div className="flex items-center gap-4 md:gap-6">
@@ -84,11 +83,10 @@ const Navbar = () => {
 
       {/* Main Navbar */}
       <nav
-        className={`transition-all duration-300 ${
-          isScrolled
-            ? "bg-white/95 backdrop-blur-md py-1 shadow-md"
-            : "bg-white py-1.5 md:py-2"
-        }`}
+        className={`transition-all duration-300 ${isScrolled
+          ? "bg-white/95 backdrop-blur-md py-1 shadow-md"
+          : "bg-white py-1.5 md:py-2"
+          }`}
       >
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
           {/* Logo Area */}
@@ -107,11 +105,11 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col justify-center border-l border-gray-100 pl-2 md:pl-3 h-8 md:h-12">
               <span
-                className={`${isScrolled ? "text-[11px] md:text-base" : "text-[13px] md:text-lg"} font-black text-primary leading-none tracking-tight uppercase transition-all duration-300`}
+                className="text-[16px] md:text-3xl font-black text-primary leading-none tracking-tight uppercase transition-all duration-300"
               >
                 LABO INDIA
               </span>
-              <span className="text-[7px] md:text-[10px] font-bold text-secondary tracking-[0.15em] md:tracking-[0.25em] leading-none uppercase mt-1 md:mt-2">
+              <span className="text-[7px] md:text-[10px] font-bold text-secondary  leading-none uppercase mt-1 md:mt-2">
                 Connecting Pathology Labs
               </span>
             </div>
@@ -124,10 +122,9 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `px-4 py-1.5 text-[11px] font-bold tracking-widest transition-all relative group ${
-                    isActive
-                      ? "text-secondary"
-                      : "text-primary hover:text-secondary"
+                  `px-4 py-1.5 text-[11px] font-bold tracking-widest transition-all relative group ${isActive
+                    ? "text-secondary"
+                    : "text-primary hover:text-secondary"
                   }`
                 }
               >
@@ -135,9 +132,8 @@ const Navbar = () => {
                   <>
                     {link.name.toUpperCase()}
                     <span
-                      className={`absolute bottom-0 left-4 right-4 h-0.5 bg-secondary transform origin-left transition-transform duration-300 group-hover:scale-x-100 ${
-                        isActive ? "scale-x-100" : "scale-x-0"
-                      }`}
+                      className={`absolute bottom-0 left-4 right-4 h-0.5 bg-secondary transform origin-left transition-transform duration-300 group-hover:scale-x-100 ${isActive ? "scale-x-100" : "scale-x-0"
+                        }`}
                     ></span>
                   </>
                 )}
@@ -204,10 +200,9 @@ const Navbar = () => {
                     to={link.path}
                     onClick={() => setIsMenuOpen(false)}
                     className={({ isActive }) =>
-                      `px-5 py-4 text-sm font-black tracking-widest rounded-xl transition-all flex items-center justify-between group ${
-                        isActive
-                          ? "bg-primary text-white"
-                          : "text-primary hover:bg-background"
+                      `px-5 py-4 text-sm font-black tracking-widest rounded-xl transition-all flex items-center justify-between group ${isActive
+                        ? "bg-primary text-white"
+                        : "text-primary hover:bg-background"
                       }`
                     }
                   >

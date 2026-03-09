@@ -27,7 +27,7 @@ const Section = ({ title, icon: Icon, children, index }) => (
   >
     {/* Minimal Accent Bar */}
     <div className="absolute top-0 left-0 w-full h-1 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    
+
     <div className="relative z-10">
       <div className="flex items-center gap-4 mb-8 pb-4 border-b border-gray-50">
         <div className="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center text-primary text-lg group-hover:bg-primary group-hover:text-white transition-all duration-300">
@@ -105,11 +105,10 @@ const ModernDropdown = ({ label, options, value, onChange, error }) => {
                       onChange(optValue);
                       setIsOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer mb-0.5 last:mb-0 ${
-                      isSelected 
-                        ? "bg-primary text-white" 
-                        : "text-primary/60 hover:bg-primary/5 hover:text-primary"
-                    }`}
+                    className={`w-full text-left px-4 py-2.5 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer mb-0.5 last:mb-0 ${isSelected
+                      ? "bg-primary text-white"
+                      : "text-primary/60 hover:bg-primary/5 hover:text-primary"
+                      }`}
                   >
                     {optLabel}
                   </button>
@@ -137,7 +136,7 @@ const InputField = ({
   return (
     <div className="space-y-1.5">
       <div className="flex justify-between items-end px-1">
-        <label className="text-primary/50 font-bold text-[9px] uppercase tracking-widest flex items-center gap-1.5 cursor-pointer select-none">
+        <label className="text-black font-bold text-[9px] uppercase tracking-widest flex items-center gap-1.5 cursor-pointer select-none">
           {label} {required && <span className="text-secondary text-[14px] leading-none -mt-0.5">*</span>}
         </label>
       </div>
@@ -157,7 +156,7 @@ const InputField = ({
           onChange={onChange}
           placeholder={placeholder}
           rows="3"
-          className={`w-full bg-white border ${error ? "border-red-500" : "border-gray-200"} p-3 rounded-lg text-primary font-semibold focus:ring-2 focus:ring-primary/5 outline-none transition-all text-sm min-h-[90px] shadow-xs hover:border-primary/40 resize-none`}
+          className={`w-full bg-white border ${error ? "border-red-500" : "border-gray-200"} p-3 rounded-lg text-black font-semibold focus:ring-2 focus:ring-primary/5 outline-none transition-all text-sm min-h-[90px] shadow-xs hover:border-primary/40 resize-none`}
         />
       ) : type === "file" ? (
         <div className="relative group/file">
@@ -187,23 +186,21 @@ const InputField = ({
         </div>
       ) : type === "checkbox" ? (
         <div
-          className={`flex items-center gap-4 p-3 rounded-lg border transition-all duration-300 cursor-pointer shadow-xs select-none ${
-            value 
-              ? "bg-primary/[0.02] border-primary/20" 
-              : "bg-white border-gray-100 hover:border-primary/30"
-          }`}
+          className={`flex items-center gap-4 p-3 rounded-lg border transition-all duration-300 cursor-pointer shadow-xs select-none ${value
+            ? "bg-primary/[0.02] border-primary/20"
+            : "bg-white border-gray-100 hover:border-primary/30"
+            }`}
           onClick={() => onChange({ target: { name, value: !value } })}
         >
           <div
-            className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${
-              value 
-                ? "bg-secondary border-secondary scale-105" 
-                : "bg-white border-gray-200"
-            }`}
+            className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 ${value
+              ? "bg-secondary border-secondary scale-105"
+              : "bg-white border-gray-200"
+              }`}
           >
             {value && <FaCheckCircle className="text-white text-[10px]" />}
           </div>
-          <span className={`font-bold text-[10px] uppercase tracking-wider transition-colors duration-300 ${value ? "text-primary" : "text-primary/50"}`}>
+          <span className={`font-bold text-[10px] uppercase tracking-wider transition-colors duration-300 ${value ? "text-primary" : "text-black"}`}>
             {label}
           </span>
         </div>
@@ -220,7 +217,7 @@ const InputField = ({
           }}
           min={type === "number" ? "0" : undefined}
           placeholder={placeholder}
-          className={`w-full bg-white border ${error ? "border-red-500" : "border-gray-200"} p-3 rounded-lg text-primary font-semibold focus:ring-2 focus:ring-primary/5 outline-none transition-all text-sm shadow-xs hover:border-primary/40`}
+          className={`w-full bg-white border ${error ? "border-red-500" : "border-gray-200"} p-3 rounded-lg text-black font-semibold focus:ring-2 focus:ring-primary/5 outline-none transition-all text-sm shadow-xs hover:border-primary/40`}
         />
       )}
 
@@ -479,7 +476,7 @@ const IndividualLabForm = () => {
       console.error("Submission failed:", error);
       alert(
         error.response?.data?.message ||
-          "Submission failed. Please check your connection.",
+        "Submission failed. Please check your connection.",
       );
     } finally {
       setSubmitting(false);
@@ -506,7 +503,7 @@ const IndividualLabForm = () => {
           <h2 className="text-2xl font-bold text-primary uppercase tracking-tight mb-4">
             Registration Submitted
           </h2>
-          <p className="text-primary/50 font-semibold mb-10 max-w-sm leading-relaxed text-xs">
+          <p className="text-black font-semibold mb-10 max-w-sm leading-relaxed text-xs">
             Thank you! Your lab details are under review. Our team will
             contact you within 48 business hours.
           </p>
@@ -709,7 +706,7 @@ const IndividualLabForm = () => {
 
       <Section title="Services & Diagnostics" icon={FaVial} index={4}>
         <div className="md:col-span-3 space-y-4">
-          <label className="text-primary/50 font-bold text-[9px] uppercase tracking-widest px-1">
+          <label className="text-black font-bold text-[9px] uppercase tracking-widest px-1">
             Available Medical Tests
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -724,11 +721,10 @@ const IndividualLabForm = () => {
                   <div
                     key={test._id}
                     onClick={() => handleTestToggle(test._id)}
-                    className={`p-3.5 rounded-lg border text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center justify-between shadow-xs ${
-                      isSelected
-                        ? "bg-primary text-white border-primary shadow-md shadow-primary/10"
-                        : "bg-white border-gray-100 text-primary/60 hover:border-primary/40"
-                    }`}
+                    className={`p-3.5 rounded-lg border text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center justify-between shadow-xs ${isSelected
+                      ? "bg-primary text-white border-primary shadow-md shadow-primary/10"
+                      : "bg-white border-gray-100 text-primary/60 hover:border-primary/40"
+                      }`}
                   >
                     <span className="truncate pr-2">{test.title}</span>
                     {isSelected && (
@@ -744,7 +740,7 @@ const IndividualLabForm = () => {
             )}
           </div>
         </div>
-        
+
         <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 mt-6 border-t border-gray-50">
           <InputField
             label="Home Collection"
@@ -790,7 +786,7 @@ const IndividualLabForm = () => {
                 + Add New
               </button>
             </div>
-            
+
             <div className="grid grid-cols-1 gap-6">
               {formData.certifications.map((cert, index) => (
                 <div
@@ -807,7 +803,7 @@ const IndividualLabForm = () => {
                     placeholder="e.g. ISO Certified"
                   />
                   <div className="space-y-2">
-                    <label className="text-primary/50 font-bold text-[9px] uppercase tracking-widest block px-1">
+                    <label className="text-black font-bold text-[9px] uppercase tracking-widest block px-1">
                       Soft Copy
                     </label>
                     <input

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaApple, FaGooglePlay, FaCheckCircle } from "react-icons/fa";
+import logo from "../../assets/logo.png";
 
 const MobileAppPromotion = () => {
   const features = [
@@ -15,28 +16,31 @@ const MobileAppPromotion = () => {
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Left Side: Scaled Down App Preview */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="lg:w-1/2 flex justify-center"
-          >
-            <div className="relative w-[180px] md:w-[220px] aspect-[9/19.5] bg-white rounded-4xl p-3 shadow-2xl border-[6px] border-gray-900 overflow-hidden">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-4 bg-gray-900 rounded-b-xl z-10"></div>
-              <div className="h-full w-full bg-gray-50 flex flex-col p-4 pt-6">
-                <div className="w-8 h-1 bg-gray-200 rounded-full mb-4"></div>
-                <div className="space-y-3">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="h-10 bg-white rounded-lg shadow-sm w-full"
-                    ></div>
-                  ))}
-                </div>
-                <div className="mt-auto h-8 bg-secondary rounded-lg w-full"></div>
+          <div className="w-[40%] flex justify-center items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              className="w-[215px] aspect-[9/19.5] bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center p-6 relative transform-none"
+            >
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl"></div>
+              <img
+                src={logo}
+                alt="Logo"
+                className="w-22 object-contain mb-4 drop-shadow-xl"
+              />
+              <div className="text-center space-y-1">
+                <span className="text-secondary font-black text-lg tracking-tighter block">
+                  LABO INDIA
+                </span>
+                <div className="w-8 h-[1.5px] bg-secondary/10 mx-auto rounded-full"></div>
+                <span className="text-secondary/60 font-bold text-[9px] uppercase tracking-widest block">
+                  Connecting Pathology Labs
+                </span>
               </div>
-            </div>
-          </motion.div>
+              <div className="absolute bottom-6 w-1/4 h-1 bg-gray-100 rounded-full"></div>
+            </motion.div>
+          </div>
 
           {/* Right Side: Content */}
           <div className="lg:w-1/2 text-left">

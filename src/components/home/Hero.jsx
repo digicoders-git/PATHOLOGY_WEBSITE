@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
-import { FaMicroscope } from "react-icons/fa";
+import { FaMicroscope, FaGooglePlay, FaApple } from "react-icons/fa";
 import logo from "../../assets/logo.png";
 
 const Hero = () => {
@@ -24,29 +24,49 @@ const Hero = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl lg:text-[52px] font-black text-white leading-[1.05] mb-6 tracking-tighter font-sans drop-shadow-2xl">
-                India’s Largest <br />
-                <span className="text-white/80 italic font-medium">
-                  Pathology
-                </span>{" "}
-                <br />
-                <span className="">Digital Hub</span>
+              <h1 className="text-2xl mt-13 lg:text-[50px] font-black text-white leading-[1.2] mb-3 tracking-tighter font-sans drop-shadow-2xl">
+                इंडिया का अपना <br />
+                <span className="text-white font-black me-2">
+                  पैथोलॉजी
+                </span>
+                <span className="">नेटवर्क</span>
               </h1>
-              <p className="text-white/90 text-base font-normal max-w-sm mb-10 leading-relaxed font-sans opacity-80 border-l-2 border-white/20 pl-6">
+              <p className="text-white text-xl md:text-2xl lg:text-5xl tracking-normal font-black mb-8 font-sans drop-shadow-md">
+                India ka Apna Pathology Network
+              </p>
+              <p className="text-white/90 text-base font-normal max-w-sm mb-6 leading-relaxed font-sans opacity-80 border-l-2 border-white/20 pl-6">
                 We offer a digital marketplace for Pathology/ Diagnostic labs.
                 Patients can search pathology in their area.
               </p>
-              <div className="flex items-center gap-5">
+
+              <div className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-[#00f2fe] font-bold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+                🚀 Coming Soon
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 relative">
+                {/* Overlay to show they are inactive/disabled but still visible */}
+                <div className="absolute inset-0 z-10 cursor-not-allowed" title="App Coming Soon"></div>
                 <NavLink
                   to="/mobile-app"
-                  className="group bg-white text-secondary px-8 py-3.5 rounded-2xl font-black text-[11px] transition-all shadow-xl hover:shadow-white/10 hover:-translate-y-1 active:scale-95 flex items-center gap-2 font-sans uppercase tracking-widest"
+                  className="group bg-black border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-[12px] transition-all shadow-xl hover:shadow-white/10 hover:-translate-y-1 active:scale-95 flex items-center gap-3 font-sans uppercase tracking-wider w-full sm:w-auto justify-center"
                 >
-                  Download App
-                  <div className="w-1.5 h-1.5 rounded-full bg-secondary group-hover:scale-110 transition-transform"></div>
+                  <FaGooglePlay className="text-xl text-[#00f2fe]" />
+                  <div className="text-left leading-tight">
+                    <span className="block text-[8px] opacity-70">GET IT ON</span>
+                    <span className="block text-[14px]">Google Play</span>
+                  </div>
                 </NavLink>
-                {/* <button className="text-white/80 font-bold text-xs underline underline-offset-8 hover:text-white transition-colors uppercase tracking-widest">
-                  Learn More
-                </button> */}
+
+                <NavLink
+                  to="/mobile-app"
+                  className="group bg-black border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-[12px] transition-all shadow-xl hover:shadow-white/10 hover:-translate-y-1 active:scale-95 flex items-center gap-3 font-sans uppercase tracking-wider w-full sm:w-auto justify-center"
+                >
+                  <FaApple className="text-2xl text-white" />
+                  <div className="text-left leading-tight">
+                    <span className="block text-[8px] opacity-70">Download on the</span>
+                    <span className="block text-[14px]">App Store</span>
+                  </div>
+                </NavLink>
               </div>
             </motion.div>
           </div>
@@ -109,23 +129,56 @@ const Hero = () => {
           >
             <div className="space-y-0.5">
               <div className="w-5 h-0.5 bg-white/40 mb-2"></div>
-              <h1 className="text-[18px] md:text-xl font-black text-white leading-[1.1] uppercase tracking-tight font-sans italic drop-shadow-2xl">
-                India’s <br />
-                <span className="text-white/80 italic font-medium">
-                  Largest
+              <h1 className="text-[14px] md:text-base font-black text-white leading-[1.2] uppercase tracking-tight font-sans italic drop-shadow-2xl">
+                इंडिया का अपना <br />
+                <span className="relative inline-block text-white/80 italic font-medium mt-1">
+                  पैथोलॉजी
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-white/20 -skew-x-12"></span>
                 </span>{" "}
-                <br />
-                <span className="relative inline-block">
-                  Pathology
-                  <span className="absolute bottom-0 left-0 w-full h-[3px] bg-white/20 -skew-x-12"></span>
-                </span>{" "}
-                <br />
-                <span className="">Network</span>
+                <span className="">नेटवर्क</span>
               </h1>
+              <div className="mt-2">
+                <span className="text-white/80 text-[10px] md:text-[12px] tracking-[0.25em] font-black uppercase drop-shadow-sm block">
+                  INDIA'S LARGEST PATHOLOGY NETWORK
+                </span>
+              </div>
             </div>
             <div className="flex gap-1 mt-2">
               <div className="w-1 h-1 rounded-full bg-white"></div>
               <div className="w-4 h-1 rounded-full bg-white/30"></div>
+            </div>
+
+            {/* Mobile View App Buttons Area */}
+            <div className="flex flex-col gap-2 mt-4 w-full relative">
+              <div className="absolute inset-x-0 -top-6 flex justify-center">
+                <span className="bg-white/10 backdrop-blur-md border border-white/20 text-[#00f2fe] font-bold text-[8px] uppercase tracking-wider px-3 py-1 rounded-full shadow-lg">
+                  🚀 Coming Soon
+                </span>
+              </div>
+
+              {/* Overlay for disabled state */}
+              <div className="absolute inset-0 z-10 cursor-not-allowed mt-1" title="App Coming Soon"></div>
+              <NavLink
+                to="/mobile-app"
+                className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-3 py-2 rounded-lg flex items-center gap-2 shadow-lg"
+              >
+                <FaGooglePlay className="text-lg text-[#00f2fe]" />
+                <div className="text-left leading-none">
+                  <span className="block text-[6px] opacity-70">GET IT ON</span>
+                  <span className="block text-[10px] font-bold">Google Play</span>
+                </div>
+              </NavLink>
+
+              <NavLink
+                to="/mobile-app"
+                className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-3 py-2 rounded-lg flex items-center gap-2 shadow-lg"
+              >
+                <FaApple className="text-xl text-white" />
+                <div className="text-left leading-none">
+                  <span className="block text-[6px] opacity-70">Download on the</span>
+                  <span className="block text-[10px] font-bold">App Store</span>
+                </div>
+              </NavLink>
             </div>
           </motion.div>
 
