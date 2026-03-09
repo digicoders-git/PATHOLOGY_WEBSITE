@@ -148,10 +148,10 @@ const Hero = () => {
                 </p>
               </div>
             </div>
-            <div className="flex gap-1 mt-2">
+            {/* <div className="flex gap-1 mt-2">
               <div className="w-1 h-1 rounded-full bg-white"></div>
               <div className="w-4 h-1 rounded-full bg-white/30"></div>
-            </div>
+            </div> */}
 
             {/* Mobile View App Buttons Area */}
             <div className="flex flex-col items-start gap-2 mt-6 w-full relative">
