@@ -138,7 +138,7 @@ const Footer = () => {
                     Call Support
                   </div>
                   <div className="font-bold text-sm text-white">
-                    +01 (234) 567 89
+                    9355953293
                   </div>
                 </div>
               </div>
@@ -151,7 +151,7 @@ const Footer = () => {
                     Email Us
                   </div>
                   <div className="font-bold text-sm text-white">
-                    support@domain.tld
+                    amitmassif@gmail.com
                   </div>
                 </div>
               </div>

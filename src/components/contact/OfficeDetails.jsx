@@ -18,12 +18,12 @@ const OfficeDetails = () => {
     {
       icon: FaEnvelope,
       title: "Email",
-      details: "contact@pathologyplatform.com",
+      details: "amitmassif@gmail.com",
     },
     {
       icon: FaPhoneAlt,
       title: "Phone",
-      details: "+91 800-200-5000",
+      details: "+91 9355953293",
     },
   ];
 

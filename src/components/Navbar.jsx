@@ -57,7 +57,7 @@ const Navbar = () => {
             <div className="flex items-center gap-1.5 group cursor-pointer">
               <MdEmail className="text-secondary text-xs" />
               <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90">
-                support@domain.tld
+                amitmassif@gmail.com
               </span>
             </div>
             <div className="flex items-center gap-1.5 group cursor-pointer">
