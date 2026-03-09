@@ -141,6 +141,11 @@ const Hero = () => {
                 <span className="text-white/80 text-[10px] md:text-[12px] tracking-[0.25em] font-black uppercase drop-shadow-sm block">
                   INDIA'S LARGEST PATHOLOGY NETWORK
                 </span>
+
+                <p className="text-white/80 text-[8px] mt-2 leading-relaxed">
+                  We offer a digital marketplace for Pathology/ Diagnostic labs.
+                  Patients can search pathology in their area.
+                </p>
               </div>
             </div>
             <div className="flex gap-1 mt-2">
@@ -149,36 +154,42 @@ const Hero = () => {
             </div>
 
             {/* Mobile View App Buttons Area */}
-            <div className="flex flex-col gap-2 mt-4 w-full relative">
-              <div className="absolute inset-x-0 -top-6 flex justify-center">
-                <span className="bg-white/10 backdrop-blur-md border border-white/20 text-[#00f2fe] font-bold text-[8px] uppercase tracking-wider px-3 py-1 rounded-full shadow-lg">
+            <div className="flex flex-col items-start gap-2 mt-6 w-full relative">
+
+              {/* Coming Soon Badge */}
+              <div className="w-full flex justify-start">
+                <span className="bg-white/10 backdrop-blur-md border border-white/20 text-[#00f2fe] font-bold text-[7px] uppercase tracking-wider px-2 py-0.5 rounded-full">
                   🚀 Coming Soon
                 </span>
               </div>
 
-              {/* Overlay for disabled state */}
-              <div className="absolute inset-0 z-10 cursor-not-allowed mt-1" title="App Coming Soon"></div>
-              <NavLink
-                to="/mobile-app"
-                className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-3 py-2 rounded-lg flex items-center gap-2 shadow-lg"
-              >
-                <FaGooglePlay className="text-lg text-[#00f2fe]" />
-                <div className="text-left leading-none">
-                  <span className="block text-[6px] opacity-70">GET IT ON</span>
-                  <span className="block text-[10px] font-bold">Google Play</span>
-                </div>
-              </NavLink>
+              {/* Buttons */}
+              <div className="flex flex-col gap-2 w-full">
 
-              <NavLink
-                to="/mobile-app"
-                className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-3 py-2 rounded-lg flex items-center gap-2 shadow-lg"
-              >
-                <FaApple className="text-xl text-white" />
-                <div className="text-left leading-none">
-                  <span className="block text-[6px] opacity-70">Download on the</span>
-                  <span className="block text-[10px] font-bold">App Store</span>
-                </div>
-              </NavLink>
+                <NavLink
+                  to="/mobile-app"
+                  className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-2 py-1 rounded-md flex items-center gap-1 shadow-md w-fit"
+                >
+                  <FaGooglePlay className="text-[10px] text-[#00f2fe]" />
+                  <div className="leading-none">
+                    <span className="block text-[5px] opacity-70">GET IT ON</span>
+                    <span className="block text-[8px] font-bold">Google Play</span>
+                  </div>
+                </NavLink>
+
+                <NavLink
+                  to="/mobile-app"
+                  className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-2 py-1 rounded-md flex items-center gap-1 shadow-md w-fit"
+                >
+                  <FaApple className="text-[10px] text-white" />
+                  <div className="leading-none">
+                    <span className="block text-[5px] opacity-70">Download</span>
+                    <span className="block text-[8px] font-bold">App Store</span>
+                  </div>
+                </NavLink>
+
+              </div>
+
             </div>
           </motion.div>
 
