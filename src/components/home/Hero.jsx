@@ -68,7 +68,7 @@ const Hero = () => {
 
 
               <p className="text-white text-lg mt-2 ">
-                Pesenet ke liye
+                
               </p>
             </motion.div>
           </div>
@@ -172,7 +172,7 @@ const Hero = () => {
                   </div>
                 </NavLink>
                 <p className="text-white text-xs mt-2 ">
-                  Pesenet ke liye
+                  
                 </p>
 
               </div>
