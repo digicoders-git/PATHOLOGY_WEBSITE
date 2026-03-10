@@ -68,7 +68,7 @@ const Hero = () => {
 
 
               <p className="text-white text-lg mt-2 ">
-                Better Health
+                Pesenet ke liye
               </p>
             </motion.div>
           </div>
@@ -120,7 +120,7 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-col gap-2 w-[32%] items-start"
           >
-            <div className="space-y-0.5">
+            <div className="space-y-0.5  mt-17">
               <h1 className="text-[13px] font-black text-white leading-[1.2] mb-1 tracking-tight font-sans drop-shadow-xl">
                 इंडिया का अपना <br />
                 <span className="text-white font-black me-1">
@@ -172,7 +172,7 @@ const Hero = () => {
                   </div>
                 </NavLink>
                 <p className="text-white text-xs mt-2 ">
-                  Better Health
+                  Pesenet ke liye
                 </p>
 
               </div>

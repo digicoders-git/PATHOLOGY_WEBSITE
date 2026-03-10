@@ -55,13 +55,13 @@ const Navbar = () => {
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center h-full">
           <div className="flex items-center gap-4 md:gap-6">
             <div className="flex items-center gap-1.5 group cursor-pointer">
-              <MdEmail className="text-primary text-xs" />
+              <MdEmail className="text-white text-xs" />
               <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90">
                 amitmassif@gmail.com
               </span>
             </div>
             <div className="flex items-center gap-1.5 group cursor-pointer">
-              <FaPhoneAlt className="text-primary text-[10px]" />
+              <FaPhoneAlt className="text-white text-[10px]" />
               <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90">
                 +91 99999 88888
               </span>
@@ -72,7 +72,7 @@ const Navbar = () => {
             {socialLinks.map((social) => (
               <div
                 key={social.name}
-                className="w-6 h-6 rounded-full bg-white/5 hover:bg-white flex items-center justify-center text-primary hover:text-secondary transition-all cursor-pointer border border-white/5 active:scale-95"
+                className="w-6 h-6 rounded-full bg-white hover:bg-white flex items-center justify-center text-secondary hover:text-primary transition-all cursor-pointer border border-white/5 active:scale-95"
               >
                 {social.icon}
               </div>
@@ -105,7 +105,7 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col justify-center border-l border-gray-100 pl-2 md:pl-3 h-10 md:h-16">
               <span
-                className="text-[13px] md:text-4xl font-black text-primary leading-none tracking-tight uppercase transition-all duration-300"
+                className="text-[11px] md:text-4xl font-black text-primary leading-none tracking-tight uppercase transition-all duration-300"
               >
                 LABO INDIA
               </span>
