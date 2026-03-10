@@ -18,18 +18,18 @@ const Hero = () => {
         {/* Desktop Layout - Symmetrical 3-Column Arrangement */}
         <div className="hidden lg:flex flex-row items-center justify-between h-full">
           {/* Column 1: Text Section (35%) */}
-          <div className="w-[55%] text-left">
+          <div className="w-[65%] text-left">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-2xl mt-13 lg:text-[50px] font-black text-white leading-[1.2] mb-3 tracking-tighter font-sans drop-shadow-2xl">
-                इंडिया का अपना <br />
-                <span className="text-white font-black me-2">
-                  पैथोलॉजी
+              <h1 className="text-3xl mt-13 lg:text-[68px] font-black text-white leading-[1.15] mb-3 tracking-tighter font-sans drop-shadow-2xl w-full">
+                इंडिया का अपना
+                <span className="block mt-3">
+                  <span className="text-white font-black me-3">पैथोलॉजी</span>
+                  <span className="">नेटवर्क</span>
                 </span>
-                <span className="">नेटवर्क</span>
               </h1>
               <p className="text-white text-xl md:text-2xl lg:text-5xl tracking-normal font-black mb-8 font-sans drop-shadow-md">
                 India ka Apna Pathology Network
@@ -39,13 +39,9 @@ const Hero = () => {
                 Patients can search pathology in their area.
               </p>
 
-              <div className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-[#00f2fe] font-bold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
-                🚀 Coming Soon
-              </div>
+
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 relative">
-                {/* Overlay to show they are inactive/disabled but still visible */}
-                <div className="absolute inset-0 z-10 cursor-not-allowed" title="App Coming Soon"></div>
                 <NavLink
                   to="/mobile-app"
                   className="group bg-black border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-[12px] transition-all shadow-xl hover:shadow-white/10 hover:-translate-y-1 active:scale-95 flex items-center gap-3 font-sans uppercase tracking-wider w-full sm:w-auto justify-center"
@@ -59,7 +55,7 @@ const Hero = () => {
 
                 <NavLink
                   to="/mobile-app"
-                  className="group bg-black border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-[12px] transition-all shadow-xl hover:shadow-white/10 hover:-translate-y-1 active:scale-95 flex items-center gap-3 font-sans uppercase tracking-wider w-full sm:w-auto justify-center"
+                  className="group bg-black border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-[12px] transition-all shadow-xl hover:shadow-white/10 hover:-translate-y-1 active:scale-95 flex items-center gap-3 font-sans uppercase tracking-wider w-full sm:w-auto justify-center pointer-events-none cursor-not-allowed"
                 >
                   <FaApple className="text-2xl text-white" />
                   <div className="text-left leading-tight">
@@ -67,12 +63,13 @@ const Hero = () => {
                     <span className="block text-[14px]">App Store</span>
                   </div>
                 </NavLink>
+
               </div>
             </motion.div>
           </div>
 
           {/* Column 2: Center Logo Phone (30%) - PERFECTLY STRAIGHT & CENTERED */}
-          <div className="w-[30%] flex justify-center items-center">
+          <div className="w-[30%] flex justify-center items-center ml-75">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -83,18 +80,9 @@ const Hero = () => {
               <img
                 src={logo}
                 alt="Logo"
-                className="w-22 object-contain mb-4 drop-shadow-xl"
+                className="w-36 object-contain drop-shadow-xl"
               />
-              <div className="text-center space-y-1">
-                <span className="text-secondary font-black text-lg tracking-tighter block">
-                  LABO INDIA
-                </span>
-                <div className="w-8 h-[1.5px] bg-secondary/10 mx-auto rounded-full"></div>
-                <span className="text-secondary/60 font-bold text-[9px] uppercase tracking-widest block">
-                  Connecting Pathology Labs
-                </span>
-              </div>
-              <div className="absolute bottom-6 w-1/4 h-1 bg-gray-100 rounded-full"></div>
+
             </motion.div>
           </div>
 
@@ -128,25 +116,20 @@ const Hero = () => {
             className="flex flex-col gap-2 w-[32%] items-start"
           >
             <div className="space-y-0.5">
-              <div className="w-5 h-0.5 bg-white/40 mb-2"></div>
-              <h1 className="text-[14px] md:text-base font-black text-white leading-[1.2] uppercase tracking-tight font-sans italic drop-shadow-2xl">
+              <h1 className="text-[13px] font-black text-white leading-[1.2] mb-1 tracking-tight font-sans drop-shadow-xl">
                 इंडिया का अपना <br />
-                <span className="relative inline-block text-white/80 italic font-medium mt-1">
+                <span className="text-white font-black me-1">
                   पैथोलॉजी
-                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-white/20 -skew-x-12"></span>
-                </span>{" "}
+                </span>
                 <span className="">नेटवर्क</span>
               </h1>
-              <div className="mt-2">
-                <span className="text-white/80 text-[10px] md:text-[12px] tracking-[0.25em] font-black uppercase drop-shadow-sm block">
-                  INDIA'S LARGEST PATHOLOGY NETWORK
-                </span>
-
-                <p className="text-white/80 text-[8px] mt-2 leading-relaxed">
-                  We offer a digital marketplace for Pathology/ Diagnostic labs.
-                  Patients can search pathology in their area.
-                </p>
-              </div>
+              <p className="text-white text-[12px] tracking-normal font-black mb-3 font-sans drop-shadow-md">
+                India ka Apna Pathology Network
+              </p>
+              <p className="text-white/90 text-[8px] max-w-[150px] leading-relaxed font-sans opacity-80 border-l border-white/20 pl-2">
+                We offer a digital marketplace for Pathology/ Diagnostic labs.
+                Patients can search pathology in their area.
+              </p>
             </div>
             {/* <div className="flex gap-1 mt-2">
               <div className="w-1 h-1 rounded-full bg-white"></div>
@@ -179,7 +162,7 @@ const Hero = () => {
 
                 <NavLink
                   to="/mobile-app"
-                  className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-2 py-1 rounded-md flex items-center gap-1 shadow-md w-fit"
+                  className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-2 py-1 rounded-md flex items-center gap-1 shadow-md w-fit pointer-events-none cursor-not-allowed"
                 >
                   <FaApple className="text-[10px] text-white" />
                   <div className="leading-none">

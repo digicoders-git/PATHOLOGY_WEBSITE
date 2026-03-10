@@ -40,7 +40,7 @@ const HowItWorks = () => {
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-            Our Process
+            How does it work
           </h2>
           <p className="text-gray-500 text-sm md:text-base">
             Simple and easy way for your diagnostics

@@ -49,7 +49,7 @@ const Footer = () => {
                   LABO INDIA
                 </span>
 
-                <span className="text-[9px] font-bold text-red-500 uppercase tracking-widest mt-1">
+                <span className="text-[10px] font-bold text-red-500 uppercase tracking-widest mt-1">
                   Connecting Pathology Labs
                 </span>
               </div>

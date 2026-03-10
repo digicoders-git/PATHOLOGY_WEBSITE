@@ -47,7 +47,7 @@ const Navbar = () => {
     <header className="fixed w-full top-0 z-50 shadow-sm transition-all duration-300 text-primary font-sans">
       {/* Top Navbar */}
       <div
-        className={`bg-primary text-pure-white transition-all duration-300 overflow-hidden ${isScrolled
+        className={`bg-secondary text-pure-white transition-all duration-300 overflow-hidden ${isScrolled
           ? "max-h-0 py-0"
           : "max-h-24 md:max-h-20 py-1.5 md:py-1 border-b border-white/5"
           }`}
@@ -55,13 +55,13 @@ const Navbar = () => {
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center h-full">
           <div className="flex items-center gap-4 md:gap-6">
             <div className="flex items-center gap-1.5 group cursor-pointer">
-              <MdEmail className="text-secondary text-xs" />
+              <MdEmail className="text-primary text-xs" />
               <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90">
                 amitmassif@gmail.com
               </span>
             </div>
             <div className="flex items-center gap-1.5 group cursor-pointer">
-              <FaPhoneAlt className="text-secondary text-[10px]" />
+              <FaPhoneAlt className="text-primary text-[10px]" />
               <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90">
                 +91 99999 88888
               </span>
@@ -72,7 +72,7 @@ const Navbar = () => {
             {socialLinks.map((social) => (
               <div
                 key={social.name}
-                className="w-6 h-6 rounded-full bg-white/5 hover:bg-secondary flex items-center justify-center text-white hover:text-primary transition-all cursor-pointer border border-white/5 active:scale-95"
+                className="w-6 h-6 rounded-full bg-white/5 hover:bg-white flex items-center justify-center text-primary hover:text-secondary transition-all cursor-pointer border border-white/5 active:scale-95"
               >
                 {social.icon}
               </div>
@@ -95,7 +95,7 @@ const Navbar = () => {
             className="flex items-center gap-1.5 md:gap-3 py-1 group"
           >
             <div
-              className={`transition-all duration-300 ${isScrolled ? "w-8 h-8 md:w-11 md:h-11" : "w-10 h-10 md:w-14 md:h-14"} flex items-center justify-center relative`}
+              className={`transition-all duration-300 ${isScrolled ? "w-10 h-10 md:w-16 md:h-16" : "w-14 h-14 md:w-20 md:h-20"} flex items-center justify-center relative`}
             >
               <img
                 src={logo}
@@ -103,14 +103,14 @@ const Navbar = () => {
                 className="w-full h-full object-contain"
               />
             </div>
-            <div className="flex flex-col justify-center border-l border-gray-100 pl-2 md:pl-3 h-8 md:h-12">
+            <div className="flex flex-col justify-center border-l border-gray-100 pl-2 md:pl-3 h-10 md:h-16">
               <span
-                className="text-[16px] md:text-3xl font-black text-primary leading-none tracking-tight uppercase transition-all duration-300"
+                className="text-[13px] md:text-4xl font-black text-primary leading-none tracking-tight uppercase transition-all duration-300"
               >
                 LABO INDIA
               </span>
-              <span className="text-[7px] md:text-[10px] font-bold text-secondary  leading-none uppercase mt-1 md:mt-2">
-                Connecting Pathology Labs
+              <span className="text-[8px] md:text-[13.4px] font-bold text-secondary leading-tight uppercase mt-0">
+                Connecting <br className="md:hidden" /> Pathology Labs
               </span>
             </div>
           </Link>
@@ -174,14 +174,14 @@ const Navbar = () => {
             <div className="p-6">
               <div className="flex justify-between items-center mb-10">
                 <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 flex items-center justify-center">
+                  <div className="w-14 h-14 flex items-center justify-center">
                     <img
                       src={logo}
                       alt="Logo"
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <span className="font-black text-primary uppercase text-sm">
+                  <span className="font-black text-primary uppercase text-lg">
                     LABO INDIA
                   </span>
                 </div>

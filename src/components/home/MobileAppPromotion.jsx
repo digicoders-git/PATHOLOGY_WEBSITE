@@ -27,17 +27,8 @@ const MobileAppPromotion = () => {
               <img
                 src={logo}
                 alt="Logo"
-                className="w-22 object-contain mb-4 drop-shadow-xl"
+                className="w-40 object-contain drop-shadow-xl"
               />
-              <div className="text-center space-y-1">
-                <span className="text-secondary font-black text-lg tracking-tighter block">
-                  LABO INDIA
-                </span>
-                <div className="w-8 h-[1.5px] bg-secondary/10 mx-auto rounded-full"></div>
-                <span className="text-secondary/60 font-bold text-[9px] uppercase tracking-widest block">
-                  Connecting Pathology Labs
-                </span>
-              </div>
               <div className="absolute bottom-6 w-1/4 h-1 bg-gray-100 rounded-full"></div>
             </motion.div>
           </div>
