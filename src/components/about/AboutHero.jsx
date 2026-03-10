@@ -21,7 +21,7 @@ const AboutHero = () => {
           className="text-white text-3xl md:text-5xl font-black uppercase tracking-tight mb-6 leading-tight"
         >
           Organizing Diagnostics into a <br />
-          <span className="text-white opacity-90 italic">
+          <span className="text-white opacity-90">
             Structured Ecosystem
           </span>
         </motion.h1>

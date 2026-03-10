@@ -73,15 +73,18 @@ const MobileAppPromotion = () => {
 
             {/* Buttons */}
             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-              <button className="bg-gray-900 text-white flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-secondary transition-all shadow-md">
-                <FaApple className="text-lg" />
-                App Store
-              </button>
 
               <button className="bg-secondary text-white flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-gray-900 transition-all shadow-md">
                 <FaGooglePlay className="text-base" />
                 Play Store
               </button>
+
+              <button className="bg-gray-900 text-white flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-secondary transition-all shadow-md">
+                <FaApple className="text-lg" />
+                App Store
+              </button>
+
+
             </div>
           </div>
 

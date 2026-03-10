@@ -11,7 +11,7 @@ const ContactHero = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-white text-3xl md:text-5xl font-bold uppercase tracking-tighter mb-4 leading-tight"
         >
-          Contact <span className="opacity-70">Us</span>
+          Contact <span>Us</span>
         </motion.h1>
 
         <motion.p

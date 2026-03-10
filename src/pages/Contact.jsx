@@ -24,9 +24,10 @@ const Contact = () => {
   return (
     <main>
       <ContactHero />
+            <ContactForm />
       <OfficeDetails />
-      <ContactForm />
-      <GoogleMapSection />
+
+      {/* <GoogleMapSection /> */}
       <PartnershipQueries />
       <ResponseDisclaimer />
     </main>

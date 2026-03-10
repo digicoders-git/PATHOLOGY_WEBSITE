@@ -34,9 +34,9 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Column 1: Lab Info */}
-          <div className="space-y-6" >
+          <div className="space-y-6">
             <Link to="/" className="flex items-center gap-4 md:gap-4 group">
-              <div className="w-20 h-20 bg-white rounded-lg flex items-center justify-center p-2 transition-transform group-hover:scale-110">
+              <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center p-4 transition-transform group-hover:scale-110 aspect-square">
                 <img
                   src={logo}
                   alt="Logo"
@@ -58,9 +58,6 @@ const Footer = () => {
             <p className="text-white text-sm leading-relaxed font-medium">
               Making Diagnostic Testing Affordable, Reliable, and
               Patient-Focused. <br />
-              Clinical pathology laboratory providing diagnostic testing and
-              sample analysis services. We specialize in providing accurate and
-              reliable results.
             </p>
             <div className="flex items-center gap-3">
               {[FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn].map(
@@ -156,17 +153,6 @@ const Footer = () => {
                 </div>
               </div>
               <div className="flex gap-4 items-start">
-                <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-secondary text-lg shrink-0">
-                  <FaMapMarkerAlt />
-                </div>
-                <div>
-                  <div className="text-[10px] font-black uppercase text-white tracking-widest mb-1">
-                    Laboratory Location
-                  </div>
-                  <div className="font-bold text-sm text-white leading-snug">
-                    Clinical Lab Street, 12, Diagnostic City
-                  </div>
-                </div>
               </div>
             </div>
           </div>

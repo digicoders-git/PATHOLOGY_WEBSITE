@@ -17,7 +17,7 @@ const DownloadCTA = () => {
           viewport={{ once: true }}
           className="text-3xl md:text-5xl font-black text-white mb-6 uppercase tracking-tighter"
         >
-          Ready to <span className="opacity-70">Start?</span>
+          Ready to <span>Start?</span>
         </motion.h2>
 
         <p className="text-white/80 text-sm md:text-lg mb-10 max-w-2xl mx-auto italic font-medium">
@@ -26,14 +26,15 @@ const DownloadCTA = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button className="flex items-center gap-3 px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-all shadow-xl text-sm uppercase tracking-tight border border-white/10">
+            <FaGooglePlay className="text-xl" />
+            <span>Play Store</span>
+          </button>
           <button className="flex items-center gap-3 px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-xl text-sm uppercase tracking-tight">
             <FaApple className="text-xl" />
             <span>App Store</span>
           </button>
-          <button className="flex items-center gap-3 px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-all shadow-xl text-sm uppercase tracking-tight border border-white/10">
-            <FaGooglePlay className="text-xl" />
-            <span>Play Store</span>
-          </button>
+
         </div>
       </div>
     </section>

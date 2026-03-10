@@ -25,7 +25,7 @@ const About = () => {
       <QualityFocus />
       {/* <LabExpertise /> */}
       <LabStandards />
-      <EquipmentTesting />
+      {/* <EquipmentTesting /> */}
       <DataConfidentiality />
       {/* Additional about sections will go here */}
     </main>

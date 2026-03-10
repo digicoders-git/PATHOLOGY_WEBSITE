@@ -11,11 +11,6 @@ import {
 const OfficeDetails = () => {
   const contactInfo = [
     {
-      icon: FaMapMarkerAlt,
-      title: "Address",
-      details: "Plot No. 12, Health Tech Park, Sector 62, Noida, UP",
-    },
-    {
       icon: FaEnvelope,
       title: "Email",
       details: "amitmassif@gmail.com",

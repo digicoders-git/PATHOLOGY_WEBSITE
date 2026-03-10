@@ -12,22 +12,7 @@ import {
 } from "react-icons/fa";
 
 const PolicyHero = ({ title, subtitle }) => (
-  <section className="relative min-h-[450px] flex items-center justify-center overflow-hidden pt-44 pb-20 bg-primary">
-    <motion.div
-      initial={{ scale: 1.1, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 1.5 }}
-      className="absolute inset-0 z-0"
-    >
-      <img
-        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop"
-        alt="Privacy Policy Background"
-        className="w-full h-full object-cover object-center"
-      />
-      <div className="absolute inset-0 bg-primary/70"></div>
-      <div className="absolute inset-0 bg-linear-to-t from-primary via-transparent to-transparent"></div>
-    </motion.div>
-
+  <section className="relative min-h-[450px] flex items-center justify-center overflow-hidden pt-44 pb-20 bg-secondary">
     <div className="container mx-auto px-6 relative z-10 text-center">
       <motion.span
         initial={{ opacity: 0, y: 20 }}

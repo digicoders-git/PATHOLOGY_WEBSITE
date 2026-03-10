@@ -49,23 +49,7 @@ const AppAvailability = () => {
           </motion.div>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <motion.a
-              href="#"
-              whileHover={{ scale: 1.02 }}
-              className="flex-1 bg-gray-900 p-4 rounded-xl flex items-center gap-4 group transition-all shadow-lg"
-            >
-              <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white text-xl group-hover:bg-secondary transition-all">
-                <FaApple />
-              </div>
-              <div>
-                <p className="text-white/40 text-[8px] font-bold uppercase tracking-widest">
-                  Download for
-                </p>
-                <h4 className="text-white text-sm font-bold uppercase tracking-tight">
-                  iOS (Apple)
-                </h4>
-              </div>
-            </motion.a>
+
 
             <motion.a
               href="#"
@@ -84,6 +68,26 @@ const AppAvailability = () => {
                 </h4>
               </div>
             </motion.a>
+
+            
+            <motion.a
+              href="#"
+              whileHover={{ scale: 1.02 }}
+              className="flex-1 bg-gray-900 p-4 rounded-xl flex items-center gap-4 group transition-all shadow-lg"
+            >
+              <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white text-xl group-hover:bg-secondary transition-all">
+                <FaApple />
+              </div>
+              <div>
+                <p className="text-white/40 text-[8px] font-bold uppercase tracking-widest">
+                  Download for
+                </p>
+                <h4 className="text-white text-sm font-bold uppercase tracking-tight">
+                  iOS (Apple)
+                </h4>
+              </div>
+            </motion.a>
+
           </div>
         </div>
       </div>

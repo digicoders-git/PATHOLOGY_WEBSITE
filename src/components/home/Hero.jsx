@@ -18,25 +18,27 @@ const Hero = () => {
         {/* Desktop Layout - Symmetrical 3-Column Arrangement */}
         <div className="hidden lg:flex flex-row items-center justify-between h-full">
           {/* Column 1: Text Section (35%) */}
-          <div className="w-[65%] text-left">
+          <div className="w-[50%] text-left">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-3xl mt-13 lg:text-[68px] font-black text-white leading-[1.15] mb-3 tracking-tighter font-sans drop-shadow-2xl w-full">
+              <h1 className="text-3xl mt-13 lg:text-[68px] font-black text-white leading-[1.15] mb-3 font-sans drop-shadow-2xl"
+                style={{ wordSpacing: "10px" }}>
                 इंडिया का अपना
                 <span className="block mt-3">
-                  <span className="text-white font-black me-3">पैथोलॉजी</span>
-                  <span className="">नेटवर्क</span>
+                  <span className="text-white font-black me-3">
+                    पैथोलॉजी लैब नेटवर्क
+                  </span>
                 </span>
               </h1>
               <p className="text-white text-xl md:text-2xl lg:text-5xl tracking-normal font-black mb-8 font-sans drop-shadow-md">
-                India ka Apna Pathology Network
+                India ka Apna <br></br>Pathology Lab Network
               </p>
               <p className="text-white/90 text-base font-normal max-w-sm mb-6 leading-relaxed font-sans opacity-80 border-l-2 border-white/20 pl-6">
-                We offer a digital marketplace for Pathology/ Diagnostic labs.
-                Patients can search pathology in their area.
+                We offer a digital marketplace for Pathology Labs/ Diagnostic Centers.
+                Patients can search Pathology Lab in their area.
               </p>
 
 
@@ -68,13 +70,13 @@ const Hero = () => {
 
 
               <p className="text-white text-lg mt-2 ">
-                
+
               </p>
             </motion.div>
           </div>
 
           {/* Column 2: Center Logo Phone (30%) - PERFECTLY STRAIGHT & CENTERED */}
-          <div className="w-[30%] flex justify-center items-center ml-75">
+          <div className="w-[30%] flex justify-center items-center ml-5">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -92,7 +94,7 @@ const Hero = () => {
           </div>
 
           {/* Column 3: Right App Phone (35%) - SAME SIZE & STRAIGHT */}
-          <div className="w-[35%] flex justify-end items-center">
+          <div className="w-[13%] flex justify-end items-center">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -105,9 +107,6 @@ const Hero = () => {
                 alt="App Interface"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-x-0 bottom-0 py-3 bg-secondary text-white text-[10px] font-black text-center uppercase tracking-widest">
-                Live Health Reports
-              </div>
             </motion.div>
           </div>
         </div>
@@ -172,7 +171,7 @@ const Hero = () => {
                   </div>
                 </NavLink>
                 <p className="text-white text-xs mt-2 ">
-                  
+
                 </p>
 
               </div>

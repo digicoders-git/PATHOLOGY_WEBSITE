@@ -20,7 +20,7 @@ const AppHero = () => {
           transition={{ delay: 0.1 }}
           className="text-pure-white text-3xl md:text-5xl font-black uppercase tracking-tighter mb-4"
         >
-          Digital <span className="opacity-70">Connectivity</span>
+          Digital <span>Connectivity</span>
         </motion.h1>
 
         <motion.p
