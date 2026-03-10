@@ -34,8 +34,8 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Column 1: Lab Info */}
-          <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-2 group">
+          <div className="space-y-6" >
+            <Link to="/" className="flex items-center gap-4 md:gap-4 group">
               <div className="w-20 h-20 bg-white rounded-lg flex items-center justify-center p-2 transition-transform group-hover:scale-110">
                 <img
                   src={logo}
@@ -49,7 +49,7 @@ const Footer = () => {
                   LABO INDIA
                 </span>
 
-                <span className="text-[10px] font-bold text-red-500 uppercase tracking-widest mt-1">
+                <span className="text-md:[10px] text-[9.4px] font-bold text-red-500 uppercase tracking-widest mt-1">
                   Connecting Pathology Labs
                 </span>
               </div>

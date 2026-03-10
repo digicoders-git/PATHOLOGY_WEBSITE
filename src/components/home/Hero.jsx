@@ -65,6 +65,11 @@ const Hero = () => {
                 </NavLink>
 
               </div>
+
+
+              <p className="text-white text-lg mt-2 ">
+                Better Health
+              </p>
             </motion.div>
           </div>
 
@@ -140,11 +145,7 @@ const Hero = () => {
             <div className="flex flex-col items-start gap-2 mt-6 w-full relative">
 
               {/* Coming Soon Badge */}
-              <div className="w-full flex justify-start">
-                <span className="bg-white/10 backdrop-blur-md border border-white/20 text-[#00f2fe] font-bold text-[7px] uppercase tracking-wider px-2 py-0.5 rounded-full">
-                  🚀 Coming Soon
-                </span>
-              </div>
+
 
               {/* Buttons */}
               <div className="flex flex-col gap-2 w-full">
@@ -170,6 +171,9 @@ const Hero = () => {
                     <span className="block text-[8px] font-bold">App Store</span>
                   </div>
                 </NavLink>
+                <p className="text-white text-xs mt-2 ">
+                  Better Health
+                </p>
 
               </div>
 
