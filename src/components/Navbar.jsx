@@ -10,7 +10,7 @@ import {
   FaBars,
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import logo from "../assets/logo.png";
+import logo from "../assets/updated_logo.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);

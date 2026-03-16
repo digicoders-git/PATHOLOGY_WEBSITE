@@ -283,7 +283,7 @@ const IndividualLabForm = () => {
     specialization: "",
     pathologyDocs: null,
     certifications: [{ name: "", file: null }],
-    pricingItems: [{ test: "", price: "", discountPrice: "" }],
+    pricingItems: [{ test: "", price: "", percentage: "", discountPrice: "" }],
     ambulanceService: false,
     password: "",
   });
@@ -377,7 +377,7 @@ const IndividualLabForm = () => {
       ...prev,
       pricingItems: [
         ...prev.pricingItems,
-        { test: "", price: "", discountPrice: "" },
+        { test: "", price: "", percentage: "", discountPrice: "" },
       ],
     }));
   };
@@ -385,6 +385,15 @@ const IndividualLabForm = () => {
   const handlePricingChange = (index, field, value) => {
     const newPricing = [...formData.pricingItems];
     newPricing[index][field] = value;
+    if (field === "percentage" || field === "price") {
+      const price = parseFloat(field === "price" ? value : newPricing[index].price);
+      const pct = parseFloat(field === "percentage" ? value : newPricing[index].percentage);
+      if (!isNaN(price) && !isNaN(pct) && pct >= 0 && pct <= 100) {
+        newPricing[index].discountPrice = Math.round(price - (price * pct) / 100);
+      } else {
+        newPricing[index].discountPrice = "";
+      }
+    }
     setFormData((prev) => ({ ...prev, pricingItems: newPricing }));
   };
 
@@ -845,7 +854,7 @@ const IndividualLabForm = () => {
               {formData.pricingItems.map((item, index) => (
                 <div
                   key={index}
-                  className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-50/20 p-6 rounded-xl border border-gray-100 shadow-xs"
+                  className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-gray-50/20 p-6 rounded-xl border border-gray-100 shadow-xs"
                 >
                   <InputField
                     label="Medical Test"
@@ -869,6 +878,16 @@ const IndividualLabForm = () => {
                       handlePricingChange(index, "price", e.target.value)
                     }
                     placeholder="e.g. 2000"
+                  />
+                  <InputField
+                    label="Percentage (%)"
+                    name={`price_pct_${index}`}
+                    type="number"
+                    value={item.percentage}
+                    onChange={(e) =>
+                      handlePricingChange(index, "percentage", e.target.value)
+                    }
+                    placeholder="e.g. 10"
                   />
                   <InputField
                     label="Offer Rate (₹)"
