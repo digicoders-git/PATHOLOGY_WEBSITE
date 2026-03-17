@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { FaMicroscope, FaGooglePlay, FaApple } from "react-icons/fa";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.jpeg";
 
 const Hero = () => {
   return (
