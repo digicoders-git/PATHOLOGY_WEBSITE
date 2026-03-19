@@ -109,8 +109,8 @@ const Navbar = () => {
               >
                 LABO INDIA
               </span>
-              <span className="text-[8px] md:text-[13.4px] font-bold text-secondary leading-tight uppercase mt-0">
-                Connecting <br className="md:hidden" /> Pathology Labs
+              <span className="text-[4.2px] md:text-[13.4px] font-bold text-secondary leading-tight uppercase mt-0">
+                Connecting Pathology Labs
               </span>
             </div>
           </Link>
@@ -146,7 +146,7 @@ const Navbar = () => {
             <NavLink
               to="/registration"
               className={({ isActive }) =>
-                `${isActive ? "bg-secondary text-white" : "bg-primary text-white"} hover:bg-secondary hover:text-white ${isScrolled ? "px-5 py-1.5 text-[10px]" : "px-6 py-2 text-[10px]"} rounded-lg font-black transition-all active:scale-95 uppercase tracking-widest shadow-lg shadow-primary/10`
+                `${isActive ? "bg-secondary text-white" : "bg-primary text-white"} hover:bg-secondary hover:text-white ${isScrolled ? "px-5 py-1.5 text-[10px]" : "px-5 py-2 text-[10px]"} rounded-lg font-black transition-all active:scale-95 uppercase tracking-widest shadow-lg shadow-primary/10`
               }
             >
               Lab Registration
