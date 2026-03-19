@@ -42,7 +42,7 @@ const WhatWeOffer = () => {
   return (
     <section className="py-16 bg-gray-50 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-start mb-12 gap-6">
           <div className="max-w-xl">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}

@@ -112,14 +112,14 @@ const Hero = () => {
         </div>
 
         {/* Professional Mobile View - 60vh Concept */}
-        <div className="lg:hidden flex flex-row items-center justify-between mt-15 h-[45vh] w-full px-2">
+        <div className="lg:hidden flex flex-row items-center justify-between mt-14 h-[45vh] w-full px-2">
           {/* Left Column: Symmetrically Balanced (32%) */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-col gap-2 w-[32%] items-start"
           >
-            <div className="space-y-0.5  mt-17">
+            <div className="space-y-0.5 mt-16">
               <h1 className="text-[13px] font-black text-white leading-[1.2] mb-1 tracking-tight font-sans drop-shadow-xl">
                 इंडिया का अपना <br />
                 <span className="text-white font-black me-1">
@@ -193,14 +193,14 @@ const Hero = () => {
                 alt="Logo"
                 className="w-22 object-contain mb-3 drop-shadow-lg"
               />
-              <div className="text-center">
+              {/* <div className="text-center">
                 <span className="text-secondary font-black text-[8px] uppercase block tracking-tight">
                   LABO INDIA
                 </span>
                 <span className="text-secondary/60 font-bold text-[4px] uppercase tracking-widest block mt-1">
                   Connecting Pathology Labs
                 </span>
-              </div>
+              </div> */}
               <div className="absolute bottom-4 w-1/4 h-[3px] bg-gray-100 rounded-full"></div>
             </div>
           </motion.div>

@@ -25,7 +25,7 @@ const DownloadCTA = () => {
           with 24/7 access to your health data."
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4">
                     <button className="flex items-center gap-3 px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-all shadow-xl text-sm uppercase tracking-tight border border-white/10">
             <FaGooglePlay className="text-xl" />
             <span>Play Store</span>

@@ -53,15 +53,15 @@ const Navbar = () => {
           }`}
       >
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center h-full">
-          <div className="flex items-center gap-4 md:gap-6">
-            <div className="flex items-center gap-1.5 group cursor-pointer">
-              <MdEmail className="text-white text-xs" />
-              <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90">
+          <div className="flex items-center gap-3 md:gap-6 overflow-hidden">
+            <div className="hidden sm:flex items-center gap-1.5 group cursor-pointer">
+              <MdEmail className="text-white text-xs shrink-0" />
+              <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90 truncate">
                 amitmassif@gmail.com
               </span>
             </div>
             <div className="flex items-center gap-1.5 group cursor-pointer">
-              <FaPhoneAlt className="text-white text-[10px]" />
+              <FaPhoneAlt className="text-white text-[10px] shrink-0" />
               <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90">
                 +91 99999 88888
               </span>

@@ -117,7 +117,7 @@ const ContactDetails = () => {
                 </div>
 
                 {/* Main Content Area */}
-                <div className="flex-grow p-8 lg:p-10">
+                <div className="flex-grow p-5 md:p-10">
                   <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-gray-50">
                     <div>
                       <span className="text-secondary font-black text-[9px] uppercase tracking-[0.2em] mb-1 block">

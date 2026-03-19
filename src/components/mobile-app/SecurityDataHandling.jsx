@@ -69,7 +69,7 @@ const SecurityDataHandling = () => {
         </div>
 
         <div className="mt-10 text-center">
-          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.5em]">
+          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest break-words text-center px-4">
             Encrypted • Compliant • Transparent • Secure
           </p>
         </div>

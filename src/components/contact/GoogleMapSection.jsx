@@ -15,7 +15,7 @@ const GoogleMapSection = () => {
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="flex flex-col lg:flex-row gap-12 items-center">
           {/* Left Side: Map Container */}
-          <div className="w-full lg:w-1/2 h-[400px]">
+          <div className="w-full lg:w-1/2 h-[280px] md:h-[400px]">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}

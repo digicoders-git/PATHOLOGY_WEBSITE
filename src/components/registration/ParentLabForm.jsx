@@ -547,7 +547,7 @@ const ParentLabForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-7xl mx-auto px-6 pb-24">
+    <form onSubmit={handleSubmit} className="max-w-7xl mx-auto px-2 md:px-6 pb-24">
       <Section title="Parent Organization" icon={FaBuilding} index={0}>
         <div className="md:col-span-3">
           <InputField

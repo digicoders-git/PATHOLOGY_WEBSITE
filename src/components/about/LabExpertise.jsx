@@ -66,7 +66,7 @@ const LabExpertise = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ type: "spring", stiffness: 100, damping: 25 }}
-            className="lg:w-1/2 flex gap-3 h-[300px]"
+            className="lg:w-1/2 flex gap-3 h-[220px] md:h-[300px]"
           >
             <div className="w-1/2 h-full">
               <img

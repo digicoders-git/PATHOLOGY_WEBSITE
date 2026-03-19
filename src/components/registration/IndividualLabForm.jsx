@@ -528,7 +528,7 @@ const IndividualLabForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-full mx-auto px-6 pb-4">
+    <form onSubmit={handleSubmit} className="max-w-full mx-auto px-2 md:px-6 pb-4">
       <Section title="Basic Lab Information" icon={FaHospital} index={0}>
         <InputField
           label="Lab Registered Name"
