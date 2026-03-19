@@ -28,7 +28,7 @@ const MobileAppPromotion = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="w-[170px] sm:w-[200px] lg:w-[285px] aspect-[9/19] bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center p-6 relative"
+              className="w-[170px] sm:w-[200px] lg:w-[285px] aspect-[9/19] bg-white rounded-[36px] border-[8px] border-black shadow-[0_25px_30px_-20px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center p-6 relative"
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl"></div>
 
@@ -68,7 +68,7 @@ const MobileAppPromotion = () => {
             {/* Features */}
             <div className="grid grid-cols-1 gap-4 mb-8 md:grid-cols-2 items-start justify-start">
               {features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-2 justify-center lg:justify-start">
+                <div key={index} className="flex items-center gap-2 px-8 lg:justify-start">
                   <FaCheckCircle className="text-secondary text-sm" />
                   <span className="text-sm font-bold text-gray-700 uppercase tracking-tight">
                     {feature}
