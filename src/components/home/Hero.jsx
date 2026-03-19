@@ -119,7 +119,7 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-col gap-2 w-[32%] items-start"
           >
-            <div className="space-y-0.5 mt-16">
+            <div className="space-y-0.5 mt-4">
               <h1 className="text-[13px] font-black text-white leading-[1.2] mb-1 tracking-tight font-sans drop-shadow-xl">
                 इंडिया का अपना <br />
                 <span className="text-white font-black me-1">
@@ -141,7 +141,7 @@ const Hero = () => {
             </div> */}
 
             {/* Mobile View App Buttons Area */}
-            <div className="flex flex-col items-start gap-2 mt-6 w-full relative">
+            <div className="flex flex-col items-start gap-2 md:mt-6 w-full relative">
 
               {/* Coming Soon Badge */}
 
@@ -185,7 +185,7 @@ const Hero = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="w-[36%] flex justify-center z-20"
           >
-            <div className="w-[110px] aspect-[9/19.5] bg-white rounded-[28px] border-[5px] border-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] relative flex flex-col items-center justify-center p-4">
+            <div className="w-[100px] h-[200px] bg-white rounded-[28px] border-[5px] border-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] relative flex flex-col items-center justify-center p-4">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3 bg-black rounded-b-xl z-20"></div>
               <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-[22px]"></div>
               <img
@@ -211,7 +211,7 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             className="w-[32%] flex justify-end items-center"
           >
-            <div className="w-[90px] aspect-[9/19.5] bg-white rounded-[22px] border-4 border-gray-950 shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] overflow-hidden relative">
+            <div className="w-[180px] h-[230px]  bg-white rounded-[22px] border-4 border-gray-950 shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] overflow-hidden relative">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-3 bg-gray-950 rounded-b-lg z-20"></div>
               <img
                 src="https://i.pinimg.com/originals/db/aa/21/dbaa21da2f2a51d2cb5b9b18657fed54.jpg"
