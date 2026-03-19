@@ -109,8 +109,8 @@ const Navbar = () => {
               >
                 LABO INDIA
               </span>
-              <span className="text-[4.2px] md:text-[13.4px] font-bold text-secondary leading-tight uppercase mt-0">
-                Connecting Pathology Labs
+              <span className="text-[6px] md:text-[13.4px] font-bold text-secondary leading-tight uppercase mt-0">
+                Connecting <br className="md:hidden" /> Pathology Labs
               </span>
             </div>
           </Link>

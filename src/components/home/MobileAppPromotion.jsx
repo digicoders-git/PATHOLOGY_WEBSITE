@@ -66,9 +66,9 @@ const MobileAppPromotion = () => {
             </motion.p>
 
             {/* Features */}
-            <div className="grid grid-cols-1 gap-4 mb-8 md:grid-cols-2 items-start justify-start">
+            <div className="grid grid-cols-1 gap-4 mb-8 md:grid-cols-2 mx-8 items-start justify-start">
               {features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-2 px-8 lg:justify-start">
+                <div key={index} className="flex items-center gap-2 lg:justify-start">
                   <FaCheckCircle className="text-secondary text-sm" />
                   <span className="text-sm font-bold text-gray-700 uppercase tracking-tight">
                     {feature}
