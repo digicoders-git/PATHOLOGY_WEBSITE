@@ -64,7 +64,7 @@ const LabAppFeatures = () => {
                   transition={{ delay: index * 0.1 }}
                   className="p-4 rounded-xl bg-gray-50 border border-gray-100 shadow-sm hover:shadow-lg transition-all group"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-primary text-lg mb-3 group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                  <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-[#c32019] text-lg mb-3 group-hover:bg-[#c32019] group-hover:text-white transition-all shadow-sm">
                     <feature.icon />
                   </div>
                   <h4 className="text-sm font-bold text-gray-900 mb-1 uppercase tracking-tight">

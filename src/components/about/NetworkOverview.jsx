@@ -36,7 +36,7 @@ const NetworkOverview = () => {
             viewport={{ once: true }}
             className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 uppercase tracking-tight"
           >
-            Network Overview
+            Network <span className="text-[#c32019]">Overview</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, scale: 0.98 }}

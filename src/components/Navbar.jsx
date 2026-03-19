@@ -149,7 +149,7 @@ const Navbar = () => {
                 `${isActive ? "bg-secondary text-white" : "bg-primary text-white"} hover:bg-secondary hover:text-white ${isScrolled ? "px-5 py-1.5 text-[10px]" : "px-6 py-2 text-[10px]"} rounded-lg font-black transition-all active:scale-95 uppercase tracking-widest shadow-lg shadow-primary/10`
               }
             >
-              Registration
+              Lab Registration
             </NavLink>
 
             {/* Mobile Menu Toggle */}
@@ -201,8 +201,8 @@ const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className={({ isActive }) =>
                       `px-5 py-4 text-sm font-black tracking-widest rounded-xl transition-all flex items-center justify-between group ${isActive
-                        ? "bg-primary text-white"
-                        : "text-primary hover:bg-background"
+                        ? "bg-[#c32019] text-white"
+                        : "text-black hover:bg-background"
                       }`
                     }
                   >
@@ -215,7 +215,7 @@ const Navbar = () => {
                 <NavLink
                   to="/registration"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-full bg-secondary text-primary font-black py-4 rounded-xl text-center block uppercase tracking-[0.2em] text-xs shadow-lg active:scale-95"
+                  className="w-full bg-secondary text-white font-black py-4 rounded-xl text-center block uppercase tracking-[0.2em] text-xs shadow-lg active:scale-95"
                 >
                   Registration Page
                 </NavLink>

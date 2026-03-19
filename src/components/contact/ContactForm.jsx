@@ -71,7 +71,7 @@ const ContactForm = () => {
   };
 
   const inputClasses = (name) =>
-    `w-full bg-gray-50 border ${errors[name] ? "border-red-500 focus:ring-red-100" : "border-gray-100 focus:ring-secondary/20 focus:border-secondary"} rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all`;
+    `w-full bg-gray-100 border ${errors[name] ? "border-red-500 focus:ring-red-100" : "border-gray-100 focus:ring-secondary/20 focus:border-secondary"} rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all`;
   const labelClasses =
     "text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 block";
   const errorClasses = "text-[10px] text-red-500 font-bold mt-1 ml-1";
@@ -113,7 +113,7 @@ const ContactForm = () => {
                     name="name"
                     value={formData.name}
                     onChange={(e) => validateField("name", e.target.value)}
-                    placeholder="John Doe"
+                    placeholder="Aman Kumar"
                     className={`${inputClasses("name")} pl-10`}
                   />
                 </div>
@@ -131,7 +131,7 @@ const ContactForm = () => {
                     name="email"
                     value={formData.email}
                     onChange={(e) => validateField("email", e.target.value)}
-                    placeholder="john@example.com"
+                    placeholder="aman@example.com"
                     className={`${inputClasses("email")} pl-10`}
                   />
                 </div>

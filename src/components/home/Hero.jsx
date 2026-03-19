@@ -2,9 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { FaMicroscope, FaGooglePlay, FaApple } from "react-icons/fa";
-import logo from "../../assets/logo.jpeg";
+import logo from "../../assets/updated_logo.png";
 
-const Hero = () => {
+const Hero = () => { 
   return (
     <section className="relative min-h-[70vh] lg:min-h-[80vh] flex items-center overflow-hidden bg-secondary pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-28">
       {/* Premium Multi-Layer Background */}
@@ -14,7 +14,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1)_0%,transparent_50%)]"></div>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-12 relative z-20 max-w-7xl">
+      <div className="container mx-auto px-4 lg:px-0 relative z-20 max-w-7xl">
         {/* Desktop Layout - Symmetrical 3-Column Arrangement */}
         <div className="hidden lg:flex flex-row items-center justify-between h-full">
           {/* Column 1: Text Section (35%) */}
@@ -81,7 +81,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="w-[185px] aspect-[9/19.5] bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center p-6 relative transform-none"
+              className="w-[225px] h-[450px] mt-8 bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center p-6 relative transform-none"
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl"></div>
               <img
@@ -94,12 +94,12 @@ const Hero = () => {
           </div>
 
           {/* Column 3: Right App Phone (35%) - SAME SIZE & STRAIGHT */}
-          <div className="w-[13%] flex justify-end items-center">
+          <div className="w-[20%] flex justify-end items-center">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
-              className="w-[185px] aspect-[9/19.5] bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] overflow-hidden relative transform-none"
+              className="w-[550px] h-[550px] mt-8 bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] overflow-hidden relative transform-none"
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-20"></div>
               <img

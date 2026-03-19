@@ -5,24 +5,26 @@ import {
   FaSearchLocation,
   FaClipboardCheck,
   FaFileMedical,
+  
 } from "react-icons/fa";
+import { FaCodeCompare } from "react-icons/fa6";
 
 const steps = [
   {
-    icon: <FaUserPlus className="text-2xl" />,
-    title: "Patient Login",
-    desc: "Easily login or register to your account",
-    color: "bg-white text-secondary border-gray-100",
-  },
-  {
     icon: <FaSearchLocation className="text-2xl" />,
-    title: "Choose Lab",
+    title: "Search Test / Lab",
     desc: "Select your preferred pathology lab",
     color: "bg-white text-secondary border-gray-100",
   },
   {
+    icon: <FaCodeCompare className="text-2xl" />,
+    title: "Compare Prices",
+    desc: "Select the best according to price",
+    color: "bg-white text-secondary border-gray-100",
+  },
+  {
     icon: <FaClipboardCheck className="text-2xl" />,
-    title: "Test",
+    title: "Get Test done",
     desc: "Visit lab for tests and consultation",
     color: "bg-white text-secondary border-gray-100",
   },
@@ -40,9 +42,9 @@ const HowItWorks = () => {
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-            How does it work
+            HOW DOES IT <span className="text-[#c32019]">WORKS</span>
           </h2>
-          <p className="text-gray-500 text-sm md:text-base">
+          <p className="text-gray-500 text-sm md:text-base italic">
             Simple and easy way for your diagnostics
           </p>
         </div>

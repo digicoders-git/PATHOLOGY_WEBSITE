@@ -31,7 +31,7 @@ const Section = ({ title, icon: Icon, children, index }) => (
 
     <div className="relative z-10">
       <div className="flex items-center gap-4 mb-8 pb-4 border-b border-gray-50">
-        <div className="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center text-primary text-lg group-hover:bg-primary group-hover:text-white transition-all duration-300">
+        <div className="w-10 h-10 bg-secondary/5 rounded-lg flex items-center justify-center text-secondary text-lg group-hover:bg-secondary group-hover:text-white transition-all duration-300">
           <Icon />
         </div>
         <div>
@@ -88,7 +88,7 @@ const ModernDropdown = ({
       >
         <span
           className={
-            value ? "text-primary font-semibold" : "text-primary/30 font-medium"
+            value ? "text-primary font-semibold" : "text-black/40 font-medium"
           }
         >
           {labelToShow}
@@ -121,7 +121,7 @@ const ModernDropdown = ({
                     }}
                     className={`w-full text-left px-4 py-2.5 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer mb-0.5 last:mb-0 ${isSelected
                         ? "bg-primary text-white"
-                        : "text-primary/60 hover:bg-primary/5 hover:text-primary"
+                        : "text-gray-500 hover:bg-primary/5 hover:text-primary"
                       }`}
                   >
                     {optLabel}

@@ -30,7 +30,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-primary text-white pt-20 pb-10">
+    <footer className="bg-[#02019d] text-white pt-20 pb-10">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Column 1: Lab Info */}
@@ -71,7 +71,10 @@ const Footer = () => {
                   </a>
                 ),
               )}
+
+             
             </div>
+            <span>Powered by Easy Health India.</span>
           </div>
 
           {/* Column 2: Quick Links */}

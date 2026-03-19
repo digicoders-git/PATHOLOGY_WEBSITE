@@ -14,22 +14,22 @@ const WhatWeOffer = () => {
   const offers = [
     {
       icon: FaSearchLocation,
-      title: "Lab Listings",
+      title: "Real time Bookings",
       desc: "Verified profiles for transparency and trust.",
     },
     {
       icon: FaListAlt,
-      title: "Test Info",
+      title: "Automatic Dashbaord",
       desc: "Clear info about tests and pricing.",
     },
     {
       icon: FaGlobe,
-      title: "Lab Digital",
+      title: "Digitalize your lab",
       desc: "Helping labs establish digital identity.",
     },
     {
       icon: FaNetworkWired,
-      title: "Unified",
+      title: "Boost your lab Business growth",
       desc: "Connecting labs and diagnostic centers.",
     },
     {
@@ -59,7 +59,7 @@ const WhatWeOffer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-gray-500 text-xs md:text-sm max-w-xs border-l-2 border-gray-200 pl-4"
+            className="text-gray-500 text-xs md:text-sm max-w-xs border-l-2 border-gray-200 pl-4 italic my-auto"
           >
             Digital infrastructure that empowers laboratories with modern tools.
           </motion.p>
@@ -73,7 +73,7 @@ const WhatWeOffer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className="group p-6 rounded-2xl bg-white border border-gray-100 flex flex-col h-full hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300"
+              className="group p-6 rounded-2xl bg-white border border-gray-400 flex flex-col h-full hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-secondary text-xl mb-4 group-hover:bg-secondary group-hover:text-white transition-all shadow-sm">
                 <offer.icon />
@@ -96,9 +96,10 @@ const WhatWeOffer = () => {
             className="p-6 rounded-2xl bg-secondary flex flex-col justify-center items-center text-center text-white shadow-lg shadow-secondary/10"
           >
             <h3 className="text-xl font-bold uppercase tracking-tight mb-2">
-              Join Network
+             इंडिया का अपना 
+            पैथोलॉजी नेटवर्क  
             </h3>
-            <p className="text-white/80 text-xs mb-6">
+            <p className="text-white/80 text-xs mb-6 italic">
               Connect your laboratory with us today.
             </p>
             <NavLink

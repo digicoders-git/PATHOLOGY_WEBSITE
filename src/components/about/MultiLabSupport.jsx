@@ -39,7 +39,7 @@ const MultiLabSupport = () => {
               className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight uppercase tracking-tight"
             >
               Multi-Lab{" "}
-              <span className="text-secondary italic">Chain Support</span>
+              <span className="text-secondary">Chain Support</span>
             </motion.h2>
 
             <p className="text-gray-500 text-sm md:text-base mb-6 leading-relaxed">

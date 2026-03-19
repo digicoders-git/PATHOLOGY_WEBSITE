@@ -41,7 +41,7 @@ const LabStandards = () => {
             viewport={{ once: true }}
             className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight uppercase tracking-tight"
           >
-            Lab Standards
+            Lab <span className="text-[#c32019]">Standards</span>
           </motion.h2>
 
           <p className="text-gray-500 text-xs italic">

@@ -31,7 +31,7 @@ const SnapshotSection = () => {
             viewport={{ once: true }}
             className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 uppercase tracking-tight"
           >
-            Digital Core Mission
+            Digital <span className="text-[#c32019]">Core Mission</span>
           </motion.h2>
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
@@ -49,7 +49,7 @@ const SnapshotSection = () => {
         </div>
 
         {/* Highlight Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
           {highlights.map((item, index) => (
             <motion.div
               key={index}
@@ -59,7 +59,7 @@ const SnapshotSection = () => {
               transition={{ delay: 0.2 + index * 0.1 }}
               className="bg-white p-6 rounded-2xl border border-gray-100 hover:border-secondary transition-all group flex items-start gap-4"
             >
-              <div className="w-12 h-12 shrink-0 bg-gray-50 rounded-xl flex items-center justify-center text-secondary text-xl group-hover:bg-secondary group-hover:text-white transition-colors duration-300 shadow-sm">
+              <div className="w-15 h-15 shrink-0 bg-gray-50 rounded-xl flex items-center justify-center text-secondary text-xl group-hover:bg-secondary group-hover:text-white transition-colors duration-300 shadow-sm">
                 <item.icon />
               </div>
               <div>

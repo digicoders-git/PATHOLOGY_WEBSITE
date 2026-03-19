@@ -67,7 +67,7 @@ const NetworkStrength = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 * index }}
-              className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm group hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300 flex flex-col items-center text-center"
+              className="bg-white p-6 rounded-2xl border border-gray-4  00 shadow-sm group hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300 flex flex-col items-center text-center"
             >
               <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-secondary text-xl mb-4 group-hover:bg-secondary group-hover:text-white transition-all shadow-sm">
                 <item.icon />
