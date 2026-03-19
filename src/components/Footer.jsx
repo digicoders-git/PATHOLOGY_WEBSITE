@@ -35,25 +35,22 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Column 1: Lab Info */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-4 md:gap-4 group">
-              <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center p-4 transition-transform group-hover:scale-110 aspect-square">
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center p-3 transition-transform group-hover:scale-110 shrink-0">
                 <img
                   src={logo}
                   alt="Logo"
                   className="w-full h-full object-contain"
                 />
               </div>
-
-              <div className="flex flex-col w-[220px]">
-                <span className="text-3xl font-black leading-none tracking-tight uppercase text-white">
+              <div className="flex flex-col min-w-0">
+                <span className="text-2xl font-black leading-none tracking-tight uppercase text-white">
                   LABO INDIA
                 </span>
-
-                <span className="text-md:[10px] text-[9.4px] font-bold text-red-500 uppercase tracking-widest mt-1">
+                <span className="text-[9.4px] font-bold text-red-500 uppercase tracking-widest mt-1">
                   Connecting Pathology Labs
                 </span>
               </div>
-
             </Link>
             <p className="text-white text-sm leading-relaxed font-medium">
               Making Diagnostic Testing Affordable, Reliable, and
@@ -162,8 +159,8 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white text-xs font-bold uppercase tracking-widest text-center md:text-left">
+        <div className="border-t border-white pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+          <p className="text-white text-xs font-bold uppercase tracking-widest">
             © {currentYear} Design and Developed by{" "}
             <a
               href="https://digicoders.in"

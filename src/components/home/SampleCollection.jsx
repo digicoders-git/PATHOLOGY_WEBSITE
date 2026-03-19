@@ -98,7 +98,7 @@ const SampleCollection = () => {
               <img
                 src="https://images.squarespace-cdn.com/content/v1/57fbf3ed29687f1d95d56355/1487202601837-JHRPRFJA0T8DWNREOM7X/tissue+procurement.jpg?format=2500w"
                 alt="Sample Collection Process"
-                className="w-full h-[500px] object-cover hover:scale-105 transition-transform duration-700"
+                className="w-full h-[300px] md:h-[500px] object-cover hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-primary/5"></div>
             </div>
@@ -109,7 +109,7 @@ const SampleCollection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="absolute top-12 -left-8 bg-primary p-6 shadow-2xl z-20 hidden md:block border-l-4 border-secondary"
+              className="absolute top-12 -left-4 md:-left-8 bg-primary p-4 md:p-6 shadow-2xl z-20 hidden md:block border-l-4 border-secondary"
             >
               <div className="flex flex-col gap-4">
                 {[

@@ -13,7 +13,7 @@ const CTA = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative bg-primary rounded-[2rem] md:rounded-[4rem] overflow-hidden shadow-[0_25px_60px_rgba(30,58,95,0.3)] px-8 py-16 md:py-24"
+          className="relative bg-primary rounded-[2rem] overflow-hidden shadow-[0_25px_60px_rgba(30,58,95,0.3)] px-4 md:px-8 py-12 md:py-24"
         >
           {/* Decorative Background for inside the CTA box */}
           <div className="absolute inset-0 opacity-10 pointer-events-none">

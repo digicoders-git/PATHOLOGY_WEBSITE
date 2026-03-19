@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 
 const PolicyHero = ({ title, subtitle }) => (
-  <section className="relative min-h-[450px] flex items-center justify-center overflow-hidden pt-44 pb-20 bg-secondary">
+  <section className="relative min-h-[350px] md:min-h-[450px] flex items-center justify-center overflow-hidden pt-28 md:pt-44 pb-16 md:pb-20 bg-secondary">
     <div className="container mx-auto px-6 relative z-10 text-center">
       <motion.span
         initial={{ opacity: 0, y: 20 }}
@@ -121,7 +121,7 @@ const PrivacyPolicy = () => {
             </div>
 
             {/* Privacy Details Grid */}
-            <div className="p-8 md:p-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="p-6 md:p-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {privacySections.map((section, idx) => (
                 <div key={idx} className="group">
                   <div className="flex gap-6 mb-4">
@@ -143,8 +143,8 @@ const PrivacyPolicy = () => {
             </div>
 
             {/* Verification Line */}
-            <div className="bg-gray-50 p-10 border-t border-gray-100 flex flex-col items-center">
-              <div className="flex gap-12 mb-6">
+            <div className="bg-gray-50 p-6 md:p-10 border-t border-gray-100 flex flex-col items-center">
+              <div className="flex flex-wrap justify-center gap-6 mb-6">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-secondary rounded-full"></span>
                   <span className="text-primary/40 text-[10px] font-black uppercase tracking-widest">
@@ -164,7 +164,7 @@ const PrivacyPolicy = () => {
                   </span>
                 </div>
               </div>
-              <p className="text-primary/30 text-[9px] font-bold uppercase tracking-[0.5em]">
+              <p className="text-primary/30 text-[9px] font-bold uppercase tracking-[0.3em] text-center">
                 Your Health Data • Your Digital Right • Our Absolute Priority
               </p>
             </div>

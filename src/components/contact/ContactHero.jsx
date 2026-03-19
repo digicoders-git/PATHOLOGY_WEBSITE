@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const ContactHero = () => {
   return (
-    <section className="relative flex items-center justify-center overflow-hidden pt-40 pb-10 bg-secondary">
+    <section className="relative flex items-center justify-center overflow-hidden pt-32 md:pt-40 pb-10 bg-secondary">
       <div className="container mx-auto px-6 relative z-10 text-center">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

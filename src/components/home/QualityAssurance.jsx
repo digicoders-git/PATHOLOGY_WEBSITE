@@ -116,7 +116,7 @@ const QualityAssurance = () => {
               <img
                 src="https://hakimi-trading.com/wp-content/uploads/2022/08/banner-01.png"
                 alt="Quality Assurance Lab"
-                className="w-full h-[500px] object-cover"
+                className="w-full h-[300px] md:h-[500px] object-cover"
               />
               <div className="absolute inset-0 bg-primary/10"></div>
             </div>
@@ -127,7 +127,7 @@ const QualityAssurance = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="absolute -bottom-8 -left-8 bg-pure-white p-8 shadow-2xl border border-gray-50 z-20 items-center gap-4 hidden md:flex"
+              className="absolute -bottom-6 md:-bottom-8 -left-4 md:-left-8 bg-pure-white p-5 md:p-8 shadow-2xl border border-gray-50 z-20 items-center gap-4 hidden md:flex"
             >
               <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-white text-3xl shadow-lg shadow-secondary/20">
                 <FaCheckDouble />

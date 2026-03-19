@@ -95,9 +95,9 @@ const WhatWeOffer = () => {
             transition={{ delay: 0.3 }}
             className="p-6 rounded-2xl bg-secondary flex flex-col justify-center items-center text-center text-white shadow-lg shadow-secondary/10"
           >
-            <h3 className="text-xl font-bold uppercase tracking-tight mb-2">
-             इंडिया का अपना 
-            पैथोलॉजी नेटवर्क  
+            <h3 className="text-xl font-bold uppercase tracking-tight mb-2 leading-snug">
+             इंडिया का अपना
+             पैथोलॉजी नेटवर्क
             </h3>
             <p className="text-white/80 text-xs mb-6 italic">
               Connect your laboratory with us today.

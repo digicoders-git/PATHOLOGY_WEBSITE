@@ -24,7 +24,7 @@ const AboutSection = () => {
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
             className="lg:w-[45%] relative will-change-transform"
           >
-            <div className="absolute right-[-15px] top-[10%] bottom-[10%] w-[80px] bg-primary rounded-l-md hidden lg:block z-0"></div>
+            <div className="absolute right-[-15px] top-[10%] bottom-[10%] w-[60px] bg-primary rounded-l-md hidden lg:block z-0"></div>
             <div className="relative z-10">
               <img
                 src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1000&auto=format&fit=crop"

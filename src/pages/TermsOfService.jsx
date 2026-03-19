@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 
 const PolicyHero = ({ title, subtitle }) => (
-  <section className="relative min-h-[450px] flex items-center justify-center overflow-hidden pt-44 pb-20 bg-secondary">
+  <section className="relative min-h-[350px] md:min-h-[450px] flex items-center justify-center overflow-hidden pt-28 md:pt-44 pb-16 md:pb-20 bg-secondary">
     <div className="container mx-auto px-6 relative z-10 text-center">
       <motion.span
         initial={{ opacity: 0, y: 20 }}
@@ -119,7 +119,7 @@ const TermsOfService = () => {
             </div>
 
             {/* Terms Grid */}
-            <div className="p-8 md:p-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="p-6 md:p-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {sections.map((section, idx) => (
                 <div key={idx} className="group">
                   <div className="flex gap-6 mb-4">
@@ -141,8 +141,8 @@ const TermsOfService = () => {
             </div>
 
             {/* Bottom Note */}
-            <div className="bg-gray-50 p-10 border-t border-gray-100 text-center">
-              <p className="text-primary/40 text-xs font-bold uppercase tracking-[0.4em] mb-4">
+            <div className="bg-gray-50 p-6 md:p-10 border-t border-gray-100 text-center">
+              <p className="text-primary/40 text-xs font-bold uppercase tracking-[0.3em] mb-4">
                 Structured • Transparent • Accountable
               </p>
               <div className="flex justify-center gap-8">
