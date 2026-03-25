@@ -6,6 +6,7 @@ import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsOfService from "../pages/TermsOfService";
 import MobileApp from "../pages/MobileApp";
 import Pricing from "../pages/Pricing";
+import TestDetail from "../pages/TestDetail";
 
 const appRoute = [
   { path: "/", element: Home },
@@ -13,6 +14,7 @@ const appRoute = [
   { path: "/mobile-app", element: MobileApp },
   { path: "/pricing", element: Pricing },
   { path: "/registration", element: Registration },
+  { path: "/test/:id", element: TestDetail },
   { path: "/contact", element: Contact },
   { path: "/privacy-policy", element: PrivacyPolicy },
   { path: "/terms-of-service", element: TermsOfService },

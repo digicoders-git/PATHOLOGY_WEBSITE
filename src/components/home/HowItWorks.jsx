@@ -24,7 +24,7 @@ const steps = [
   },
   {
     icon: <FaClipboardCheck className="text-2xl" />,
-    title: "Get Test done",
+    title: "Book",
     desc: "Visit lab for tests and consultation",
     color: "bg-white text-secondary border-gray-100",
   },
