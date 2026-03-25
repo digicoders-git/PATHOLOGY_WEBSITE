@@ -17,6 +17,17 @@ import {
 import { getTestServices } from "../../apis/testService";
 import { createRegistration } from "../../apis/registration";
 
+const CERT_OPTIONS = [
+  "NABL (ISO 15189 / ISO/IEC 17025)",
+  "NABH (Diagnostic Quality & Safety)",
+  "CAP (International Standards)",
+  "GLP (Good Laboratory Practice)",
+  "FSSAI Notification",
+  "ISO 15189",
+  "ISO/IEC 17025",
+  "BIS Recognition"
+];
+
 const Section = ({ title, icon: Icon, children, index }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -282,7 +293,7 @@ const IndividualLabForm = () => {
     equipment: "",
     specialization: "",
     pathologyDocs: null,
-    certifications: [{ name: "", file: null }],
+    certifications: [],
     pricingItems: [{ test: "", price: "", percentage: "", discountPrice: "" }],
     ambulanceService: false,
     password: "",
@@ -359,17 +370,30 @@ const IndividualLabForm = () => {
     }));
   };
 
-  const handleAddCert = () => {
-    setFormData((prev) => ({
-      ...prev,
-      certifications: [...prev.certifications, { name: "", file: null }],
-    }));
+  const handleCertToggle = (name) => {
+    setFormData((prev) => {
+      const exists = prev.certifications.find(c => c.name === name);
+      if (exists) {
+        return {
+          ...prev,
+          certifications: prev.certifications.filter(c => c.name !== name)
+        };
+      } else {
+        return {
+          ...prev,
+          certifications: [...prev.certifications, { name, file: null }]
+        };
+      }
+    });
   };
 
-  const handleCertChange = (index, field, value) => {
-    const newCerts = [...formData.certifications];
-    newCerts[index][field] = value;
-    setFormData((prev) => ({ ...prev, certifications: newCerts }));
+  const handleCertFileChange = (name, file) => {
+     setFormData(prev => ({
+        ...prev,
+        certifications: prev.certifications.map(c => 
+           c.name === name ? { ...c, file } : c
+        )
+     }));
   };
 
   const handleAddPricing = () => {
@@ -784,58 +808,51 @@ const IndividualLabForm = () => {
 
       <Section title="Certifications & Files" icon={FaCertificate} index={5}>
         <div className="md:col-span-3 space-y-8">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between px-1">
-              <h4 className="text-[9px] font-bold text-primary/40 uppercase tracking-widest">Clinical Certificates</h4>
-              <button
-                type="button"
-                onClick={handleAddCert}
-                className="flex items-center gap-1.5 bg-primary/5 hover:bg-primary text-primary hover:text-white px-4 py-2 rounded-lg transition-all border border-primary/5 text-[9px] font-extrabold uppercase tracking-widest"
-              >
-                + Add New
-              </button>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {CERT_OPTIONS.map((name, idx) => {
+              const selectedCert = formData.certifications.find(c => c.name === name);
+              const isSelected = !!selectedCert;
 
-            <div className="grid grid-cols-1 gap-6">
-              {formData.certifications.map((cert, index) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50/20 p-6 rounded-xl border border-gray-100 relative group/cert shadow-xs"
+              return (
+                <div 
+                  key={idx}
+                  className={`p-4 rounded-xl border transition-all duration-300 ${isSelected ? 'bg-primary/5 border-primary/20 shadow-sm' : 'bg-gray-50/50 border-gray-100 opacity-60 hover:opacity-100'}`}
                 >
-                  <InputField
-                    label="Certificate Title"
-                    name={`cert_name_${index}`}
-                    value={cert.name}
-                    onChange={(e) =>
-                      handleCertChange(index, "name", e.target.value)
-                    }
-                    placeholder="e.g. ISO Certified"
-                  />
-                  <div className="space-y-2">
-                    <label className="text-black font-bold text-[9px] uppercase tracking-widest block px-1">
-                      Soft Copy
-                    </label>
-                    <input
-                      type="file"
-                      className="hidden"
-                      id={`cert_file_${index}`}
-                      onChange={(e) =>
-                        handleCertChange(index, "file", e.target.files[0])
-                      }
-                    />
-                    <label
-                      htmlFor={`cert_file_${index}`}
-                      className="flex items-center gap-4 bg-white border border-gray-100 p-3 rounded-lg text-[9px] font-bold text-primary/30 cursor-pointer hover:border-primary/40 transition-all uppercase tracking-widest shadow-xs"
-                    >
-                      <FaUpload className="text-secondary text-xs" />
-                      <span className="truncate max-w-[150px]">
-                        {cert.file ? cert.file.name : "Select File"}
-                      </span>
-                    </label>
+                  <div 
+                    className="flex items-center gap-3 cursor-pointer mb-3"
+                    onClick={() => handleCertToggle(name)}
+                  >
+                    <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all ${isSelected ? 'bg-secondary border-secondary' : 'bg-white border-gray-200'}`}>
+                       {isSelected && <FaCheckCircle className="text-white text-[10px]" />}
+                    </div>
+                    <span className={`text-[10px] font-bold uppercase tracking-wider ${isSelected ? 'text-primary' : 'text-primary/40'}`}>
+                      {name}
+                    </span>
                   </div>
+
+                  {isSelected && (
+                    <div className="mt-3 pl-4 border-l-2 ml-3 border-secondary/30">
+                       <label className="text-[8px] font-bold text-primary/30 uppercase tracking-widest block mb-2">Upload Certificate (Optional)</label>
+                       <div className="relative group/mini-file">
+                          <input 
+                            type="file" 
+                            className="hidden"
+                            id={`mini_file_${idx}`}
+                            onChange={(e) => handleCertFileChange(name, e.target.files[0])}
+                          />
+                          <label 
+                            htmlFor={`mini_file_${idx}`}
+                            className="flex items-center gap-2 bg-white border border-gray-100 p-2 rounded-lg text-[8px] font-bold text-primary/40 cursor-pointer hover:border-primary/40 transition-all uppercase tracking-widest"
+                          >
+                             <FaUpload className="text-secondary text-[10px]" />
+                             {selectedCert.file ? selectedCert.file.name.substring(0, 10) + '...' : 'Select File'}
+                          </label>
+                       </div>
+                    </div>
+                  )}
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
 
           <div className="space-y-8 pt-8 mt-8 border-t border-gray-50">
