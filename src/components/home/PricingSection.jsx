@@ -105,16 +105,16 @@ const PricingSection = () => {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-2 mb-10"
+            className="flex sm:flex-wrap items-center justify-start sm:justify-center gap-3 mb-12 overflow-x-auto sm:overflow-visible scrollbar-hide -mx-6 px-6 sm:mx-0 sm:px-0"
           >
             {categories.map((cat) => (
               <button
                 key={cat._id}
                 onClick={() => setActiveCategory(cat.name)}
-                className={`px-5 py-2 text-xs font-black uppercase tracking-widest rounded-full border transition-all duration-200 ${
+                className={`flex-shrink-0 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.15em] rounded-full border transition-all duration-300 whitespace-nowrap whitespace-nowrap ${
                   activeCategory === cat.name
-                    ? "bg-primary text-white border-primary shadow-md"
-                    : "bg-white text-primary border-primary/20 hover:border-primary/60"
+                    ? "bg-primary text-white border-primary shadow-lg shadow-primary/20 scale-105"
+                    : "bg-white text-primary/60 border-primary/10 hover:border-primary/40 hover:text-primary"
                 }`}
               >
                 {cat.name}
@@ -133,136 +133,135 @@ const PricingSection = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((pkg, index) => {
-              const off = discount(pkg.actualPrice, pkg.discountPrice);
-              const isPopular = pkg.isPopular;
-              const thumb = pkg.image;
+          <div className="overflow-x-auto scrollbar-hide pb-12 -mx-4 px-4 sm:-mx-6 sm:px-6">
+            <div 
+                className="grid grid-rows-1 grid-flow-col gap-6 min-w-max"
+                style={{ gridAutoColumns: 'min(calc(100vw - 3rem), 340px)' }}
+            >
+              {filtered.map((pkg, index) => {
+                const off = discount(pkg.actualPrice, pkg.discountPrice);
+                const isPopular = pkg.isPopular;
+                const thumb = pkg.image;
 
-              return (
-                <motion.div
-                  key={pkg._id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.07 }}
-                  className={`relative flex flex-col rounded-2xl border overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
-                    isPopular
-                      ? "border-secondary shadow-lg shadow-secondary/10"
-                      : "border-gray-100 shadow-sm"
-                  }`}
-                >
-                  {isPopular && (
-                    <div className="absolute top-4 right-4 z-10 bg-secondary text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow">
-                      Most Popular
-                    </div>
-                  )}
-
-                  {off > 0 && (
-                    <div className="absolute top-4 left-4 z-10 bg-green-500 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow flex items-center gap-1">
-                      <FaTag size={8} /> {off}% OFF
-                    </div>
-                  )}
-
-                  <NavLink
-                    to={`/test/${pkg._id}`}
-                    className={`h-36 relative overflow-hidden block ${
-                      isPopular ? "bg-secondary" : "bg-primary"
+                return (
+                  <motion.div
+                    key={pkg._id}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.07 }}
+                    className={`relative flex flex-col rounded-2xl border overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 w-[280px] sm:w-[320px] lg:w-[340px] ${
+                      isPopular
+                        ? "border-secondary shadow-lg shadow-secondary/10"
+                        : "border-gray-100 shadow-sm"
                     }`}
                   >
-                    {thumb ? (
-                      <img
-                        src={thumb.startsWith('http') ? thumb : `http://localhost:3000/${thumb}`}
-                        alt={pkg.packageName}
-                        className="w-full h-full object-cover opacity-30"
-                      />
-                    ) : null}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-                      <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-2">
-                        <FaFlask className="text-white text-xl" />
+                    {isPopular && (
+                      <div className="absolute top-4 right-4 z-10 bg-secondary text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow">
+                        Most Popular
                       </div>
-                      {pkg.category && (
-                        <span className="text-white/70 text-[9px] font-black uppercase tracking-widest">
-                          {pkg.category}
-                        </span>
-                      )}
-                    </div>
-                  </NavLink>
+                    )}
 
-                  <div className="flex flex-col flex-1 p-6 bg-white">
-                    <NavLink to={`/test/${pkg._id}`}>
-                        <h3 className="text-base font-black text-primary uppercase tracking-tight mb-1 hover:text-secondary transition-colors cursor-pointer">
-                        {pkg.packageName}
-                        </h3>
+                    {off > 0 && (
+                      <div className="absolute top-4 left-4 z-10 bg-green-500 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow flex items-center gap-1">
+                        <FaTag size={8} /> {off}% OFF
+                      </div>
+                    )}
+
+                    <NavLink
+                      to={`/test/${pkg._id}`}
+                      className="h-36 relative overflow-hidden block bg-primary"
+                    >
+                      {thumb ? (
+                        <img
+                          src={thumb.startsWith('http') ? thumb : `http://localhost:3000/${thumb}`}
+                          alt={pkg.packageName}
+                          className="w-full h-full object-cover opacity-30"
+                        />
+                      ) : null}
+                      <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
+                        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-2">
+                          <FaFlask className="text-white text-xl" />
+                        </div>
+                        {pkg.category && (
+                          <span className="text-white/70 text-[9px] font-black uppercase tracking-widest">
+                            {pkg.category}
+                          </span>
+                        )}
+                      </div>
                     </NavLink>
 
-                    {pkg.description && (
-                      <p className="text-primary/50 text-xs leading-relaxed mb-4 line-clamp-2">
-                        {pkg.description}
-                      </p>
-                    )}
+                    <div className="flex flex-col flex-1 p-6 bg-white">
+                      <NavLink to={`/test/${pkg._id}`}>
+                          <h3 className="text-base font-black text-primary uppercase tracking-tight mb-1 hover:text-secondary transition-colors cursor-pointer">
+                          {pkg.packageName}
+                          </h3>
+                      </NavLink>
 
-                    {pkg.tests?.length > 0 && (
-                      <ul className="space-y-1.5 mb-5 flex-1">
-                        {pkg.tests.slice(0, 4).map((t, i) => (
-                          <li
-                            key={i}
-                            className="flex items-center gap-2 text-xs text-primary/70"
+                      {pkg.description && (
+                        <p className="text-primary/50 text-xs leading-relaxed mb-4 line-clamp-2">
+                          {pkg.description}
+                        </p>
+                      )}
+
+                      {pkg.tests?.length > 0 && (
+                        <ul className="space-y-1.5 mb-5 flex-1">
+                          {pkg.tests.slice(0, 4).map((t, i) => (
+                            <li
+                              key={i}
+                              className="flex items-center gap-2 text-xs text-primary/70"
+                            >
+                              <FaCheckCircle className="text-green-500 shrink-0" size={11} />
+                              {t}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      <div className="mt-auto pt-4 border-t border-gray-100">
+                        <div className="flex items-end justify-between">
+                          <div>
+                              {pkg.discountPrice ? (
+                                  <div className="flex flex-col">
+                                      <div className="flex items-center gap-2">
+                                          <span className="text-2xl font-black text-primary">
+                                              ₹{pkg.discountPrice}
+                                          </span>
+                                          {off > 0 && (
+                                              <span className="text-[10px] bg-green-500 text-white font-black px-1.5 py-0.5 rounded uppercase">
+                                                  {off}% OFF
+                                              </span>
+                                          )}
+                                      </div>
+                                      {pkg.actualPrice && (
+                                          <span className="text-[10px] text-primary/40 font-bold uppercase tracking-widest italic">
+                                              MRP: <span className="line-through">₹{pkg.actualPrice}</span>
+                                          </span>
+                                      )}
+                                  </div>
+                              ) : pkg.actualPrice ? (
+                                  <span className="text-2xl font-black text-primary">
+                                      ₹{pkg.actualPrice}
+                                  </span>
+                              ) : (
+                                  <span className="text-sm font-bold text-primary/40">
+                                      Price on request
+                                  </span>
+                              )}
+                          </div>
+                          <NavLink
+                            to="/registration"
+                            className="text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-lg transition-all bg-primary text-white hover:bg-primary/90"
                           >
-                            <FaCheckCircle className="text-green-500 shrink-0" size={11} />
-                            {t}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    <div className="mt-auto pt-4 border-t border-gray-100">
-                      <div className="flex items-end justify-between">
-                        <div>
-                            {pkg.discountPrice ? (
-                                <div className="flex flex-col">
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-2xl font-black text-primary">
-                                            ₹{pkg.discountPrice}
-                                        </span>
-                                        {off > 0 && (
-                                            <span className="text-[10px] bg-green-500 text-white font-black px-1.5 py-0.5 rounded uppercase">
-                                                {off}% OFF
-                                            </span>
-                                        )}
-                                    </div>
-                                    {pkg.actualPrice && (
-                                        <span className="text-[10px] text-primary/40 font-bold uppercase tracking-widest italic">
-                                            MRP: <span className="line-through">₹{pkg.actualPrice}</span>
-                                        </span>
-                                    )}
-                                </div>
-                            ) : pkg.actualPrice ? (
-                                <span className="text-2xl font-black text-primary">
-                                    ₹{pkg.actualPrice}
-                                </span>
-                            ) : (
-                                <span className="text-sm font-bold text-primary/40">
-                                    Price on request
-                                </span>
-                            )}
+                            Book Now
+                          </NavLink>
                         </div>
-                        <NavLink
-                          to="/registration"
-                          className={`text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-lg transition-all ${
-                            isPopular
-                              ? "bg-secondary text-white hover:bg-secondary/90"
-                              : "bg-primary text-white hover:bg-primary/90"
-                          }`}
-                        >
-                          Book Now
-                        </NavLink>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

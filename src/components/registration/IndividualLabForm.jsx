@@ -16,6 +16,7 @@ import {
 } from "react-icons/fa";
 import { getTestServices } from "../../apis/testService";
 import { createRegistration } from "../../apis/registration";
+import MapPicker from "./MapPicker";
 
 const CERT_OPTIONS = [
   "NABL (ISO 15189 / ISO/IEC 17025)",
@@ -28,13 +29,14 @@ const CERT_OPTIONS = [
   "BIS Recognition"
 ];
 
-const Section = ({ title, icon: Icon, children, index }) => (
+const Section = ({ title, icon: Icon, children, index, zIndex }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay: index * 0.05, duration: 0.5, ease: "easeOut" }}
-    className="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100 mb-8 group transition-all duration-300 relative overflow-hidden ring-1 ring-gray-200/50"
+    style={{ zIndex: zIndex || (100 - (index * 10)) }}
+    className="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100 mb-8 group transition-all duration-300 relative overflow-visible ring-1 ring-gray-200/50"
   >
     {/* Minimal Accent Bar */}
     <div className="absolute top-0 left-0 w-full h-1 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -81,7 +83,7 @@ const ModernDropdown = ({ label, options, value, onChange, error }) => {
   };
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className={`relative ${isOpen ? 'z-[100]' : 'z-0'}`} ref={dropdownRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -185,7 +187,7 @@ const InputField = ({
             <div className="w-10 h-10 bg-white shadow-xs rounded-lg flex items-center justify-center mb-3 border border-gray-50 group-hover/file:scale-105 transition-all">
               <FaUpload className="text-primary/30 group-hover/file:text-secondary transition-colors text-xs" />
             </div>
-            <span className="text-[9px] font-bold text-primary/40 uppercase tracking-widest text-center">
+            <span className="text-[9px] font-bold text-primary/80 uppercase tracking-widest text-center">
               {value ? "File Selected" : `Upload ${label}`}
             </span>
             {value && (
@@ -255,6 +257,8 @@ const IndividualLabForm = () => {
     city: "",
     state: "",
     pincode: "",
+    latitude: 20.5937,
+    longitude: 78.9629,
     landmark: "",
     mapLocation: "",
     phone: "",
@@ -294,7 +298,7 @@ const IndividualLabForm = () => {
     specialization: "",
     pathologyDocs: null,
     certifications: [],
-    pricingItems: [{ test: "", price: "", percentage: "", discountPrice: "" }],
+    pricingItems: [{ test: "", price: "", discountPercent: "", discountPrice: "" }],
     ambulanceService: false,
     password: "",
   });
@@ -304,11 +308,12 @@ const IndividualLabForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
     const fetchTests = async () => {
       try {
-        const resData = await getTestServices({ limit: 100, status: true });
+        const resData = await getTestServices({ limit: 1000, status: true });
         if (resData.success) {
           setAvailableTests(resData.data);
         }
@@ -350,6 +355,28 @@ const IndividualLabForm = () => {
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
+    
+    // Pincode Auto-fill Logic
+    if (name === "pincode" && value.length === 6) {
+      fetch(`https://api.postalpincode.in/pincode/${value}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data[0].Status === "Success") {
+                const postOffice = data[0].PostOffice[0];
+                setFormData(prev => ({
+                    ...prev,
+                    city: postOffice.District,
+                    state: postOffice.State,
+                    areaName: postOffice.Block !== "Not Available" ? postOffice.Block : postOffice.Name,
+                    pincode: value
+                }));
+            }
+        })
+        .catch(err => {
+            console.error("Pincode API Error:", err);
+        });
+    }
+
     if (type === "file") {
       setFormData((prev) => ({ ...prev, [name]: files[0] }));
     } else if (type === "number") {
@@ -370,30 +397,13 @@ const IndividualLabForm = () => {
     }));
   };
 
-  const handleCertToggle = (name) => {
-    setFormData((prev) => {
-      const exists = prev.certifications.find(c => c.name === name);
-      if (exists) {
-        return {
-          ...prev,
-          certifications: prev.certifications.filter(c => c.name !== name)
-        };
-      } else {
-        return {
-          ...prev,
-          certifications: [...prev.certifications, { name, file: null }]
-        };
-      }
-    });
-  };
-
-  const handleCertFileChange = (name, file) => {
-     setFormData(prev => ({
-        ...prev,
-        certifications: prev.certifications.map(c => 
-           c.name === name ? { ...c, file } : c
-        )
-     }));
+  const handleCertToggle = (cert) => {
+    setFormData((prev) => ({
+      ...prev,
+      certifications: prev.certifications.includes(cert)
+        ? prev.certifications.filter((c) => c !== cert)
+        : [...prev.certifications, cert],
+    }));
   };
 
   const handleAddPricing = () => {
@@ -401,7 +411,7 @@ const IndividualLabForm = () => {
       ...prev,
       pricingItems: [
         ...prev.pricingItems,
-        { test: "", price: "", percentage: "", discountPrice: "" },
+        { test: "", price: "", discountPercent: "", discountPrice: "" },
       ],
     }));
   };
@@ -409,15 +419,16 @@ const IndividualLabForm = () => {
   const handlePricingChange = (index, field, value) => {
     const newPricing = [...formData.pricingItems];
     newPricing[index][field] = value;
-    if (field === "percentage" || field === "price") {
-      const price = parseFloat(field === "price" ? value : newPricing[index].price);
-      const pct = parseFloat(field === "percentage" ? value : newPricing[index].percentage);
-      if (!isNaN(price) && !isNaN(pct) && pct >= 0 && pct <= 100) {
-        newPricing[index].discountPrice = Math.round(price - (price * pct) / 100);
-      } else {
-        newPricing[index].discountPrice = "";
-      }
+
+    // Auto-calculate discountPrice from price & discountPercent
+    const price = parseFloat(field === "price" ? value : newPricing[index].price) || 0;
+    const pct   = parseFloat(field === "discountPercent" ? value : newPricing[index].discountPercent) || 0;
+    if (price > 0 && pct > 0 && pct <= 100) {
+      newPricing[index].discountPrice = Math.round(price - (price * pct / 100));
+    } else if (pct === 0 || value === "") {
+      newPricing[index].discountPrice = "";
     }
+
     setFormData((prev) => ({ ...prev, pricingItems: newPricing }));
   };
 
@@ -458,6 +469,9 @@ const IndividualLabForm = () => {
         accountNumber: formData.accountNumber,
         ifscCode: formData.ifscCode,
         password: formData.password,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
+        nabl: formData.nabl,
         status: true,
         source: "website",
       };
@@ -472,6 +486,8 @@ const IndividualLabForm = () => {
       if (formData.labBanner) data.append("labBanner", formData.labBanner);
       if (formData.pathologyDocs)
         data.append("pathologyDocs", formData.pathologyDocs);
+      if (formData.nablCert)
+        data.append("nablCert", formData.nablCert);
 
       if (formData.selectedTests.length > 0) {
         data.append("selectedTests", JSON.stringify(formData.selectedTests));
@@ -481,21 +497,16 @@ const IndividualLabForm = () => {
         .filter((item) => item.test && item.price)
         .map((item) => ({
           name: item.test,
-          price: item.price,
-          discountPrice: item.discountPrice,
+          price: Number(item.price),
+          discountPercent: item.discountPercent ? Number(item.discountPercent) : 0,
+          discountPrice: item.discountPrice ? Number(item.discountPrice) : Number(item.price),
         }));
       data.append("test", JSON.stringify(testArray));
 
-      const certData = formData.certifications.map((cert) => ({
-        name: cert.name,
-      }));
-      data.append("Certification", JSON.stringify(certData));
-
-      formData.certifications.forEach((cert) => {
-        if (cert.file) {
-          data.append("certificationFiles", cert.file);
-        }
-      });
+      if (formData.certifications.length > 0) {
+        const certData = formData.certifications.map((name) => ({ name }));
+        data.append("Certification", JSON.stringify(certData));
+      }
 
       const resData = await createRegistration(data);
 
@@ -503,14 +514,14 @@ const IndividualLabForm = () => {
         setIsSuccess(true);
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
-        alert(resData.message || "Something went wrong");
+        const msg = resData.message || "Something went wrong";
+        setSubmitError(msg);
       }
     } catch (error) {
       console.error("Submission failed:", error);
-      alert(
-        error.response?.data?.message ||
-        "Submission failed. Please check your connection.",
-      );
+      const msg = error.response?.data?.message || "Submission failed. Please try again.";
+      setSubmitError(msg);
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     } finally {
       setSubmitting(false);
     }
@@ -617,24 +628,13 @@ const IndividualLabForm = () => {
       </Section>
 
       <Section title="Address Details" icon={FaMapMarkerAlt} index={1}>
-        <div className="md:col-span-2 lg:col-span-3">
-          <InputField
-            label="Complete Office Address"
-            name="fullAddress"
-            value={formData.fullAddress}
-            onChange={handleChange}
-            error={errors.fullAddress}
-            placeholder="Street, Building, Landmark..."
-            required
-          />
-        </div>
         <InputField
-          label="Local Area Name"
-          name="areaName"
-          value={formData.areaName}
+          label="Postal Pincode"
+          name="pincode"
+          value={formData.pincode}
           onChange={handleChange}
-          error={errors.areaName}
-          placeholder="e.g. Indira Nagar"
+          error={errors.pincode}
+          placeholder="e.g. 226016"
           required
         />
         <InputField
@@ -656,14 +656,43 @@ const IndividualLabForm = () => {
           required
         />
         <InputField
-          label="Postal Pincode"
-          name="pincode"
-          value={formData.pincode}
+          label="Local Area Name"
+          name="areaName"
+          value={formData.areaName}
           onChange={handleChange}
-          error={errors.pincode}
-          placeholder="e.g. 226016"
+          error={errors.areaName}
+          placeholder="e.g. Indira Nagar"
           required
         />
+        <div className="md:col-span-2 lg:col-span-4">
+          <InputField
+            label="Complete Office Address"
+            name="fullAddress"
+            value={formData.fullAddress}
+            onChange={handleChange}
+            error={errors.fullAddress}
+            placeholder="Street, Building, Landmark..."
+            required
+          />
+        </div>
+
+        <div className="md:col-span-2 lg:col-span-4 mt-4 border-t border-gray-50 pt-8">
+            <label className="text-black font-bold text-[9px] uppercase tracking-widest px-1 block mb-6">
+                Pinpoint Accurate Lab Location (Pick from Map)
+            </label>
+            <MapPicker 
+                lat={formData.latitude}
+                lng={formData.longitude}
+                onLocationSelect={(loc) => {
+                    setFormData(prev => ({
+                        ...prev,
+                        latitude: loc.lat,
+                        longitude: loc.lng,
+                        fullAddress: loc.address || prev.fullAddress
+                    }));
+                }}
+            />
+        </div>
       </Section>
 
       <Section title="Contact Information" icon={FaPhoneAlt} index={2}>
@@ -740,9 +769,9 @@ const IndividualLabForm = () => {
       <Section title="Services & Diagnostics" icon={FaVial} index={4}>
         <div className="md:col-span-3 space-y-4">
           <label className="text-black font-bold text-[9px] uppercase tracking-widest px-1">
-            Available Medical Tests
+            Choose Available Medical Tests
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {loading ? (
               <div className="col-span-full py-12 text-center opacity-30 text-[9px] font-bold uppercase tracking-widest">
                 Fetching test catalog...
@@ -754,21 +783,24 @@ const IndividualLabForm = () => {
                   <div
                     key={test._id}
                     onClick={() => handleTestToggle(test._id)}
-                    className={`p-3.5 rounded-lg border text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center justify-between shadow-xs ${isSelected
-                      ? "bg-primary text-white border-primary shadow-md shadow-primary/10"
-                      : "bg-white border-gray-100 text-primary/60 hover:border-primary/40"
+                    className={`p-4 rounded-xl border text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-300 flex items-center gap-3 shadow-sm ${isSelected
+                      ? "bg-primary/5 border-primary/50 text-primary shadow-md shadow-primary/5"
+                      : "bg-white border-gray-200 text-primary/80 hover:border-primary/60 hover:bg-gray-50/30"
                       }`}
                   >
-                    <span className="truncate pr-2">{test.title}</span>
-                    {isSelected && (
-                      <FaCheckCircle className="text-secondary text-[14px]" />
-                    )}
+                    <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 flex-shrink-0 ${isSelected
+                      ? "bg-secondary border-secondary scale-105"
+                      : "bg-gray-300 border-gray-300"
+                      }`}>
+                       {isSelected && <FaCheckCircle className="text-white text-[11px]" />}
+                    </div>
+                    <span className="truncate leading-tight">{test.title}</span>
                   </div>
                 );
               })
             ) : (
               <div className="col-span-full py-10 text-center opacity-40 text-[9px] font-bold uppercase tracking-widest bg-gray-50/50 rounded-xl border border-dashed border-gray-100">
-                No tests available for this area
+                No tests available at the moment
               </div>
             )}
           </div>
@@ -809,115 +841,131 @@ const IndividualLabForm = () => {
       <Section title="Certifications & Files" icon={FaCertificate} index={5}>
         <div className="md:col-span-3 space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {CERT_OPTIONS.map((name, idx) => {
-              const selectedCert = formData.certifications.find(c => c.name === name);
-              const isSelected = !!selectedCert;
-
+            {CERT_OPTIONS.map((cert) => {
+              const isSelected = formData.certifications.includes(cert);
               return (
-                <div 
-                  key={idx}
-                  className={`p-4 rounded-xl border transition-all duration-300 ${isSelected ? 'bg-primary/5 border-primary/20 shadow-sm' : 'bg-gray-50/50 border-gray-100 opacity-60 hover:opacity-100'}`}
+                <div
+                  key={cert}
+                  onClick={() => handleCertToggle(cert)}
+                  className={`p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer flex items-center justify-between shadow-sm relative group ${
+                    isSelected
+                      ? "bg-primary/[0.04] border-secondary shadow-md scale-[1.02]"
+                      : "bg-white border-gray-100 hover:border-primary/30"
+                  }`}
                 >
-                  <div 
-                    className="flex items-center gap-3 cursor-pointer mb-3"
-                    onClick={() => handleCertToggle(name)}
-                  >
-                    <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all ${isSelected ? 'bg-secondary border-secondary' : 'bg-white border-gray-200'}`}>
-                       {isSelected && <FaCheckCircle className="text-white text-[10px]" />}
-                    </div>
-                    <span className={`text-[10px] font-bold uppercase tracking-wider ${isSelected ? 'text-primary' : 'text-primary/40'}`}>
-                      {name}
-                    </span>
+                  <span className={`text-[10px] font-extrabold uppercase tracking-widest leading-tight pr-4 ${
+                    isSelected ? "text-primary" : "text-black/40 group-hover:text-primary/60"
+                  }`}>
+                    {cert}
+                  </span>
+                  <div className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center transition-all ${
+                    isSelected ? "bg-secondary border-secondary shadow-primary/20 shadow-sm" : "border-gray-100"
+                  }`}>
+                    {isSelected && <FaCheckCircle className="text-white text-[10px]" />}
                   </div>
-
-                  {isSelected && (
-                    <div className="mt-3 pl-4 border-l-2 ml-3 border-secondary/30">
-                       <label className="text-[8px] font-bold text-primary/30 uppercase tracking-widest block mb-2">Upload Certificate (Optional)</label>
-                       <div className="relative group/mini-file">
-                          <input 
-                            type="file" 
-                            className="hidden"
-                            id={`mini_file_${idx}`}
-                            onChange={(e) => handleCertFileChange(name, e.target.files[0])}
-                          />
-                          <label 
-                            htmlFor={`mini_file_${idx}`}
-                            className="flex items-center gap-2 bg-white border border-gray-100 p-2 rounded-lg text-[8px] font-bold text-primary/40 cursor-pointer hover:border-primary/40 transition-all uppercase tracking-widest"
-                          >
-                             <FaUpload className="text-secondary text-[10px]" />
-                             {selectedCert.file ? selectedCert.file.name.substring(0, 10) + '...' : 'Select File'}
-                          </label>
-                       </div>
-                    </div>
-                  )}
                 </div>
               );
             })}
           </div>
 
-          <div className="space-y-8 pt-8 mt-8 border-t border-gray-50">
-            <div className="flex items-center justify-between px-1">
-              <h4 className="text-[9px] font-bold text-primary/40 uppercase tracking-widest">Custom Rate List</h4>
-              <button
-                type="button"
-                onClick={handleAddPricing}
-                className="flex items-center gap-1.5 bg-primary/5 hover:bg-primary text-primary hover:text-white px-4 py-2 rounded-lg transition-all border border-primary/5 text-[9px] font-extrabold uppercase tracking-widest"
-              >
-                + Add Rate
-              </button>
-            </div>
+        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 mt-6 border-t border-gray-50">
+          <InputField
+            label="Upload Pathology License"
+            name="pathologyDocs"
+            type="file"
+            value={formData.pathologyDocs}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Upload NABL/Cert Doc"
+            name="nablCert"
+            type="file"
+            value={formData.nablCert}
+            onChange={handleChange}
+          />
+          <InputField
+            label="NABL Mandatory Check"
+            name="nabl"
+            type="checkbox"
+            value={formData.nabl}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="md:col-span-3 space-y-8 pt-8 mt-8 border-t border-gray-50">
+          <div className="flex items-center justify-between px-1">
+            <h4 className="text-[9px] font-bold text-primary/80 uppercase tracking-widest">Priority Pricing</h4>
+            <button
+              type="button"
+              onClick={handleAddPricing}
+              className="flex items-center gap-1.5 bg-primary/5 hover:bg-primary text-primary hover:text-white px-4 py-2 rounded-lg transition-all border border-primary/5 text-[9px] font-extrabold uppercase tracking-widest"
+            >
+              + Add Rate
+            </button>
+          </div>
 
             <div className="grid grid-cols-1 gap-6">
               {formData.pricingItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-gray-50/20 p-6 rounded-xl border border-gray-100 shadow-xs"
-                >
-                  <InputField
-                    label="Medical Test"
-                    name={`price_test_${index}`}
-                    type="select"
-                    options={availableTests.map((t) => ({
-                      value: t._id,
-                      label: t.title,
-                    }))}
-                    value={item.test}
-                    onChange={(e) =>
-                      handlePricingChange(index, "test", e.target.value)
-                    }
-                  />
-                  <InputField
-                    label="Standard (₹)"
-                    name={`price_value_${index}`}
-                    type="number"
-                    value={item.price}
-                    onChange={(e) =>
-                      handlePricingChange(index, "price", e.target.value)
-                    }
-                    placeholder="e.g. 2000"
-                  />
-                  <InputField
-                    label="Percentage (%)"
-                    name={`price_pct_${index}`}
-                    type="number"
-                    value={item.percentage}
-                    onChange={(e) =>
-                      handlePricingChange(index, "percentage", e.target.value)
-                    }
-                    placeholder="e.g. 10"
-                  />
-                  <InputField
-                    label="Offer Rate (₹)"
-                    name={`discount_price_${index}`}
-                    type="number"
-                    value={item.discountPrice}
-                    onChange={(e) =>
-                      handlePricingChange(index, "discountPrice", e.target.value)
-                    }
-                    placeholder="e.g. 1499"
-                  />
+              <div
+                key={index}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50/20 p-6 rounded-xl border border-gray-100 shadow-xs"
+              >
+                <InputField
+                  label="Medical Test"
+                  name={`price_test_${index}`}
+                  type="select"
+                  options={availableTests.map((t) => ({
+                    value: t._id,
+                    label: t.title,
+                  }))}
+                  value={item.test}
+                  onChange={(e) =>
+                    handlePricingChange(index, "test", e.target.value)
+                  }
+                />
+                <InputField
+                  label="Standard Rate (₹)"
+                  name={`price_value_${index}`}
+                  type="number"
+                  value={item.price}
+                  onChange={(e) =>
+                    handlePricingChange(index, "price", e.target.value)
+                  }
+                  placeholder="e.g. 2000"
+                />
+                <InputField
+                  label="Discount (%)"
+                  name={`discount_pct_${index}`}
+                  type="number"
+                  value={item.discountPercent}
+                  onChange={(e) =>
+                    handlePricingChange(index, "discountPercent", e.target.value)
+                  }
+                  placeholder="e.g. 20"
+                />
+                {/* Read-only final price preview */}
+                <div className="space-y-1.5">
+                  <label className="text-black font-bold text-[9px] uppercase tracking-widest px-1 block">
+                    Final Price (₹)
+                  </label>
+                  <div className={`w-full border p-3 rounded-lg text-sm font-semibold shadow-xs flex items-center gap-2 ${
+                    item.discountPrice
+                      ? "bg-secondary/5 border-secondary/20 text-secondary"
+                      : "bg-gray-50 border-gray-100 text-black/30"
+                  }`}>
+                    <span>₹</span>
+                    <span>
+                      {item.discountPrice || (item.price ? item.price : "—")}
+                    </span>
+                    {item.discountPrice && item.price && (
+                      <span className="ml-auto text-[9px] font-bold text-secondary bg-secondary/10 px-2 py-0.5 rounded-full">
+                        {item.discountPercent}% OFF
+                      </span>
+                    )}
+                  </div>
                 </div>
-              ))}
+              </div>
+            ))}
             </div>
           </div>
         </div>
@@ -988,13 +1036,29 @@ const IndividualLabForm = () => {
         />
       </Section>
 
-      <div className="mt-1 flex flex-col items-center gap-6">
+      <div className="mt-16 mb-24 flex flex-col items-center gap-6">
+        {submitError && (
+          <div className="w-full max-w-xl bg-red-50 border border-red-200 rounded-xl px-6 py-4 flex items-start gap-4">
+            <FaExclamationCircle className="text-red-500 mt-0.5 flex-shrink-0 text-base" />
+            <div className="flex-1">
+              <p className="text-red-600 font-bold text-[11px] uppercase tracking-widest mb-0.5">Submission Error</p>
+              <p className="text-red-500 text-xs font-medium">{submitError}</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSubmitError("")}
+              className="text-red-300 hover:text-red-500 transition-colors font-bold text-lg leading-none"
+            >
+              ×
+            </button>
+          </div>
+        )}
         <button
           type="submit"
           disabled={submitting}
           className="group bg-primary text-white px-16 py-4 rounded-lg font-bold uppercase text-[10px] tracking-widest transition-all shadow-md hover:-translate-y-1 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {submitting ? "Processing Application..." : "Submit Registration"}
+          {submitting ? "Processing..." : "Register Laboratory"}
         </button>
       </div>
     </form>
