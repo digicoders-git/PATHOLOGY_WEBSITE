@@ -75,7 +75,7 @@ const TestDetail = () => {
                 <div className="h-48 md:h-64 relative bg-primary flex items-center justify-center overflow-hidden">
                    {thumb ? (
                        <img 
-                        src={thumb.startsWith('http') ? thumb : `http://localhost:3000/${thumb}`} 
+                        src={thumb.startsWith('http') ? thumb : `${import.meta.env.VITE_API_BASE_URL}/${thumb}`} 
                         className="w-full h-full object-cover opacity-80" 
                         alt={test.title} 
                        />

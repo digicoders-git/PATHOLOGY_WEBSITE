@@ -174,7 +174,7 @@ const PricingSection = () => {
                     >
                       {thumb ? (
                         <img
-                          src={thumb.startsWith('http') ? thumb : `http://localhost:3000/${thumb}`}
+                          src={thumb.startsWith('http') ? thumb : `${import.meta.env.VITE_API_BASE_URL}/${thumb}`}
                           alt={pkg.packageName}
                           className="w-full h-full object-cover opacity-30"
                         />
