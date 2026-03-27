@@ -7,8 +7,6 @@ import {
   FaShieldAlt, FaListUl
 } from "react-icons/fa";
 import api from "../apis/index";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 const TestDetail = () => {
   const { id } = useParams();
@@ -51,8 +49,6 @@ const TestDetail = () => {
 
   return (
     <>
-      <Navbar />
-      
       <main className="bg-slate-50 min-h-screen pt-24 pb-20">
         <div className="container mx-auto px-6 max-w-5xl">
           
@@ -226,8 +222,6 @@ const TestDetail = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
     </>
   );
 };

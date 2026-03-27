@@ -162,7 +162,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-white pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
           <p className="text-white text-xs font-bold uppercase tracking-widest">
-            © {currentYear} Design and Developed by{" "}
+            © {currentYear} Crafter with ❤️ by{" "}
             <a
               href="https://digicoders.in"
               target="_blank"

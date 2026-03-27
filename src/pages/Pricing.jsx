@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import { FaCheckCircle, FaStar, FaRocket } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import api from "../apis/index";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 const Pricing = () => {
   const [plans, setPlans] = useState([]);
@@ -27,8 +25,6 @@ const Pricing = () => {
 
   return (
     <>
-      <Navbar />
-
       {/* Hero */}
       <section className="bg-secondary pt-32 md:pt-44 pb-28 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5 pointer-events-none">
@@ -189,7 +185,6 @@ const Pricing = () => {
         </div>
       </section>
 
-      <Footer />
     </>
   );
 };
