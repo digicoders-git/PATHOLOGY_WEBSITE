@@ -74,7 +74,7 @@ const PricingSection = () => {
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
-              <circle cx="2" cy="2" r="1.5" fill="#02019D" />
+              <circle cx="2" cy="2" r="1.5" fill="#000000" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#dots)" />
@@ -91,10 +91,10 @@ const PricingSection = () => {
           <span className="text-secondary font-black text-xs uppercase tracking-[0.3em] mb-3 block">
             Our Packages
           </span>
-          <h2 className="text-3xl md:text-4xl font-black text-primary uppercase tracking-tight leading-tight">
+          <h2 className="text-3xl md:text-4xl font-black text-black uppercase tracking-tight leading-tight">
             Affordable Health Packages
           </h2>
-          <p className="text-primary/50 text-sm mt-3 max-w-md mx-auto">
+          <p className="text-black/50 text-sm mt-3 max-w-md mx-auto">
             Choose from our curated diagnostic packages at the best prices
           </p>
           <div className="w-16 h-1 bg-secondary mx-auto mt-5 rounded-full" />
@@ -113,8 +113,8 @@ const PricingSection = () => {
                 onClick={() => setActiveCategory(cat.name)}
                 className={`flex-shrink-0 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.15em] rounded-full border transition-all duration-300 whitespace-nowrap whitespace-nowrap ${
                   activeCategory === cat.name
-                    ? "bg-primary text-white border-primary shadow-lg shadow-primary/20 scale-105"
-                    : "bg-white text-primary/60 border-primary/10 hover:border-primary/40 hover:text-primary"
+                    ? "bg-black text-white border-black shadow-lg shadow-black/20 scale-105"
+                    : "bg-white text-black/60 border-black/10 hover:border-black/40 hover:text-black"
                 }`}
               >
                 {cat.name}
@@ -170,7 +170,7 @@ const PricingSection = () => {
 
                     <NavLink
                       to={`/test/${pkg._id}`}
-                      className="h-36 relative overflow-hidden block bg-primary"
+                      className="h-36 relative overflow-hidden block bg-black"
                     >
                       {thumb ? (
                         <img
@@ -193,13 +193,13 @@ const PricingSection = () => {
 
                     <div className="flex flex-col flex-1 p-6 bg-white">
                       <NavLink to={`/test/${pkg._id}`}>
-                          <h3 className="text-base font-black text-primary uppercase tracking-tight mb-1 hover:text-secondary transition-colors cursor-pointer">
+                          <h3 className="text-base font-black text-black uppercase tracking-tight mb-1 hover:text-secondary transition-colors cursor-pointer">
                           {pkg.packageName}
                           </h3>
                       </NavLink>
 
                       {pkg.description && (
-                        <p className="text-primary/50 text-xs leading-relaxed mb-4 line-clamp-2">
+                        <p className="text-black/50 text-xs leading-relaxed mb-4 line-clamp-2">
                           {pkg.description}
                         </p>
                       )}
@@ -209,7 +209,7 @@ const PricingSection = () => {
                           {pkg.tests.slice(0, 4).map((t, i) => (
                             <li
                               key={i}
-                              className="flex items-center gap-2 text-xs text-primary/70"
+                              className="flex items-center gap-2 text-xs text-black/70"
                             >
                               <FaCheckCircle className="text-green-500 shrink-0" size={11} />
                               {t}
@@ -224,7 +224,7 @@ const PricingSection = () => {
                               {pkg.discountPrice ? (
                                   <div className="flex flex-col">
                                       <div className="flex items-center gap-2">
-                                          <span className="text-2xl font-black text-primary">
+                                          <span className="text-2xl font-black text-black">
                                               ₹{pkg.discountPrice}
                                           </span>
                                           {off > 0 && (
@@ -234,24 +234,24 @@ const PricingSection = () => {
                                           )}
                                       </div>
                                       {pkg.actualPrice && (
-                                          <span className="text-[10px] text-primary/40 font-bold uppercase tracking-widest italic">
+                                          <span className="text-[10px] text-black/40 font-bold uppercase tracking-widest italic">
                                               MRP: <span className="line-through">₹{pkg.actualPrice}</span>
                                           </span>
                                       )}
                                   </div>
                               ) : pkg.actualPrice ? (
-                                  <span className="text-2xl font-black text-primary">
+                                  <span className="text-2xl font-black text-black">
                                       ₹{pkg.actualPrice}
                                   </span>
                               ) : (
-                                  <span className="text-sm font-bold text-primary/40">
+                                  <span className="text-sm font-bold text-black/40">
                                       Price on request
                                   </span>
                               )}
                           </div>
                           <NavLink
                             to="/registration"
-                            className="text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-lg transition-all bg-primary text-white hover:bg-primary/90"
+                            className="text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-lg transition-all bg-black text-white hover:bg-black/90"
                           >
                             Book Now
                           </NavLink>

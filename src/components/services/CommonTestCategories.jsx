@@ -41,8 +41,8 @@ const CommonTestCategories = () => {
       title: "Kidney Function Tests",
       description:
         "Assessment of renal health through filtration rate and electrolyte balance monitoring.",
-      color: "from-blue-500/10 to-blue-600/5",
-      iconColor: "text-blue-500",
+      color: "from-gray-500/10 to-gray-600/5",
+      iconColor: "text-black",
     },
     {
       icon: FaHeartbeat,

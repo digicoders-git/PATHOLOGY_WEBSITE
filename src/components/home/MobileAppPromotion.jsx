@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaApple, FaGooglePlay, FaCheckCircle } from "react-icons/fa";
-import logo from "../../assets/updated_logo.png";
+// import logo removed
 
 const MobileAppPromotion = () => {
   const features = [
@@ -33,7 +33,7 @@ const MobileAppPromotion = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl"></div>
 
               <img
-                src={logo}
+                src="/image.png"
                 alt="Logo"
                 className="w-28 sm:w-32 lg:w-40 object-contain drop-shadow-xl"
               />

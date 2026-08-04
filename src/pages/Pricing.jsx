@@ -151,13 +151,13 @@ const Pricing = () => {
                       </div>
 
                       {/* Validity */}
-                      <div className="p-2.5 bg-blue-50/60 rounded-2xl border border-blue-100 flex flex-col items-center justify-center text-center">
-                        <div className="w-7 h-7 rounded-full bg-blue-100/80 flex items-center justify-center mb-1 shrink-0">
-                          <FaCalendarAlt className="text-blue-600" size={11} />
+                      <div className="p-2.5 bg-gray-50/60 rounded-2xl border border-gray-200 flex flex-col items-center justify-center text-center">
+                        <div className="w-7 h-7 rounded-full bg-gray-200/80 flex items-center justify-center mb-1 shrink-0">
+                          <FaCalendarAlt className="text-black" size={11} />
                         </div>
-                        <span className="text-[8px] font-black uppercase tracking-wider text-blue-600 leading-tight">Validity</span>
-                        <span className="text-base font-black text-blue-700 leading-none mt-0.5">{plan.duration || 30}</span>
-                        <span className="text-[7px] text-blue-400 font-bold leading-none mt-0.5">Days</span>
+                        <span className="text-[8px] font-black uppercase tracking-wider text-black leading-tight">Validity</span>
+                        <span className="text-base font-black text-black leading-none mt-0.5">{plan.duration || 30}</span>
+                        <span className="text-[7px] text-gray-500 font-bold leading-none mt-0.5">Days</span>
                       </div>
                     </div>
 

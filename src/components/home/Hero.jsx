@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { FaMicroscope, FaGooglePlay, FaApple } from "react-icons/fa";
-import logo from "../../assets/updated_logo.png";
+// import logo removed
 
 const Hero = () => { 
   return (
@@ -85,7 +85,7 @@ const Hero = () => {
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl"></div>
               <img
-                src={logo}
+                src="/image.png"
                 alt="Logo"
                 className="w-36 object-contain drop-shadow-xl"
               />
@@ -189,7 +189,7 @@ const Hero = () => {
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3 bg-black rounded-b-xl z-20"></div>
               <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-[22px]"></div>
               <img
-                src={logo}
+                src="/image.png"
                 alt="Logo"
                 className="w-22 object-contain mb-3 drop-shadow-lg"
               />

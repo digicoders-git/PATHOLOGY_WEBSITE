@@ -10,7 +10,7 @@ import {
   FaBars,
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import logo from "../assets/updated_logo.png";
+// import logo removed
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -99,14 +99,14 @@ const Navbar = () => {
               className={`transition-all duration-300 ${isScrolled ? "w-10 h-10 md:w-16 md:h-16" : "w-14 h-14 md:w-20 md:h-20"} flex items-center justify-center relative`}
             >
               <img
-                src={logo}
+                src="/image.png"
                 alt="LABO INDIA Logo"
                 className="w-full h-full object-contain"
               />
             </div>
             <div className="flex flex-col justify-center border-l border-gray-100 pl-2 md:pl-3 h-10 md:h-16">
               <span
-                className="text-[11px] md:text-4xl font-black text-primary leading-none tracking-tight uppercase transition-all duration-300"
+                className="text-[11px] md:text-4xl font-black text-black leading-none tracking-tight uppercase transition-all duration-300"
               >
                 LABO INDIA
               </span>
@@ -125,7 +125,7 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   `px-4 py-1.5 text-[11px] font-bold tracking-widest transition-all relative group ${isActive
                     ? "text-secondary"
-                    : "text-primary hover:text-secondary"
+                    : "text-black hover:text-secondary"
                   }`
                 }
               >
@@ -147,7 +147,7 @@ const Navbar = () => {
             <NavLink
               to="/registration"
               className={({ isActive }) =>
-                `${isActive ? "bg-secondary text-white" : "bg-primary text-white"} hover:bg-secondary hover:text-white ${isScrolled ? "px-5 py-1.5 text-[10px]" : "px-5 py-2 text-[10px]"} rounded-lg font-black transition-all active:scale-95 uppercase tracking-widest shadow-lg shadow-primary/10`
+                `${isActive ? "bg-secondary text-white" : "bg-black text-white"} hover:bg-secondary hover:text-white ${isScrolled ? "px-5 py-1.5 text-[10px]" : "px-5 py-2 text-[10px]"} rounded-lg font-black transition-all active:scale-95 uppercase tracking-widest shadow-lg shadow-primary/10`
               }
             >
               Lab Registration
@@ -177,7 +177,7 @@ const Navbar = () => {
                 <div className="flex items-center gap-2">
                   <div className="w-14 h-14 flex items-center justify-center">
                     <img
-                      src={logo}
+                      src="/image.png"
                       alt="Logo"
                       className="w-full h-full object-contain"
                     />

@@ -65,8 +65,8 @@ export const setupMessageListener = (callback) => {
       if (Notification.permission === 'granted') {
         new Notification(notificationData.title, {
           body: notificationData.body,
-          icon: '/logo.png',
-          badge: '/logo.png',
+          icon: '/image.png',
+          badge: '/image.png',
           tag: 'pathology-notification',
           requireInteraction: true,
           data: notificationData.data
