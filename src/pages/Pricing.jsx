@@ -129,25 +129,15 @@ const Pricing = () => {
                     )}
 
                     {/* Key Metrics Row */}
-                    <div className="grid grid-cols-3 gap-2 mb-4">
-                      {/* Total Bookings */}
-                      <div className="p-2.5 bg-purple-50/60 rounded-2xl border border-purple-100 flex flex-col items-center justify-center text-center">
-                        <div className="w-7 h-7 rounded-full bg-purple-100/80 flex items-center justify-center mb-1 shrink-0">
-                          <FaTicketAlt className="text-purple-600" size={11} />
-                        </div>
-                        <span className="text-[8px] font-black uppercase tracking-wider text-purple-600 leading-tight">Total</span>
-                        <span className="text-base font-black text-purple-700 leading-none mt-0.5">{plan.totalBookings || 0}</span>
-                        <span className="text-[7px] text-purple-400 font-bold leading-none mt-0.5">Bookings</span>
-                      </div>
-
-                      {/* Free Bookings */}
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                      {/* Unlimited Bookings */}
                       <div className="p-2.5 bg-emerald-50/60 rounded-2xl border border-emerald-100 flex flex-col items-center justify-center text-center">
                         <div className="w-7 h-7 rounded-full bg-emerald-100/80 flex items-center justify-center mb-1 shrink-0">
-                          <FaGift className="text-emerald-600" size={11} />
+                          <FaTicketAlt className="text-emerald-600" size={11} />
                         </div>
-                        <span className="text-[8px] font-black uppercase tracking-wider text-emerald-600 leading-tight">Free</span>
-                        <span className="text-base font-black text-emerald-700 leading-none mt-0.5">{plan.freeBookings || 0}</span>
-                        <span className="text-[7px] text-emerald-400 font-bold leading-none mt-0.5">Bookings</span>
+                        <span className="text-[8px] font-black uppercase tracking-wider text-emerald-600 leading-tight">Bookings</span>
+                        <span className="text-base font-black text-emerald-700 leading-none mt-0.5">Unlimited</span>
+                        <span className="text-[7px] text-emerald-400 font-bold leading-none mt-0.5">No Limit</span>
                       </div>
 
                       {/* Validity */}
@@ -163,7 +153,7 @@ const Pricing = () => {
 
                     {/* Summary Info */}
                     <div className="text-[10px] text-slate-500 font-semibold text-center mb-4 px-3 py-2.5 bg-slate-50 rounded-2xl border border-slate-100 leading-relaxed">
-                      Get <span className="text-emerald-600 font-black">{plan.freeBookings || 0} free</span> bookings out of <span className="text-purple-600 font-black">{plan.totalBookings || 0} total</span>
+                      Accept <span className="text-emerald-600 font-black">Unlimited bookings</span> for <span className="text-purple-600 font-black">{plan.duration || 30} days</span>
                     </div>
 
                     {/* Divider */}
