@@ -6,16 +6,20 @@ const WelcomeScreen = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Increased time so it stays on screen longer (4.5 seconds)
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 4500); 
-
     // Prevent scrolling while welcome screen is active
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }, 4500); 
+
     return () => {
       clearTimeout(timer);
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     };
   }, []);
 
