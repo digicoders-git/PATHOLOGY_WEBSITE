@@ -28,17 +28,15 @@ const MobileAppPromotion = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="w-[170px] sm:w-[200px] lg:w-[285px] aspect-[9/19] bg-white rounded-[36px] border-[8px] border-black shadow-[0_25px_30px_-20px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center p-6 relative"
+              className="w-[170px] sm:w-[200px] lg:w-[285px] aspect-[9/19] rounded-[36px] border-[8px] border-black shadow-[0_25px_30px_-20px_rgba(0,0,0,0.5)] overflow-hidden relative"
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl z-20"></div>
 
               <img
-                src="/image.png"
-                alt="Logo"
-                className="w-28 sm:w-32 lg:w-40 object-contain drop-shadow-xl"
+                src="/splash-screen.png"
+                alt="Splash Screen"
+                className="w-full h-full object-cover"
               />
-
-              <div className="absolute bottom-6 w-1/4 h-1 bg-gray-100 rounded-full "></div>
             </motion.div>
           </div>
 

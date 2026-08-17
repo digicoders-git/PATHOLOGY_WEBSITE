@@ -170,7 +170,7 @@ const PricingSection = () => {
 
                     <NavLink
                       to={`/test/${pkg._id}`}
-                      className="h-36 relative overflow-hidden block bg-black"
+                      className="h-36 relative overflow-hidden block bg-secondary"
                     >
                       {thumb ? (
                         <img

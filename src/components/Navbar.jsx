@@ -8,6 +8,7 @@ import {
   FaPhoneAlt,
   FaTimes,
   FaBars,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 // import logo removed
@@ -106,11 +107,11 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col justify-center border-l border-gray-100 pl-2 md:pl-3 h-10 md:h-16">
               <span
-                className="text-[11px] md:text-4xl font-black text-black leading-none tracking-tight uppercase transition-all duration-300"
+                className="text-[11px] md:text-4xl font-black text-secondary leading-none tracking-tight uppercase transition-all duration-300 flex items-center"
               >
-                LABO INDIA
+                LABO<span className="inline-flex relative -top-[0.5em] text-[0.5em] ml-[1px] mr-[3px]"><FaMapMarkerAlt /></span> INDIA
               </span>
-              <span className="text-[6px] md:text-[13.4px] font-bold text-secondary leading-tight uppercase mt-0">
+              <span className="text-[6px] md:text-[13.4px] font-bold text-black leading-tight uppercase mt-0">
                 Connecting <br className="md:hidden" /> Pathology Labs
               </span>
             </div>
@@ -182,8 +183,8 @@ const Navbar = () => {
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <span className="font-black text-primary uppercase text-lg">
-                    LABO INDIA
+                  <span className="font-black text-secondary uppercase text-lg flex items-center">
+                    LABO<span className="inline-flex relative -top-[0.5em] text-[0.5em] ml-[1px] mr-[3px]"><FaMapMarkerAlt /></span> INDIA
                   </span>
                 </div>
                 <button

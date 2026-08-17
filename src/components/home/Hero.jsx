@@ -81,15 +81,14 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="w-[225px] h-[450px] mt-8 bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center p-6 relative transform-none"
+              className="w-[225px] h-[450px] mt-8 bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden relative transform-none"
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-20"></div>
               <img
-                src="/image.png"
-                alt="Logo"
-                className="w-36 object-contain drop-shadow-xl"
+                src="/splash-screen.png"
+                alt="Splash Screen"
+                className="w-full h-full object-cover"
               />
-
             </motion.div>
           </div>
 
@@ -103,7 +102,7 @@ const Hero = () => {
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-20"></div>
               <img
-                src="https://i.pinimg.com/originals/db/aa/21/dbaa21da2f2a51d2cb5b9b18657fed54.jpg"
+                src="/app-screen.jpg"
                 alt="App Interface"
                 className="w-full h-full object-cover"
               />
@@ -185,23 +184,13 @@ const Hero = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="w-[36%] flex justify-center z-20"
           >
-            <div className="w-[100px] h-[200px] bg-white rounded-[28px] border-[5px] border-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] relative flex flex-col items-center justify-center p-4">
+            <div className="w-[100px] h-[200px] bg-white rounded-[28px] border-[5px] border-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] overflow-hidden relative">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3 bg-black rounded-b-xl z-20"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-[22px]"></div>
               <img
-                src="/image.png"
-                alt="Logo"
-                className="w-22 object-contain mb-3 drop-shadow-lg"
+                src="/splash-screen.png"
+                alt="Splash Screen"
+                className="w-full h-full object-cover"
               />
-              {/* <div className="text-center">
-                <span className="text-secondary font-black text-[8px] uppercase block tracking-tight">
-                  LABO INDIA
-                </span>
-                <span className="text-secondary/60 font-bold text-[4px] uppercase tracking-widest block mt-1">
-                  Connecting Pathology Labs
-                </span>
-              </div> */}
-              <div className="absolute bottom-4 w-1/4 h-[3px] bg-gray-100 rounded-full"></div>
             </div>
           </motion.div>
 
@@ -214,7 +203,7 @@ const Hero = () => {
             <div className="w-[180px] h-[230px]  bg-white rounded-[22px] border-4 border-gray-950 shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] overflow-hidden relative">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-3 bg-gray-950 rounded-b-lg z-20"></div>
               <img
-                src="https://i.pinimg.com/originals/db/aa/21/dbaa21da2f2a51d2cb5b9b18657fed54.jpg"
+                src="/app-screen.jpg"
                 alt="App"
                 className="w-full h-full object-cover opacity-100"
               />

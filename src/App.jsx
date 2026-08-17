@@ -4,10 +4,12 @@ import Footer from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
 import appRoute from "./routes/appRoute";
 import FixedAppDownload from "./components/FixedAppDownload";
+import WelcomeScreen from "./components/WelcomeScreen";
 
 const App = () => {
   return (
     <div>
+      <WelcomeScreen />
       <Navbar />
       <FixedAppDownload />
       <Routes>
