@@ -14,7 +14,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1)_0%,transparent_50%)]"></div>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-0 relative z-20 max-w-7xl">
+      <div className="container mx-auto px-6 lg:px-16 relative z-20 max-w-[1400px]">
         {/* Desktop Layout - Symmetrical 3-Column Arrangement */}
         <div className="hidden lg:flex flex-row items-center justify-between h-full">
           {/* Column 1: Text Section (35%) */}
