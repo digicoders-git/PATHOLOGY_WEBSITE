@@ -6,6 +6,7 @@ import {
   FaTwitter,
   FaLinkedinIn,
   FaPhoneAlt,
+  FaWhatsapp,
   FaTimes,
   FaBars,
   FaMapMarkerAlt,
@@ -39,10 +40,11 @@ const Navbar = () => {
   ];
 
   const socialLinks = [
-    { icon: <FaFacebookF size={14} />, name: "facebook" },
-    { icon: <FaInstagram size={14} />, name: "instagram" },
-    { icon: <FaTwitter size={14} />, name: "twitter" },
-    { icon: <FaLinkedinIn size={14} />, name: "linkedin" },
+    { icon: <FaWhatsapp size={14} />, name: "whatsapp", href: "https://wa.me/918400800821" },
+    { icon: <FaFacebookF size={14} />, name: "facebook", href: "#" },
+    { icon: <FaInstagram size={14} />, name: "instagram", href: "#" },
+    { icon: <FaTwitter size={14} />, name: "twitter", href: "#" },
+    { icon: <FaLinkedinIn size={14} />, name: "linkedin", href: "#" },
   ];
 
   return (
@@ -55,29 +57,53 @@ const Navbar = () => {
           }`}
       >
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center h-full">
-          <div className="flex items-center gap-3 md:gap-6 overflow-hidden">
-            <div className="hidden sm:flex items-center gap-1.5 group cursor-pointer">
+          <div className="flex items-center gap-3 md:gap-5 overflow-hidden">
+            <a
+              href="mailto:info@laboindia.com"
+              className="hidden sm:flex items-center gap-1.5 group cursor-pointer hover:opacity-100 transition-opacity"
+              title="Email Us"
+            >
               <MdEmail className="text-white text-xs shrink-0" />
-              <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90 truncate">
-                amitmassif@gmail.com
+              <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90 group-hover:opacity-100 truncate">
+                info@laboindia.com
               </span>
-            </div>
-            <div className="flex items-center gap-1.5 group cursor-pointer">
+            </a>
+            <a
+              href="tel:8400800821"
+              className="flex items-center gap-1.5 group cursor-pointer hover:opacity-100 transition-opacity"
+              title="Call Us"
+            >
               <FaPhoneAlt className="text-white text-[10px] shrink-0" />
-              <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90">
-                +91 99999 88888
+              <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90 group-hover:opacity-100">
+                +91 8400 800 821
               </span>
-            </div>
+            </a>
+            <a
+              href="https://wa.me/918400800821"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:flex items-center gap-1.5 group cursor-pointer hover:opacity-100 transition-opacity text-emerald-300"
+              title="WhatsApp Us"
+            >
+              <FaWhatsapp className="text-xs shrink-0 text-white" />
+              <span className="font-medium text-white text-[10px] md:text-[11px] opacity-90 group-hover:opacity-100">
+                WhatsApp: 8400 800 821
+              </span>
+            </a>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             {socialLinks.map((social) => (
-              <div
+              <a
                 key={social.name}
-                className="w-6 h-6 rounded-full bg-white hover:bg-white flex items-center justify-center text-secondary hover:text-primary transition-all cursor-pointer border border-white/5 active:scale-95"
+                href={social.href}
+                target={social.href !== "#" ? "_blank" : undefined}
+                rel={social.href !== "#" ? "noopener noreferrer" : undefined}
+                className="w-6 h-6 rounded-full bg-white hover:bg-slate-100 flex items-center justify-center text-secondary hover:text-primary transition-all cursor-pointer border border-white/5 active:scale-95"
+                title={social.name}
               >
                 {social.icon}
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -213,11 +239,41 @@ const Navbar = () => {
                 ))}
               </div>
 
-              <div className="mt-10 pt-10 border-t border-gray-100">
+              <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col gap-3">
+                <a
+                  href="tel:8400800821"
+                  className="flex items-center gap-3 text-slate-700 text-xs font-bold hover:text-secondary transition-colors"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-secondary shrink-0">
+                    <FaPhoneAlt size={11} />
+                  </div>
+                  <span>+91 8400 800 821</span>
+                </a>
+                <a
+                  href="https://wa.me/918400800821"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-slate-700 text-xs font-bold hover:text-emerald-600 transition-colors"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
+                    <FaWhatsapp size={13} />
+                  </div>
+                  <span>WhatsApp: 8400 800 821</span>
+                </a>
+                <a
+                  href="mailto:info@laboindia.com"
+                  className="flex items-center gap-3 text-slate-700 text-xs font-bold hover:text-secondary transition-colors"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-secondary shrink-0">
+                    <MdEmail size={13} />
+                  </div>
+                  <span className="truncate">info@laboindia.com</span>
+                </a>
+
                 <NavLink
                   to="/registration"
                   onClick={() => setIsMenuOpen(false)}
-                  className="w-full bg-secondary text-white font-black py-4 rounded-xl text-center block uppercase tracking-[0.2em] text-xs shadow-lg active:scale-95"
+                  className="w-full bg-secondary text-white font-black py-3.5 rounded-xl text-center block uppercase tracking-[0.2em] text-xs shadow-lg active:scale-95 mt-2"
                 >
                   Registration Page
                 </NavLink>

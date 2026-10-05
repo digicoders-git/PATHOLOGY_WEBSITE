@@ -7,6 +7,7 @@ import {
   FaLinkedinIn,
   FaPhoneAlt,
   FaEnvelope,
+  FaWhatsapp,
   FaMapMarkerAlt,
   FaChevronRight,
 } from "react-icons/fa";
@@ -51,17 +52,23 @@ const Footer = () => {
               Patient-Focused. <br />
             </p>
             <div className="flex items-center gap-3">
-              {[FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn].map(
-                (Icon, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center hover:bg-black hover:text-white transition-all text-xs border border-gray-200 text-black"
-                  >
-                    <Icon />
-                  </a>
-                ),
-              )}
+              {[
+                { icon: FaWhatsapp, href: "https://wa.me/918400800821" },
+                { icon: FaFacebookF, href: "#" },
+                { icon: FaInstagram, href: "#" },
+                { icon: FaTwitter, href: "#" },
+                { icon: FaLinkedinIn, href: "#" },
+              ].map((item, i) => (
+                <a
+                  key={i}
+                  href={item.href}
+                  target={item.href !== "#" ? "_blank" : undefined}
+                  rel={item.href !== "#" ? "noopener noreferrer" : undefined}
+                  className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center hover:bg-black hover:text-white transition-all text-xs border border-gray-200 text-black active:scale-95"
+                >
+                  <item.icon />
+                </a>
+              ))}
             </div>
             <span>Powered by Easy Health India.</span>
           </div>
@@ -117,35 +124,59 @@ const Footer = () => {
               <span className="w-6 h-[2px] bg-black"></span>
               Contact Info
             </h4>
-            <div className="space-y-6">
-              <div className="flex gap-4 items-start">
-                <div className="w-10 h-10 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-black text-lg shrink-0">
+            <div className="space-y-4">
+              <a
+                href="tel:8400800821"
+                className="flex gap-4 items-center group cursor-pointer"
+              >
+                <div className="w-10 h-10 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-black text-sm shrink-0 group-hover:bg-secondary group-hover:text-white group-hover:border-secondary transition-all">
                   <FaPhoneAlt />
                 </div>
                 <div>
-                  <div className="text-[10px] font-black uppercase text-black tracking-widest mb-1">
+                  <div className="text-[10px] font-black uppercase text-slate-500 tracking-widest mb-0.5">
                     Call Support
                   </div>
-                  <div className="font-bold text-sm text-black">
-                    9355953293
+                  <div className="font-bold text-sm text-black group-hover:text-secondary transition-colors">
+                    +91 8400 800 821
                   </div>
                 </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="w-10 h-10 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-black text-lg shrink-0">
+              </a>
+
+              <a
+                href="https://wa.me/918400800821"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-4 items-center group cursor-pointer"
+              >
+                <div className="w-10 h-10 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 text-base shrink-0 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-600 transition-all">
+                  <FaWhatsapp />
+                </div>
+                <div>
+                  <div className="text-[10px] font-black uppercase text-emerald-600 tracking-widest mb-0.5">
+                    WhatsApp Chat
+                  </div>
+                  <div className="font-bold text-sm text-black group-hover:text-emerald-600 transition-colors">
+                    8400 800 821
+                  </div>
+                </div>
+              </a>
+
+              <a
+                href="mailto:info@laboindia.com"
+                className="flex gap-4 items-center group cursor-pointer"
+              >
+                <div className="w-10 h-10 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center text-black text-base shrink-0 group-hover:bg-secondary group-hover:text-white group-hover:border-secondary transition-all">
                   <FaEnvelope />
                 </div>
                 <div>
-                  <div className="text-[10px] font-black uppercase text-black tracking-widest mb-1">
+                  <div className="text-[10px] font-black uppercase text-slate-500 tracking-widest mb-0.5">
                     Email Us
                   </div>
-                  <div className="font-bold text-sm text-black">
-                    amitmassif@gmail.com
+                  <div className="font-bold text-sm text-black group-hover:text-secondary transition-colors truncate">
+                    info@laboindia.com
                   </div>
                 </div>
-              </div>
-              <div className="flex gap-4 items-start">
-              </div>
+              </a>
             </div>
           </div>
         </div>

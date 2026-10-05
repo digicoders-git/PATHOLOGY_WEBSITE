@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
 import appRoute from "./routes/appRoute";
 import FixedAppDownload from "./components/FixedAppDownload";
+import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import WelcomeScreen from "./components/WelcomeScreen";
 import { AppModalProvider } from "./context/AppModalContext";
 
@@ -14,6 +15,7 @@ const App = () => {
         <WelcomeScreen />
         <Navbar />
         <FixedAppDownload />
+        <FloatingWhatsApp />
         <Routes>
           {appRoute.map((route, index) => {
             const Com = route.element;

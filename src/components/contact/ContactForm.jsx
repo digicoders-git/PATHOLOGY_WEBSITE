@@ -151,7 +151,7 @@ const ContactForm = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={(e) => validateField("phone", e.target.value)}
-                    placeholder="9999999999"
+                    placeholder="8400800821"
                     className={`${inputClasses("phone")} pl-10`}
                   />
                 </div>

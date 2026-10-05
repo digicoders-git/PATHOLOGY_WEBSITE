@@ -40,18 +40,21 @@ const ContactDetails = () => {
       items: [
         {
           label: "Primary Helpline",
-          value: "+91 99999 99999",
+          value: "+91 8400 800 821",
           info: "Call Now",
+          link: "tel:8400800821",
         },
         {
           label: "Email Support",
-          value: "support@labdomain.tld",
-          info: "Quick Response",
+          value: "info@laboindia.com",
+          info: "Official Mail",
+          link: "mailto:info@laboindia.com",
         },
         {
-          label: "Emergency Process",
-          value: "Available on Priority Call",
-          info: "Emergency",
+          label: "WhatsApp Support",
+          value: "8400 800 821",
+          info: "Start Chat",
+          link: "https://wa.me/918400800821",
         },
       ],
     },
@@ -131,22 +134,34 @@ const ContactDetails = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {section.items.map((item, i) => (
-                      <div
-                        key={i}
-                        className="relative pl-6 border-l-2 border-transparent hover:border-secondary transition-colors py-1 group/item"
-                      >
-                        <span className="text-primary/40 font-bold text-[10px] uppercase tracking-widest block mb-1">
-                          {item.label}
-                        </span>
-                        <p className="text-primary font-semibold text-[13px] md:text-sm leading-snug mb-1">
-                          {item.value}
-                        </p>
-                        <span className="inline-block px-2 py-0.5 bg-background text-secondary text-[8px] font-black uppercase tracking-tighter rounded group-hover/item:bg-secondary group-hover/item:text-white transition-colors">
-                          {item.info}
-                        </span>
-                      </div>
-                    ))}
+                    {section.items.map((item, i) => {
+                      const Wrapper = item.link ? "a" : "div";
+                      const linkProps = item.link
+                        ? {
+                            href: item.link,
+                            target: item.link.startsWith("http") ? "_blank" : undefined,
+                            rel: item.link.startsWith("http") ? "noopener noreferrer" : undefined,
+                          }
+                        : {};
+
+                      return (
+                        <Wrapper
+                          key={i}
+                          {...linkProps}
+                          className="relative pl-6 border-l-2 border-transparent hover:border-secondary transition-colors py-1 group/item block"
+                        >
+                          <span className="text-primary/40 font-bold text-[10px] uppercase tracking-widest block mb-1">
+                            {item.label}
+                          </span>
+                          <p className="text-primary font-semibold text-[13px] md:text-sm leading-snug mb-1 group-hover/item:text-secondary transition-colors">
+                            {item.value}
+                          </p>
+                          <span className="inline-block px-2 py-0.5 bg-background text-secondary text-[8px] font-black uppercase tracking-tighter rounded group-hover/item:bg-secondary group-hover/item:text-white transition-colors">
+                            {item.info}
+                          </span>
+                        </Wrapper>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
