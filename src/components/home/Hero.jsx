@@ -2,9 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { FaMicroscope, FaGooglePlay, FaApple } from "react-icons/fa";
+import { useAppModal } from "../../context/AppModalContext";
 // import logo removed
 
 const Hero = () => { 
+  const { openAppleStoreModal } = useAppModal();
   return (
     <section className="relative min-h-[70vh] lg:min-h-[80vh] flex items-center overflow-hidden bg-secondary pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-28">
       {/* Premium Multi-Layer Background */}
@@ -44,8 +46,10 @@ const Hero = () => {
 
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 relative">
-                <NavLink
-                  to="/mobile-app"
+                <a
+                  href="https://play.google.com/store/apps/details?id=digi.coders.laboindia&pcampaignid=web_share"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group bg-black border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-[12px] transition-all shadow-xl hover:shadow-white/10 hover:-translate-y-1 active:scale-95 flex items-center gap-3 font-sans uppercase tracking-wider w-full sm:w-auto justify-center"
                 >
                   <FaGooglePlay className="text-xl text-[#00f2fe]" />
@@ -53,18 +57,19 @@ const Hero = () => {
                     <span className="block text-[8px] opacity-70">GET IT ON</span>
                     <span className="block text-[14px]">Google Play</span>
                   </div>
-                </NavLink>
+                </a>
 
-                <NavLink
-                  to="/mobile-app"
-                  className="group bg-black border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-[12px] transition-all shadow-xl hover:shadow-white/10 hover:-translate-y-1 active:scale-95 flex items-center gap-3 font-sans uppercase tracking-wider w-full sm:w-auto justify-center pointer-events-none cursor-not-allowed"
+                <button
+                  type="button"
+                  onClick={openAppleStoreModal}
+                  className="group bg-black border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-[12px] transition-all shadow-xl hover:shadow-white/10 hover:-translate-y-1 active:scale-95 flex items-center gap-3 font-sans uppercase tracking-wider w-full sm:w-auto justify-center cursor-pointer"
                 >
                   <FaApple className="text-2xl text-white" />
                   <div className="text-left leading-tight">
                     <span className="block text-[8px] opacity-70">Download on the</span>
                     <span className="block text-[14px]">App Store</span>
                   </div>
-                </NavLink>
+                </button>
 
               </div>
 
@@ -148,8 +153,10 @@ const Hero = () => {
               {/* Buttons */}
               <div className="flex flex-col gap-2 w-full">
 
-                <NavLink
-                  to="/mobile-app"
+                <a
+                  href="https://play.google.com/store/apps/details?id=digi.coders.laboindia&pcampaignid=web_share"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-2 py-1 rounded-md flex items-center gap-1 shadow-md w-fit"
                 >
                   <FaGooglePlay className="text-[10px] text-[#00f2fe]" />
@@ -157,18 +164,19 @@ const Hero = () => {
                     <span className="block text-[5px] opacity-70">GET IT ON</span>
                     <span className="block text-[8px] font-bold">Google Play</span>
                   </div>
-                </NavLink>
+                </a>
 
-                <NavLink
-                  to="/mobile-app"
-                  className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-2 py-1 rounded-md flex items-center gap-1 shadow-md w-fit pointer-events-none cursor-not-allowed"
+                <button
+                  type="button"
+                  onClick={openAppleStoreModal}
+                  className="bg-black/80 border border-white/10 backdrop-blur-sm text-white px-2 py-1 rounded-md flex items-center gap-1 shadow-md w-fit cursor-pointer active:scale-95"
                 >
                   <FaApple className="text-[10px] text-white" />
-                  <div className="leading-none">
+                  <div className="leading-none text-left">
                     <span className="block text-[5px] opacity-70">Download</span>
                     <span className="block text-[8px] font-bold">App Store</span>
                   </div>
-                </NavLink>
+                </button>
                 <p className="text-white text-xs mt-2 ">
 
                 </p>

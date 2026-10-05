@@ -5,21 +5,24 @@ import { Routes, Route } from "react-router-dom";
 import appRoute from "./routes/appRoute";
 import FixedAppDownload from "./components/FixedAppDownload";
 import WelcomeScreen from "./components/WelcomeScreen";
+import { AppModalProvider } from "./context/AppModalContext";
 
 const App = () => {
   return (
-    <div>
-      <WelcomeScreen />
-      <Navbar />
-      <FixedAppDownload />
-      <Routes>
-        {appRoute.map((route, index) => {
-          const Com = route.element;
-          return <Route key={index} path={route.path} element={<Com />} />;
-        })}
-      </Routes>
-      <Footer />
-    </div>
+    <AppModalProvider>
+      <div>
+        <WelcomeScreen />
+        <Navbar />
+        <FixedAppDownload />
+        <Routes>
+          {appRoute.map((route, index) => {
+            const Com = route.element;
+            return <Route key={index} path={route.path} element={<Com />} />;
+          })}
+        </Routes>
+        <Footer />
+      </div>
+    </AppModalProvider>
   );
 };
 

@@ -7,8 +7,10 @@ import {
   FaMobileAlt,
   FaArrowRight,
 } from "react-icons/fa";
+import { useAppModal } from "../../context/AppModalContext";
 
 const AppAvailability = () => {
+  const { openAppleStoreModal } = useAppModal();
   return (
     <section className="py-16 bg-white relative overflow-hidden">
       <div className="container mx-auto px-6 max-w-6xl">
@@ -52,7 +54,9 @@ const AppAvailability = () => {
 
 
             <motion.a
-              href="#"
+              href="https://play.google.com/store/apps/details?id=digi.coders.laboindia&pcampaignid=web_share"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
               className="flex-1 bg-white p-4 rounded-xl flex items-center gap-4 group transition-all border border-gray-100 shadow-sm hover:shadow-lg"
             >
@@ -70,10 +74,12 @@ const AppAvailability = () => {
             </motion.a>
 
             
-            <motion.a
-              href="#"
+            <motion.button
+              type="button"
+              onClick={openAppleStoreModal}
               whileHover={{ scale: 1.02 }}
-              className="flex-1 bg-gray-900 p-4 rounded-xl flex items-center gap-4 group transition-all shadow-lg"
+              whileTap={{ scale: 0.98 }}
+              className="flex-1 bg-gray-900 p-4 rounded-xl flex items-center gap-4 group transition-all shadow-lg text-left cursor-pointer"
             >
               <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white text-xl group-hover:bg-secondary transition-all">
                 <FaApple />
@@ -86,7 +92,7 @@ const AppAvailability = () => {
                   iOS (Apple)
                 </h4>
               </div>
-            </motion.a>
+            </motion.button>
 
           </div>
         </div>

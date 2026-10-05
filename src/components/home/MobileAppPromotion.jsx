@@ -1,9 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaApple, FaGooglePlay, FaCheckCircle } from "react-icons/fa";
+import { useAppModal } from "../../context/AppModalContext";
 // import logo removed
 
 const MobileAppPromotion = () => {
+  const { openAppleStoreModal } = useAppModal();
   const features = [
     "Book lab test from home",
     "Compare trusted lab",
@@ -78,12 +80,21 @@ const MobileAppPromotion = () => {
             {/* Buttons */}
             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
 
-              <button className="bg-secondary text-white flex items-center gap-2 px-7 py-3.5 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-gray-900 transition-all shadow-md">
+              <a
+                href="https://play.google.com/store/apps/details?id=digi.coders.laboindia&pcampaignid=web_share"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-secondary text-white flex items-center gap-2 px-7 py-3.5 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-gray-900 transition-all shadow-md"
+              >
                 <FaGooglePlay className="text-base" />
                 Play Store
-              </button>
+              </a>
 
-              <button className="bg-gray-900 text-white flex items-center gap-2 px-7 py-3.5 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-secondary transition-all shadow-md">
+              <button
+                type="button"
+                onClick={openAppleStoreModal}
+                className="bg-gray-900 text-white flex items-center gap-2 px-7 py-3.5 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-secondary transition-all shadow-md cursor-pointer active:scale-95"
+              >
                 <FaApple className="text-lg" />
                 App Store
               </button>

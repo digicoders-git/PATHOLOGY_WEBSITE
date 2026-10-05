@@ -1,31 +1,82 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FaCheckCircle, FaStar, FaRocket, FaCalendarAlt, FaTicketAlt, FaGift } from "react-icons/fa";
+import { 
+  FaCheck, FaStar, FaRocket, FaCalendarAlt, 
+  FaTicketAlt, FaArrowRight, FaTag, FaGift 
+} from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import api from "../apis/index";
 
 const Pricing = () => {
   const [plans, setPlans] = useState([]);
+  const [activeOffers, setActiveOffers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api
-      .get("/plans/get")
-      .then((res) => {
-        if (res.data.success) {
-          const sorted = (res.data.data || []).sort(
+    // 1. Fetch Plans
+    const fetchPlans = api.get("/plans/get");
+    // 2. Fetch Active Sitewide Offers (optional/safe fallback)
+    const fetchOffers = api.get("/offers/active").catch(() => ({ data: { data: [] } }));
+
+    Promise.all([fetchPlans, fetchOffers])
+      .then(([planRes, offerRes]) => {
+        if (planRes.data.success) {
+          const sorted = (planRes.data.data || []).sort(
             (a, b) => (a.displayOrder || 0) - (b.displayOrder || 0)
           );
           setPlans(sorted);
         }
+        if (offerRes.data && offerRes.data.data) {
+          setActiveOffers(offerRes.data.data || []);
+        }
       })
-      .catch((err) => console.error("Plan API Error:", err))
+      .catch((err) => console.error("Pricing API Error:", err))
       .finally(() => setLoading(false));
   }, []);
 
+  // Helper: Calculate fully dynamic offer & savings details for each plan
+  const getOfferDetails = (plan) => {
+    const price = Number(plan.price) || 0;
+    const totalPrice = Number(plan.totalPrice) || 0;
+    const badgeText = plan.badgeText ? plan.badgeText.trim() : "";
+
+    let originalPrice = totalPrice > price ? totalPrice : 0;
+    let savings = originalPrice > price ? originalPrice - price : 0;
+
+    // Fallback: If totalPrice wasn't filled in admin, but badgeText mentions 50%
+    if (savings === 0 && badgeText.includes("50%") && price > 0) {
+      originalPrice = price * 2;
+      savings = price;
+    }
+
+    const savingsPercent = originalPrice > price 
+      ? Math.round(((originalPrice - price) / originalPrice) * 100) 
+      : 0;
+
+    // Compose dynamic offer text for the yellow savings pill
+    let offerText = "";
+    if (savings > 0 && badgeText) {
+      offerText = `${badgeText} • ₹${savings.toLocaleString("en-IN")} savings *`;
+    } else if (savings > 0) {
+      offerText = savingsPercent > 0
+        ? `Save ${savingsPercent}% • ₹${savings.toLocaleString("en-IN")} savings *`
+        : `₹${savings.toLocaleString("en-IN")} savings *`;
+    } else if (badgeText) {
+      offerText = `${badgeText} *`;
+    }
+
+    return {
+      originalPrice,
+      savings,
+      savingsPercent,
+      badgeText,
+      offerText,
+    };
+  };
+
   return (
     <>
-      {/* Hero */}
+      {/* Hero Section */}
       <section className="bg-secondary pt-32 md:pt-44 pb-28 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5 pointer-events-none">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -49,177 +100,237 @@ const Pricing = () => {
             <h1 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-tight mb-4">
               Simple, Transparent <br /> Pricing
             </h1>
-            <p className="text-white/50 text-sm max-w-lg mx-auto leading-relaxed font-medium">
-              Choose a plan that fits your lab. Get bookings and unlock premium features.
+            <p className="text-white/60 text-sm max-w-lg mx-auto leading-relaxed font-medium">
+              Choose a plan that fits your lab. Get verified bookings, expand network reach, and unlock premium features.
             </p>
+
+            {/* Active Sitewide Promo Pill if available */}
+            {activeOffers.length > 0 && activeOffers[0].title && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="mt-6 inline-flex items-center gap-2 bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider py-2 px-5 rounded-full shadow-lg"
+              >
+                <FaGift />
+                <span>{activeOffers[0].title}: {activeOffers[0].subtitle || activeOffers[0].description}</span>
+                {activeOffers[0].couponCode && (
+                  <span className="bg-slate-950 text-white px-2 py-0.5 rounded text-[10px]">
+                    Use Code: {activeOffers[0].couponCode}
+                  </span>
+                )}
+              </motion.div>
+            )}
           </motion.div>
         </div>
         <div className="absolute -bottom-px left-0 w-full z-10">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" className="w-full h-auto">
-            <path fill="#F8FAFC" fillOpacity="1" d="M0,64L120,58.7C240,53,480,43,720,48C960,53,1200,75,1320,85.3L1440,96L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z" transform="rotate(180 720 40)" />
+            <path
+              fill="#F8FAFC"
+              fillOpacity="1"
+              d="M0,64L120,58.7C240,53,480,43,720,48C960,53,1200,75,1320,85.3L1440,96L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"
+              transform="rotate(180 720 40)"
+            />
           </svg>
         </div>
       </section>
 
-      {/* Cards */}
+      {/* Cards Section */}
       <section className="bg-slate-50 py-20">
         <div className="container mx-auto px-6 max-w-7xl">
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3].map((n) => (
-                <div key={n} className="h-96 bg-white rounded-3xl animate-pulse border border-slate-100" />
+                <div key={n} className="h-[520px] bg-white rounded-3xl animate-pulse border border-slate-200" />
               ))}
             </div>
           ) : plans.length === 0 ? (
             <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200">
-              <FaRocket className="text-4xl text-slate-200 mx-auto mb-3" />
-              <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">No Active Plans Found</p>
+              <FaRocket className="text-4xl text-slate-300 mx-auto mb-3" />
+              <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">
+                No Active Plans Found
+              </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {plans.map((plan, idx) => (
-                <motion.div
-                  key={plan._id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className={`relative bg-white rounded-3xl flex flex-col overflow-hidden border-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${
-                    plan.isPopular
-                      ? "border-secondary shadow-xl shadow-secondary/20 ring-1 ring-secondary/10"
-                      : "border-slate-200 shadow-md hover:border-slate-300"
-                  }`}
-                >
-                  {/* Popular ribbon */}
-                  {plan.isPopular && (
-                    <div className="bg-gradient-to-r from-secondary to-secondary/80 text-white text-[9px] font-black uppercase tracking-widest text-center py-3 flex items-center justify-center gap-1.5">
-                      <FaStar size={10} /> Most Popular
-                    </div>
-                  )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+              {plans.map((plan, idx) => {
+                const { originalPrice, savings, savingsPercent, badgeText, offerText } = getOfferDetails(plan);
+                const isTopTier = plan.isPopular;
 
-                  {/* Badge */}
-                  {plan.badgeText && !plan.isPopular && (
-                    <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
-                      {plan.badgeText}
-                    </div>
-                  )}
-
-                  <div className="p-6 md:p-8 flex flex-col flex-1">
-                    {/* Plan name */}
-                    <p className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-500 mb-3">
-                      {plan.name}
-                    </p>
-
-                    {/* Price */}
-                    <div className="flex items-end gap-1.5 mb-1">
-                      <span className="text-3xl md:text-4xl font-black text-primary leading-none">
-                        ₹{plan.price}
-                      </span>
-                      <span className="text-xs font-bold text-slate-400 mb-1">
-                        {plan.priceLabel || "/ month"}
-                      </span>
-                    </div>
-
-                    {/* Total price */}
-                    {plan.totalPrice > 0 && (
-                      <p className="text-[11px] text-slate-400 font-bold mb-4">
-                        Total value:{" "}
-                        <span className="text-primary/70 line-through decoration-red-500/80">₹{plan.totalPrice}</span>
-                      </p>
+                return (
+                  <motion.div
+                    key={plan._id}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.08 }}
+                    className={`relative bg-white rounded-3xl flex flex-col overflow-hidden border-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${
+                      isTopTier
+                        ? "border-secondary shadow-xl shadow-secondary/15 ring-1 ring-secondary/20"
+                        : "border-slate-200 shadow-md hover:border-slate-300"
+                    }`}
+                  >
+                    {/* Top Ribbon for Popular Plan */}
+                    {isTopTier && (
+                      <div className="bg-secondary text-white text-[10px] font-black uppercase tracking-widest text-center py-2.5 flex items-center justify-center gap-1.5 shadow-inner">
+                        <FaStar size={11} className="text-amber-300" />
+                        <span>Most Popular</span>
+                      </div>
                     )}
 
-                    {/* Key Metrics Row */}
-                    <div className="grid grid-cols-2 gap-2 mb-4">
-                      {/* Unlimited Bookings */}
-                      <div className="p-2.5 bg-emerald-50/60 rounded-2xl border border-emerald-100 flex flex-col items-center justify-center text-center">
-                        <div className="w-7 h-7 rounded-full bg-emerald-100/80 flex items-center justify-center mb-1 shrink-0">
-                          <FaTicketAlt className="text-emerald-600" size={11} />
-                        </div>
-                        <span className="text-[8px] font-black uppercase tracking-wider text-emerald-600 leading-tight">Bookings</span>
-                        <span className="text-base font-black text-emerald-700 leading-none mt-0.5">Unlimited</span>
-                        <span className="text-[7px] text-emerald-400 font-bold leading-none mt-0.5">No Limit</span>
+                    <div className="p-6 sm:p-8 flex flex-col flex-1">
+                      {/* Top Badge: Best Deal / Category Badge */}
+                      <div className="flex items-center justify-between gap-2 mb-4">
+                        <span className="inline-flex items-center gap-1.5 bg-black text-white text-[10px] font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-xs">
+                          {isTopTier ? "Best Deal" : "Standard Plan"}
+                        </span>
+
+                        {/* Additional tag if duration is annual/quarterly */}
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                          {plan.duration >= 365 ? "1 Year" : plan.duration >= 90 ? "3 Months" : "Monthly"}
+                        </span>
                       </div>
 
-                      {/* Validity */}
-                      <div className="p-2.5 bg-gray-50/60 rounded-2xl border border-gray-200 flex flex-col items-center justify-center text-center">
-                        <div className="w-7 h-7 rounded-full bg-gray-200/80 flex items-center justify-center mb-1 shrink-0">
-                          <FaCalendarAlt className="text-black" size={11} />
-                        </div>
-                        <span className="text-[8px] font-black uppercase tracking-wider text-black leading-tight">Validity</span>
-                        <span className="text-base font-black text-black leading-none mt-0.5">{plan.duration || 30}</span>
-                        <span className="text-[7px] text-gray-500 font-bold leading-none mt-0.5">Days</span>
-                      </div>
-                    </div>
+                      {/* Plan Name */}
+                      <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight uppercase">
+                        {plan.name}
+                      </h3>
 
-                    {/* Summary Info */}
-                    <div className="text-[10px] text-slate-500 font-semibold text-center mb-4 px-3 py-2.5 bg-slate-50 rounded-2xl border border-slate-100 leading-relaxed">
-                      Accept <span className="text-emerald-600 font-black">Unlimited bookings</span> for <span className="text-purple-600 font-black">{plan.duration || 30} days</span>
-                    </div>
+                      {/* Plan Description / Tagline */}
+                      <p className="text-slate-500 text-xs sm:text-sm mt-1.5 mb-4 leading-relaxed font-medium">
+                        Grow your lab with verified patient leads, digital bookings, and marketplace visibility.
+                      </p>
 
-                    {/* Divider */}
-                    <div className="h-px bg-gradient-to-r from-transparent via-slate-150 to-transparent my-4" />
-
-                    {/* Features */}
-                    <div className="mb-6 flex-1">
-                      <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2.5">What's Included:</p>
-                      <ul className="space-y-2">
-                        {plan.features && plan.features.length > 0 ? (
-                          plan.features.map((feat, i) => (
-                            <li key={i} className="flex items-start gap-2">
-                              <FaCheckCircle
-                                className={`mt-0.5 shrink-0 ${
-                                  plan.isPopular ? "text-secondary" : "text-primary"
-                                }`}
-                                size={12}
-                              />
-                              <span className="text-xs text-slate-600 leading-snug font-medium">{feat}</span>
-                            </li>
-                          ))
+                      {/* Strikethrough Original Price (normally ₹...) */}
+                      <div className="min-h-[22px]">
+                        {originalPrice > plan.price ? (
+                          <p className="text-slate-400 text-xs sm:text-sm font-bold line-through decoration-red-500/80">
+                            normally ₹{originalPrice.toLocaleString("en-IN")}
+                          </p>
                         ) : (
-                          <li className="text-xs text-slate-400 italic">No features listed</li>
+                          <span className="text-transparent text-xs select-none">No Strikethrough</span>
                         )}
-                      </ul>
-                    </div>
+                      </div>
 
-                    {/* CTA */}
-                    <NavLink
-                      to="/registration"
-                      className={`w-full py-3.5 rounded-2xl text-[11px] font-black uppercase tracking-widest text-center transition-all font-bold shadow-lg mt-auto ${
-                        plan.isPopular
-                          ? "bg-gradient-to-r from-secondary to-secondary/90 text-white hover:shadow-xl hover:from-secondary/95 hover:to-secondary/85"
-                          : "bg-gradient-to-r from-primary to-primary/90 text-white hover:shadow-xl hover:from-primary/95 hover:to-primary/85"
-                      }`}
-                    >
-                      Get Started Now
-                    </NavLink>
-                  </div>
-                </motion.div>
-              ))}
+                      {/* Current Offer Price Display */}
+                      <div className="flex items-baseline gap-1 my-1">
+                        <span className="text-lg font-bold text-slate-600">₹</span>
+                        <span className="text-4xl sm:text-5xl font-black text-slate-950 tracking-tight leading-none">
+                          {plan.price > 0 ? plan.price.toLocaleString("en-IN") : "0"}
+                        </span>
+                        <span className="text-xs sm:text-sm font-bold text-slate-500 ml-1.5">
+                          {plan.priceLabel ? `/${plan.priceLabel.replace(/^\//, '').trim()}` : "/ month"}
+                        </span>
+                      </div>
+
+                      {/* ── HIGHLIGHTED YELLOW/GOLD OFFER BAR (Exact reference from user image) ── */}
+                      {offerText ? (
+                        <div className="w-full bg-[#FEF08A] border border-amber-300 text-amber-950 font-black text-xs sm:text-sm py-2.5 px-3.5 rounded-xl text-center shadow-xs flex items-center justify-center gap-1.5 my-3.5 transition-all">
+                          <FaTag size={12} className="text-amber-700 shrink-0" />
+                          <span className="truncate">{offerText}</span>
+                        </div>
+                      ) : (
+                        <div className="h-2 my-2" />
+                      )}
+
+                      {/* ── CTA Button (Right under Offer Bar as in reference image) ── */}
+                      <NavLink
+                        to="/registration"
+                        className={`w-full py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider text-center transition-all shadow-lg flex items-center justify-center gap-2 group active:scale-95 ${
+                          isTopTier
+                            ? "bg-secondary hover:bg-secondary/90 text-white shadow-secondary/25"
+                            : "bg-slate-900 hover:bg-black text-white shadow-slate-900/20"
+                        }`}
+                      >
+                        <span>{plan.price === 0 ? "Get Started Free" : "Get Started Now"}</span>
+                        <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
+                      </NavLink>
+
+                      {/* Key Metrics Row: Bookings & Validity */}
+                      <div className="grid grid-cols-2 gap-2 mt-5 mb-2">
+                        {/* Bookings */}
+                        <div className="p-2.5 bg-emerald-50/70 rounded-xl border border-emerald-100 flex items-center justify-center gap-2 text-center">
+                          <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                            <FaTicketAlt className="text-emerald-700" size={10} />
+                          </div>
+                          <div className="text-left">
+                            <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-600 leading-none">
+                              Bookings
+                            </span>
+                            <span className="text-xs font-black text-emerald-800 leading-tight">
+                              {plan.totalBookings > 0 ? `${plan.totalBookings} Total` : "Unlimited"}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Validity */}
+                        <div className="p-2.5 bg-slate-100/70 rounded-xl border border-slate-200 flex items-center justify-center gap-2 text-center">
+                          <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center shrink-0">
+                            <FaCalendarAlt className="text-slate-700" size={10} />
+                          </div>
+                          <div className="text-left">
+                            <span className="block text-[8px] font-black uppercase tracking-wider text-slate-500 leading-none">
+                              Validity
+                            </span>
+                            <span className="text-xs font-black text-slate-900 leading-tight">
+                              {plan.duration || 30} Days
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="h-px bg-slate-200 my-4" />
+
+                      {/* Features Checklist */}
+                      <div className="flex-1">
+                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
+                          What's Included:
+                        </p>
+                        <ul className="space-y-2.5">
+                          {plan.features && plan.features.length > 0 ? (
+                            plan.features.map((feat, i) => (
+                              <li key={i} className="flex items-start gap-2.5">
+                                <div className="w-4 h-4 rounded-full bg-emerald-100/80 border border-emerald-300 flex items-center justify-center shrink-0 mt-0.5">
+                                  <FaCheck className="text-emerald-700" size={9} />
+                                </div>
+                                <span className="text-xs sm:text-sm text-slate-700 font-medium leading-snug">
+                                  {feat}
+                                </span>
+                              </li>
+                            ))
+                          ) : (
+                            <li className="text-xs text-slate-400 italic">Standard lab features included</li>
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           )}
         </div>
       </section>
 
-      {/* Bottom CTA */}
+      {/* Bottom Custom Enterprise Box */}
       <section className="bg-slate-50 pb-20">
         <div className="container mx-auto px-6 text-center">
-          <div className="max-w-xl mx-auto p-10 rounded-3xl bg-white border-2 border-slate-200 shadow-md">
+          <div className="max-w-xl mx-auto p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-sm">
             <h4 className="text-base font-black uppercase tracking-widest text-primary mb-3">
               Need a Custom Plan?
             </h4>
-            <p className="text-sm text-slate-400 mb-6 leading-relaxed">
-              Multiple lab locations or a hospital chain? Contact us for tailored enterprise pricing and custom booking packages.
+            <p className="text-sm text-slate-500 mb-6 leading-relaxed">
+              Multiple lab branches, regional diagnostic chains, or hospital networks? Contact our team for customized enterprise pricing and volume discounts.
             </p>
             <NavLink
               to="/contact"
-              className="inline-block text-[11px] font-black uppercase tracking-widest text-secondary border-b-2 border-secondary/30 hover:border-secondary transition-all pb-0.5"
+              className="inline-block text-xs font-black uppercase tracking-widest text-secondary border-b-2 border-secondary/30 hover:border-secondary transition-all pb-1"
             >
-              Contact Our Team
+              Contact Our Team →
             </NavLink>
           </div>
         </div>
       </section>
-
     </>
   );
 };

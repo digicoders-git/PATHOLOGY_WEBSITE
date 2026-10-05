@@ -6,8 +6,10 @@ import {
   FaApple,
   FaGooglePlay,
 } from "react-icons/fa";
+import { useAppModal } from "../../context/AppModalContext";
 
 const DownloadCTA = () => {
+  const { openAppleStoreModal } = useAppModal();
   return (
     <section className="py-16 bg-secondary relative overflow-hidden">
       <div className="container mx-auto px-6 max-w-4xl text-center">
@@ -26,11 +28,20 @@ const DownloadCTA = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4">
-                    <button className="flex items-center gap-3 px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-all shadow-xl text-sm uppercase tracking-tight border border-white/10">
+                    <a
+            href="https://play.google.com/store/apps/details?id=digi.coders.laboindia&pcampaignid=web_share"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-all shadow-xl text-sm uppercase tracking-tight border border-white/10"
+          >
             <FaGooglePlay className="text-xl" />
             <span>Play Store</span>
-          </button>
-          <button className="flex items-center gap-3 px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-xl text-sm uppercase tracking-tight">
+          </a>
+          <button
+            type="button"
+            onClick={openAppleStoreModal}
+            className="flex items-center gap-3 px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-xl text-sm uppercase tracking-tight cursor-pointer active:scale-95"
+          >
             <FaApple className="text-xl" />
             <span>App Store</span>
           </button>
