@@ -819,76 +819,7 @@ const ParentLabForm = () => {
         />
       </Section>
 
-      <Section title="Services & Diagnostics" icon={FaVial} index={5}>
-        <div className="md:col-span-3 space-y-4">
-          <label className="text-black font-bold text-[9px] uppercase tracking-widest px-1">
-            Available Medical Tests
-          </label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {loading ? (
-              <div className="col-span-full py-12 text-center opacity-30 text-[9px] font-bold uppercase tracking-widest">
-                Fetching catalog...
-              </div>
-            ) : availableTests.length > 0 ? (
-              availableTests.map((test) => {
-                const isSelected = formData.selectedTests.includes(test._id);
-                return (
-                  <div
-                    key={test._id}
-                    onClick={() => handleTestToggle(test._id)}
-                    className={`p-3.5 rounded-lg border text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center justify-between shadow-xs ${isSelected
-                        ? "bg-primary text-white border-primary shadow-md shadow-primary/10"
-                        : "bg-white border-gray-100 text-primary/60 hover:border-primary/40"
-                      }`}
-                  >
-                    <span className="truncate pr-2">{test.title}</span>
-                    {isSelected && (
-                      <FaCheckCircle className="text-secondary text-[14px]" />
-                    )}
-                  </div>
-                );
-              })
-            ) : (
-              <div className="col-span-full py-10 text-center opacity-40 text-[9px] font-bold uppercase tracking-widest bg-gray-50/50 rounded-xl border border-dashed border-gray-100">
-                No tests available
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 mt-6 border-t border-gray-50">
-          <InputField
-            label="Home Collection"
-            name="homeCollection"
-            type="checkbox"
-            value={formData.homeCollection}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Round-The-Clock"
-            name="is24x7"
-            type="checkbox"
-            value={formData.is24x7}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Emergency Support"
-            name="emergency"
-            type="checkbox"
-            value={formData.emergency}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Ambulance Support"
-            name="ambulanceService"
-            type="checkbox"
-            value={formData.ambulanceService}
-            onChange={handleChange}
-          />
-        </div>
-      </Section>
-
-      <Section title="Certifications & Files" icon={FaCertificate} index={6}>
+      <Section title="Certifications & Files" icon={FaCertificate} index={5}>
         <div className="md:col-span-3 space-y-6">
           <label className="text-black font-bold text-[9px] uppercase tracking-widest px-1">
             Clinical Accreditations
@@ -1018,7 +949,7 @@ const ParentLabForm = () => {
         </div>
       </Section>
 
-      <Section title="Operational Hours" icon={FaClock} index={7}>
+      <Section title="Operational Hours" icon={FaClock} index={6}>
         <InputField
           label="Opening Clock"
           name="openTime"
@@ -1052,7 +983,7 @@ const ParentLabForm = () => {
         />
       </Section>
 
-      <Section title="Digital Payments" icon={FaCreditCard} index={8}>
+      <Section title="Digital Payments" icon={FaCreditCard} index={7}>
         <InputField
           label="Business UPI ID"
           name="upiId"

@@ -766,79 +766,7 @@ const IndividualLabForm = () => {
         />
       </Section>
 
-      <Section title="Services & Diagnostics" icon={FaVial} index={4}>
-        <div className="md:col-span-3 space-y-4">
-          <label className="text-black font-bold text-[9px] uppercase tracking-widest px-1">
-            Choose Available Medical Tests
-          </label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {loading ? (
-              <div className="col-span-full py-12 text-center opacity-30 text-[9px] font-bold uppercase tracking-widest">
-                Fetching test catalog...
-              </div>
-            ) : availableTests.length > 0 ? (
-              availableTests.map((test) => {
-                const isSelected = formData.selectedTests.includes(test._id);
-                return (
-                  <div
-                    key={test._id}
-                    onClick={() => handleTestToggle(test._id)}
-                    className={`p-4 rounded-xl border text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-300 flex items-center gap-3 shadow-sm ${isSelected
-                      ? "bg-primary/5 border-primary/50 text-primary shadow-md shadow-primary/5"
-                      : "bg-white border-gray-200 text-primary/80 hover:border-primary/60 hover:bg-gray-50/30"
-                      }`}
-                  >
-                    <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-300 flex-shrink-0 ${isSelected
-                      ? "bg-secondary border-secondary scale-105"
-                      : "bg-gray-300 border-gray-300"
-                      }`}>
-                       {isSelected && <FaCheckCircle className="text-white text-[11px]" />}
-                    </div>
-                    <span className="truncate leading-tight">{test.title}</span>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="col-span-full py-10 text-center opacity-40 text-[9px] font-bold uppercase tracking-widest bg-gray-50/50 rounded-xl border border-dashed border-gray-100">
-                No tests available at the moment
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 mt-6 border-t border-gray-50">
-          <InputField
-            label="Home Collection"
-            name="homeCollection"
-            type="checkbox"
-            value={formData.homeCollection}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Round-The-Clock"
-            name="is24x7"
-            type="checkbox"
-            value={formData.is24x7}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Emergency Support"
-            name="emergency"
-            type="checkbox"
-            value={formData.emergency}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Ambulance Support"
-            name="ambulanceService"
-            type="checkbox"
-            value={formData.ambulanceService}
-            onChange={handleChange}
-          />
-        </div>
-      </Section>
-
-      <Section title="Certifications & Files" icon={FaCertificate} index={5}>
+      <Section title="Certifications & Files" icon={FaCertificate} index={4}>
         <div className="md:col-span-3 space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {CERT_OPTIONS.map((cert) => {
@@ -971,7 +899,7 @@ const IndividualLabForm = () => {
         </div>
       </Section>
 
-      <Section title="Operational Hours" icon={FaClock} index={6}>
+      <Section title="Operational Hours" icon={FaClock} index={5}>
         <InputField
           label="Opening Clock"
           name="openTime"
@@ -1005,7 +933,7 @@ const IndividualLabForm = () => {
         />
       </Section>
 
-      <Section title="Digital Payments" icon={FaCreditCard} index={7}>
+      <Section title="Digital Payments" icon={FaCreditCard} index={6}>
         <InputField
           label="Registered UPI ID"
           name="upiId"
