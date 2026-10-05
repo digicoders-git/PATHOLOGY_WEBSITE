@@ -819,7 +819,40 @@ const ParentLabForm = () => {
         />
       </Section>
 
-      <Section title="Certifications & Files" icon={FaCertificate} index={5}>
+      <Section title="Services" icon={FaVial} index={5}>
+        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <InputField
+            label="Home Collection"
+            name="homeCollection"
+            type="checkbox"
+            value={formData.homeCollection}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Round-The-Clock"
+            name="is24x7"
+            type="checkbox"
+            value={formData.is24x7}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Emergency Support"
+            name="emergency"
+            type="checkbox"
+            value={formData.emergency}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Ambulance Support"
+            name="ambulanceService"
+            type="checkbox"
+            value={formData.ambulanceService}
+            onChange={handleChange}
+          />
+        </div>
+      </Section>
+
+      <Section title="Certifications & Files" icon={FaCertificate} index={6}>
         <div className="md:col-span-3 space-y-6">
           <label className="text-black font-bold text-[9px] uppercase tracking-widest px-1">
             Clinical Accreditations
@@ -949,7 +982,7 @@ const ParentLabForm = () => {
         </div>
       </Section>
 
-      <Section title="Operational Hours" icon={FaClock} index={6}>
+      <Section title="Operational Hours" icon={FaClock} index={7}>
         <InputField
           label="Opening Clock"
           name="openTime"
@@ -983,7 +1016,7 @@ const ParentLabForm = () => {
         />
       </Section>
 
-      <Section title="Digital Payments" icon={FaCreditCard} index={7}>
+      <Section title="Digital Payments" icon={FaCreditCard} index={8}>
         <InputField
           label="Business UPI ID"
           name="upiId"

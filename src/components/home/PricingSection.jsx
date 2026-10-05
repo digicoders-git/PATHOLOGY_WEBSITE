@@ -249,12 +249,14 @@ const PricingSection = () => {
                                   </span>
                               )}
                           </div>
-                          <NavLink
-                            to="/registration"
+                          <a
+                            href="https://play.google.com/store/apps/details?id=digi.coders.laboindia&pcampaignid=web_share"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-lg transition-all bg-black text-white hover:bg-black/90"
                           >
                             Book Now
-                          </NavLink>
+                          </a>
                         </div>
                       </div>
                     </div>

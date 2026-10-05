@@ -1,11 +1,49 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaApple, FaGooglePlay, FaCheckCircle } from "react-icons/fa";
 import { useAppModal } from "../../context/AppModalContext";
-// import logo removed
+
+const APP_SCREENS = [
+  {
+    id: "screen-1",
+    src: "/app-screen-1.png",
+    alt: "Explore Labs on Map & Nearby",
+  },
+  {
+    id: "screen-2",
+    src: "/app-screen-2.png",
+    alt: "Browse All Diagnostic Laboratories",
+  },
+  {
+    id: "screen-3",
+    src: "/app-screen-3.png",
+    alt: "Manage Bookings & Transaction History",
+  },
+  {
+    id: "screen-5",
+    src: "/app-screen.jpg",
+    alt: "Live Reports & Test Details",
+  },
+  {
+    id: "screen-splash",
+    src: "/splash-screen.png",
+    alt: "Labo India Splash Welcome",
+  },
+];
 
 const MobileAppPromotion = () => {
   const { openAppleStoreModal } = useAppModal();
+  const [currentScreen, setCurrentScreen] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentScreen((prev) => (prev + 1) % APP_SCREENS.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
   const features = [
     "Book lab test from home",
     "Compare trusted lab",
@@ -16,7 +54,6 @@ const MobileAppPromotion = () => {
     "Get hassle-Free test",
     "Book sample home collection",
     "Ambulance Facility if available",
-
   ];
 
   return (
@@ -24,22 +61,52 @@ const MobileAppPromotion = () => {
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="flex flex-col lg:flex-row items-center gap-12">
 
-          {/* Phone Preview */}
-          <div className="w-full lg:w-[40%] flex justify-center items-center mb-8 lg:mb-0">
+          {/* Phone Preview with Auto Slide Carousel */}
+          <div 
+            className="w-full lg:w-[40%] flex flex-col justify-center items-center mb-8 lg:mb-0"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="w-[170px] sm:w-[200px] lg:w-[285px] aspect-[9/19] rounded-[36px] border-[8px] border-black shadow-[0_25px_30px_-20px_rgba(0,0,0,0.5)] overflow-hidden relative"
+              className="w-[180px] sm:w-[220px] lg:w-[285px] aspect-[9/19] rounded-[36px] border-[8px] border-black shadow-[0_25px_35px_-15px_rgba(0,0,0,0.5)] overflow-hidden relative bg-black"
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl z-20"></div>
+              {/* Dynamic Island / Notch */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl z-20 pointer-events-none"></div>
 
-              <img
-                src="/splash-screen.png"
-                alt="Splash Screen"
-                className="w-full h-full object-cover"
-              />
+              {/* Auto Sliding Screens */}
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentScreen}
+                  src={APP_SCREENS[currentScreen].src}
+                  alt={APP_SCREENS[currentScreen].alt}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="w-full h-full object-cover select-none"
+                />
+              </AnimatePresence>
             </motion.div>
+
+            {/* Pagination Indicators */}
+            <div className="flex items-center gap-2 mt-5">
+              {APP_SCREENS.map((screen, idx) => (
+                <button
+                  key={screen.id}
+                  type="button"
+                  onClick={() => setCurrentScreen(idx)}
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                    idx === currentScreen
+                      ? "w-7 bg-secondary shadow-sm shadow-secondary/30"
+                      : "w-2 bg-gray-200 hover:bg-gray-400"
+                  }`}
+                  aria-label={`Go to screen ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Content */}

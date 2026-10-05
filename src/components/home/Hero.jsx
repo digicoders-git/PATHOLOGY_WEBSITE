@@ -1,12 +1,47 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { FaMicroscope, FaGooglePlay, FaApple } from "react-icons/fa";
 import { useAppModal } from "../../context/AppModalContext";
-// import logo removed
+
+const APP_SCREENS = [
+  {
+    id: "hero-screen-1",
+    src: "/app-screen-1.png",
+    alt: "Explore Labs on Map & Nearby",
+  },
+  {
+    id: "hero-screen-2",
+    src: "/app-screen-2.png",
+    alt: "Browse All Diagnostic Laboratories",
+  },
+  {
+    id: "hero-screen-3",
+    src: "/app-screen-3.png",
+    alt: "Manage Bookings & Transaction History",
+  },
+  {
+    id: "hero-screen-5",
+    src: "/app-screen.jpg",
+    alt: "Live Reports & Test Details",
+  },
+  {
+    id: "hero-screen-splash",
+    src: "/splash-screen.png",
+    alt: "Labo India Splash Welcome",
+  },
+];
 
 const Hero = () => { 
   const { openAppleStoreModal } = useAppModal();
+  const [currentScreen, setCurrentScreen] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentScreen((prev) => (prev + 1) % APP_SCREENS.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, []);
   return (
     <section className="relative min-h-[70vh] lg:min-h-[80vh] flex items-center overflow-hidden bg-secondary pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-28">
       {/* Premium Multi-Layer Background */}
@@ -103,14 +138,21 @@ const Hero = () => {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
-              className="w-[550px] h-[550px] mt-8 bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] overflow-hidden relative transform-none"
+              className="w-[550px] h-[550px] mt-8 bg-black rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] overflow-hidden relative transform-none"
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-20"></div>
-              <img
-                src="/app-screen.jpg"
-                alt="App Interface"
-                className="w-full h-full object-cover"
-              />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-20 pointer-events-none"></div>
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentScreen}
+                  src={APP_SCREENS[currentScreen].src}
+                  alt={APP_SCREENS[currentScreen].alt}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="w-full h-full object-cover select-none"
+                />
+              </AnimatePresence>
             </motion.div>
           </div>
         </div>
@@ -208,14 +250,21 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             className="w-[32%] flex justify-end items-center"
           >
-            <div className="w-[180px] h-[230px]  bg-white rounded-[22px] border-4 border-gray-950 shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] overflow-hidden relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-3 bg-gray-950 rounded-b-lg z-20"></div>
-              <img
-                src="/app-screen.jpg"
-                alt="App"
-                className="w-full h-full object-cover opacity-100"
-              />
-              <div className="absolute inset-x-0 bottom-0 py-1 bg-secondary text-white text-[5px] font-black text-center uppercase tracking-tighter">
+            <div className="w-[180px] h-[230px]  bg-black rounded-[22px] border-4 border-gray-950 shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] overflow-hidden relative">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-3 bg-gray-950 rounded-b-lg z-20 pointer-events-none"></div>
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentScreen}
+                  src={APP_SCREENS[currentScreen].src}
+                  alt={APP_SCREENS[currentScreen].alt}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="w-full h-full object-cover opacity-100 select-none"
+                />
+              </AnimatePresence>
+              <div className="absolute inset-x-0 bottom-0 py-1 bg-secondary text-white text-[5px] font-black text-center uppercase tracking-tighter z-10">
                 Live Reports
               </div>
             </div>

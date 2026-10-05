@@ -64,10 +64,10 @@ const AppAvailability = () => {
                 <FaGooglePlay />
               </div>
               <div>
-                <p className="text-gray-400 text-[8px] font-bold uppercase tracking-widest">
+                <p className="text-gray-600 text-[10px] font-bold uppercase tracking-wider">
                   Download for
                 </p>
-                <h4 className="text-gray-900 text-sm font-bold uppercase tracking-tight">
+                <h4 className="text-gray-900 text-sm font-black uppercase tracking-tight">
                   Android
                 </h4>
               </div>
@@ -85,10 +85,10 @@ const AppAvailability = () => {
                 <FaApple />
               </div>
               <div>
-                <p className="text-white/40 text-[8px] font-bold uppercase tracking-widest">
+                <p className="text-gray-300 text-[10px] font-bold uppercase tracking-wider">
                   Download for
                 </p>
-                <h4 className="text-white text-sm font-bold uppercase tracking-tight">
+                <h4 className="text-white text-sm font-black uppercase tracking-tight">
                   iOS (Apple)
                 </h4>
               </div>

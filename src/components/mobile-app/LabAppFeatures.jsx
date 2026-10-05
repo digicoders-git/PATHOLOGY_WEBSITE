@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaHospitalUser,
   FaListAlt,
@@ -9,7 +9,36 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 
+const LAB_APP_SCREENS = [
+  {
+    id: "lab-screen-1",
+    src: "/lab-screen-1.png",
+    alt: "Lab Management Portal Login",
+  },
+  {
+    id: "lab-screen-2",
+    src: "/lab-screen-2.png",
+    alt: "Lab Portal Dashboard & Today Overview",
+  },
+  {
+    id: "lab-screen-3",
+    src: "/lab-screen-3.png",
+    alt: "Lab Bookings Management",
+  },
+];
+
 const LabAppFeatures = () => {
+  const [currentScreen, setCurrentScreen] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentScreen((prev) => (prev + 1) % LAB_APP_SCREENS.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
   const features = [
     {
       icon: FaHospitalUser,
@@ -78,38 +107,53 @@ const LabAppFeatures = () => {
             </div>
           </div>
 
-          {/* Visual Side: Dashboard Mockup */}
-          <div className="w-full lg:w-1/2">
+          {/* Visual Side: Phone Mockup with Auto Slide Carousel */}
+          <div 
+            className="w-full lg:w-1/2 flex flex-col justify-center items-center"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-gray-50 rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4"
+              transition={{ duration: 0.8 }}
+              className="w-[180px] sm:w-[220px] lg:w-[280px] aspect-[9/19] rounded-[36px] border-[8px] border-black shadow-[0_25px_35px_-15px_rgba(0,0,0,0.35)] overflow-hidden relative bg-black"
             >
-              <div className="flex items-center justify-between mb-2">
-                <div className="h-3 w-20 bg-primary/10 rounded-full"></div>
-                <div className="w-6 h-6 rounded-full bg-secondary/20"></div>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="h-16 bg-white rounded-xl border border-gray-100 flex items-center justify-center">
-                  <div className="h-1.5 w-12 bg-gray-100 rounded-full"></div>
-                </div>
-                <div className="h-16 bg-white rounded-xl border border-gray-100 flex items-center justify-center">
-                  <div className="h-1.5 w-12 bg-gray-100 rounded-full"></div>
-                </div>
-              </div>
-              <div className="space-y-2">
-                {[1, 2].map((i) => (
-                  <div
-                    key={i}
-                    className="h-10 bg-white rounded-lg border border-gray-100 flex items-center px-3 gap-3"
-                  >
-                    <div className="w-6 h-6 rounded-md bg-primary/5"></div>
-                    <div className="h-1.5 flex-1 bg-gray-50 rounded-full"></div>
-                  </div>
-                ))}
-              </div>
+              {/* Dynamic Island / Notch */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl z-20 pointer-events-none"></div>
+
+              {/* Auto Sliding Screens */}
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentScreen}
+                  src={LAB_APP_SCREENS[currentScreen].src}
+                  alt={LAB_APP_SCREENS[currentScreen].alt}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="w-full h-full object-cover select-none"
+                />
+              </AnimatePresence>
             </motion.div>
+
+            {/* Pagination Indicators */}
+            <div className="flex items-center gap-2 mt-5">
+              {LAB_APP_SCREENS.map((screen, idx) => (
+                <button
+                  key={screen.id}
+                  type="button"
+                  onClick={() => setCurrentScreen(idx)}
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                    idx === currentScreen
+                      ? "w-7 bg-secondary shadow-sm shadow-secondary/30"
+                      : "w-2 bg-gray-300 hover:bg-gray-400"
+                  }`}
+                  aria-label={`Go to screen ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

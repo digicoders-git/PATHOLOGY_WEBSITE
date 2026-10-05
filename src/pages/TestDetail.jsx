@@ -199,12 +199,14 @@ const TestDetail = () => {
                        )}
                    </div>
 
-                   <NavLink 
-                    to={`/registration?testId=${test._id}`}
-                    className="w-full h-14 rounded-2xl bg-white text-primary text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-secondary hover:text-white transition-all duration-300 relative z-10"
+                   <a 
+                    href="https://play.google.com/store/apps/details?id=digi.coders.laboindia&pcampaignid=web_share"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full h-14 rounded-2xl bg-white text-primary text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-secondary hover:text-white transition-all duration-300 relative z-10 cursor-pointer"
                    >
                      <FaShoppingCart className="text-xs" /> Book This Test
-                   </NavLink>
+                   </a>
 
                    <div className="mt-8 pt-8 border-t border-white/5 w-full flex flex-col gap-4 relative z-10">
                         <div className="flex items-center gap-3 text-white/60">

@@ -766,7 +766,40 @@ const IndividualLabForm = () => {
         />
       </Section>
 
-      <Section title="Certifications & Files" icon={FaCertificate} index={4}>
+      <Section title="Services" icon={FaVial} index={4}>
+        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <InputField
+            label="Home Collection"
+            name="homeCollection"
+            type="checkbox"
+            value={formData.homeCollection}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Round-The-Clock"
+            name="is24x7"
+            type="checkbox"
+            value={formData.is24x7}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Emergency Support"
+            name="emergency"
+            type="checkbox"
+            value={formData.emergency}
+            onChange={handleChange}
+          />
+          <InputField
+            label="Ambulance Support"
+            name="ambulanceService"
+            type="checkbox"
+            value={formData.ambulanceService}
+            onChange={handleChange}
+          />
+        </div>
+      </Section>
+
+      <Section title="Certifications & Files" icon={FaCertificate} index={5}>
         <div className="md:col-span-3 space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {CERT_OPTIONS.map((cert) => {
@@ -899,7 +932,7 @@ const IndividualLabForm = () => {
         </div>
       </Section>
 
-      <Section title="Operational Hours" icon={FaClock} index={5}>
+      <Section title="Operational Hours" icon={FaClock} index={6}>
         <InputField
           label="Opening Clock"
           name="openTime"
@@ -933,7 +966,7 @@ const IndividualLabForm = () => {
         />
       </Section>
 
-      <Section title="Digital Payments" icon={FaCreditCard} index={6}>
+      <Section title="Digital Payments" icon={FaCreditCard} index={7}>
         <InputField
           label="Registered UPI ID"
           name="upiId"
