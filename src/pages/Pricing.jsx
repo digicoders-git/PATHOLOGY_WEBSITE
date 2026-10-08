@@ -155,6 +155,8 @@ const Pricing = () => {
               {plans.map((plan, idx) => {
                 const { originalPrice, savings, savingsPercent, badgeText, offerText } = getOfferDetails(plan);
                 const isTopTier = plan.isPopular;
+                const isFreePlan = Number(plan.price) === 0 || plan.name?.toUpperCase().includes("FREE");
+                const leadsCount = plan.totalBookings || plan.freeBookings || 10;
 
                 return (
                   <motion.div
@@ -218,7 +220,11 @@ const Pricing = () => {
                           {plan.price > 0 ? plan.price.toLocaleString("en-IN") : "0"}
                         </span>
                         <span className="text-xs sm:text-sm font-bold text-slate-500 ml-1.5">
-                          {plan.priceLabel ? `/${plan.priceLabel.replace(/^\//, '').trim()}` : "/ month"}
+                          {plan.price === 0
+                            ? "/ month"
+                            : plan.priceLabel && plan.priceLabel !== "0"
+                            ? `/${plan.priceLabel.replace(/^\//, '').trim()}`
+                            : "/ month"}
                         </span>
                       </div>
 
@@ -245,19 +251,23 @@ const Pricing = () => {
                         <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
                       </NavLink>
 
-                      {/* Key Metrics Row: Bookings & Validity */}
+                      {/* Key Metrics Row: Bookings / Buyleads & Validity */}
                       <div className="grid grid-cols-2 gap-2 mt-5 mb-2">
-                        {/* Bookings */}
+                        {/* Bookings / Buyleads */}
                         <div className="p-2.5 bg-emerald-50/70 rounded-xl border border-emerald-100 flex items-center justify-center gap-2 text-center">
                           <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
                             <FaTicketAlt className="text-emerald-700" size={10} />
                           </div>
                           <div className="text-left">
                             <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-600 leading-none">
-                              Bookings
+                              {isFreePlan ? "Buyleads" : "Bookings"}
                             </span>
                             <span className="text-xs font-black text-emerald-800 leading-tight">
-                              {plan.totalBookings > 0 ? `${plan.totalBookings} Total` : "Unlimited"}
+                              {isFreePlan
+                                ? `${leadsCount} / Month`
+                                : plan.totalBookings > 0
+                                ? `${plan.totalBookings} Total`
+                                : "Unlimited"}
                             </span>
                           </div>
                         </div>

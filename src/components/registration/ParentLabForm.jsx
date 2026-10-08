@@ -14,6 +14,8 @@ import {
   FaUpload,
   FaChevronDown,
   FaBuilding,
+  FaShieldAlt,
+  FaLock,
 } from "react-icons/fa";
 import { getTestServices } from "../../apis/testService";
 import { createRegistration, getParents } from "../../apis/registration";
@@ -1047,7 +1049,79 @@ const ParentLabForm = () => {
         />
       </Section>
 
-      <div className="mt-16 mb-24 flex flex-col items-center gap-6">
+      {/* Declaration Section */}
+      <div className="mt-12 mb-6">
+        <div className="relative border border-gray-100 rounded-2xl overflow-hidden bg-white shadow-sm">
+          {/* Header bar */}
+          <div className="flex items-center gap-3 px-6 py-4 border-b border-gray-50 bg-primary/[0.02]">
+            <div className="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
+              <FaShieldAlt className="text-secondary text-sm" />
+            </div>
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary leading-none">Declaration & Undertaking</p>
+              <p className="text-[8.5px] font-semibold text-primary/40 uppercase tracking-wider mt-0.5">Please read carefully before submitting</p>
+            </div>
+            <div className="ml-auto">
+              <span className="text-[8px] font-black uppercase tracking-widest text-secondary bg-secondary/10 px-3 py-1 rounded-full">Required</span>
+            </div>
+          </div>
+
+          {/* Declaration text */}
+          <div className="px-6 py-5 space-y-3">
+            <p className="text-[11px] text-primary/70 font-medium leading-relaxed">
+              I/We hereby solemnly declare and confirm the following:
+            </p>
+            <ul className="space-y-2.5">
+              {[
+                "All information provided in this registration form is true, accurate, and complete to the best of my knowledge.",
+                "The laboratory is duly licensed and complies with all applicable regulatory requirements, including but not limited to NABL, NABH, and state health authority guidelines.",
+                "I authorise Labo India to verify the submitted credentials, documents, and certifications with relevant authorities at any time.",
+                "Any false or misleading information may result in immediate termination of partnership and legal action as deemed appropriate.",
+                "I agree to abide by the Terms & Conditions, Privacy Policy, and Partner Code of Conduct of Labo India.",
+                "I confirm that the laboratory owner or authorised signatory is duly empowered to submit this application.",
+              ].map((point, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <div className="w-4 h-4 rounded-full bg-secondary/10 flex items-center justify-center mt-0.5 shrink-0">
+                    <span className="text-[7px] font-black text-secondary">{i + 1}</span>
+                  </div>
+                  <p className="text-[10.5px] text-primary/60 font-medium leading-relaxed">{point}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Checkbox */}
+          <div className="px-6 py-5 border-t border-gray-50 bg-gray-50/50">
+            <label className="flex items-start gap-4 cursor-pointer group">
+              <div className="relative mt-0.5 shrink-0">
+                <input
+                  type="checkbox"
+                  id="declaration-checkbox-parent"
+                  required
+                  className="sr-only peer"
+                />
+                <div className="w-5 h-5 rounded border-2 border-gray-200 peer-checked:border-secondary peer-checked:bg-secondary transition-all duration-200 flex items-center justify-center group-hover:border-secondary/50">
+                  <FaCheckCircle className="text-white text-[10px] opacity-0 peer-checked:opacity-100 transition-opacity" />
+                </div>
+              </div>
+              <p className="text-[10.5px] font-semibold text-primary/70 leading-relaxed group-hover:text-primary transition-colors">
+                I have read, understood, and agree to the above declaration. I confirm that all submitted information is accurate and I authorise Labo India to process this registration application.
+                <span className="text-secondary font-bold"> *</span>
+              </p>
+            </label>
+          </div>
+
+          {/* Lock icon footer note */}
+          <div className="px-6 py-3 border-t border-gray-50 flex items-center gap-2">
+            <FaLock className="text-primary/20 text-[9px]" />
+            <p className="text-[8.5px] font-bold text-primary/30 uppercase tracking-wider">
+              Your data is encrypted and securely processed under our Privacy Policy.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 mb-24 flex flex-col items-center gap-6">
         {submitError && (
           <div className="w-full max-w-xl bg-red-50 border border-red-200 rounded-xl px-6 py-4 flex items-start gap-4">
             <FaExclamationCircle className="text-red-500 mt-0.5 flex-shrink-0 text-base" />
