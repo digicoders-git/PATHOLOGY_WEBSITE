@@ -1,6 +1,6 @@
 # Registration Page — Complete API Documentation
 
-> Base URL: `https://pathology-backend-2swf.onrender.com`
+> Base URL: `https://api.laboindia.com`
 
 ---
 
@@ -9,7 +9,7 @@
 Used in both **Individual** and **Parent** registration forms to populate the test selection list.
 
 ```bash
-curl -X GET "https://pathology-backend-2swf.onrender.com/test-service/get?limit=1000&status=true"
+curl -X GET "https://api.laboindia.com/test-service/get?limit=1000&status=true"
 ```
 
 **Query Params:**
@@ -71,7 +71,7 @@ curl -X GET "https://pathology-backend-2swf.onrender.com/test-service/get?limit=
 Used only in **Parent Registration** form to populate the parent organization dropdown.
 
 ```bash
-curl -X GET "https://pathology-backend-2swf.onrender.com/parent/get"
+curl -X GET "https://api.laboindia.com/parent/get"
 ```
 
 **Query Params:** None required
@@ -155,7 +155,7 @@ curl -X GET "https://api.postalpincode.in/pincode/226016"
 ## 4. Create Registration — Individual Lab
 
 ```bash
-curl -X POST "https://pathology-backend-2swf.onrender.com/registrations/create" \
+curl -X POST "https://api.laboindia.com/registrations/create" \
   -F "labName=My Pathology Lab" \
   -F "labType=Pathology" \
   -F "registrationNumber=REG123456" \
@@ -311,7 +311,7 @@ curl -X POST "https://pathology-backend-2swf.onrender.com/registrations/create" 
 Exact same as Individual — only difference is `parent` field is **required**.
 
 ```bash
-curl -X POST "https://pathology-backend-2swf.onrender.com/registrations/create" \
+curl -X POST "https://api.laboindia.com/registrations/create" \
   -F "parent=6996d7b8ea614763624315e1" \
   -F "labName=My Branch Lab" \
   -F "labType=Pathology" \
