@@ -103,23 +103,6 @@ const Pricing = () => {
             <p className="text-white/60 text-sm max-w-lg mx-auto leading-relaxed font-medium">
               Choose a plan that fits your lab. Get verified bookings, expand network reach, and unlock premium features.
             </p>
-
-            {/* Active Sitewide Promo Pill if available */}
-            {activeOffers.length > 0 && activeOffers[0].title && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="mt-6 inline-flex items-center gap-2 bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider py-2 px-5 rounded-full shadow-lg"
-              >
-                <FaGift />
-                <span>{activeOffers[0].title}: {activeOffers[0].subtitle || activeOffers[0].description}</span>
-                {activeOffers[0].couponCode && (
-                  <span className="bg-slate-950 text-white px-2 py-0.5 rounded text-[10px]">
-                    Use Code: {activeOffers[0].couponCode}
-                  </span>
-                )}
-              </motion.div>
-            )}
           </motion.div>
         </div>
         <div className="absolute -bottom-px left-0 w-full z-10">
@@ -213,12 +196,22 @@ const Pricing = () => {
                         )}
                       </div>
 
-                      {/* Current Offer Price Display */}
+                      {/* Current Offer Price Display with continuous pulse animation */}
                       <div className="flex items-baseline gap-1 my-1">
-                        <span className="text-lg font-bold text-slate-600">₹</span>
-                        <span className="text-4xl sm:text-5xl font-black text-slate-950 tracking-tight leading-none">
-                          {plan.price > 0 ? plan.price.toLocaleString("en-IN") : "0"}
-                        </span>
+                        <motion.div
+                          animate={{ scale: [1, 1.08, 1] }}
+                          transition={{
+                            duration: 1.8,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                          className="inline-flex items-baseline gap-1 text-[#FF0000] origin-left will-change-transform"
+                        >
+                          <span className="text-lg font-bold text-[#FF0000]">₹</span>
+                          <span className="text-4xl sm:text-5xl font-black text-[#FF0000] tracking-tight leading-none">
+                            {plan.price > 0 ? plan.price.toLocaleString("en-IN") : "0"}
+                          </span>
+                        </motion.div>
                         <span className="text-xs sm:text-sm font-bold text-slate-500 ml-1.5">
                           {plan.price === 0
                             ? "/ month"

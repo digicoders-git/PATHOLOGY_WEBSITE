@@ -119,7 +119,7 @@ const Hero = () => {
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-4.5 bg-black rounded-b-xl z-20"></div>
               <img
-                src="/splash-screen.png"
+                src="/hero-small-mobile.png"
                 alt="Splash Screen"
                 className="w-full h-full object-cover"
               />
@@ -231,7 +231,7 @@ const Hero = () => {
             <div className="w-[100px] h-[200px] bg-white rounded-[26px] border-[3px] border-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] overflow-hidden relative">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-2.5 bg-black rounded-b-md z-20"></div>
               <img
-                src="/splash-screen.png"
+                src="/hero-small-mobile.png"
                 alt="Splash Screen"
                 className="w-full h-full object-cover"
               />
