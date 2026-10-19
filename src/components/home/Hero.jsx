@@ -44,17 +44,11 @@ const Hero = () => {
   }, []);
   return (
     <section className="relative min-h-[70vh] lg:min-h-[80vh] flex items-center overflow-hidden bg-secondary pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 lg:pb-28">
-      {/* Premium Multi-Layer Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-20%] right-[-15%] w-[600px] h-[600px] rounded-full bg-white/20 blur-[120px] mix-blend-soft-light animate-pulse"></div>
-        <div className="absolute bottom-[-15%] left-[-10%] w-[500px] h-[500px] rounded-full bg-black/10 blur-[100px] mix-blend-multiply"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1)_0%,transparent_50%)]"></div>
-      </div>
-
       <div className="container mx-auto px-6 lg:px-16 relative z-20 max-w-[1400px]">
         {/* Desktop Layout - Symmetrical 3-Column Arrangement */}
         <div className="hidden lg:flex flex-row items-center justify-between h-full">
           {/* Column 1: Text Section (35%) */}
+          
           <div className="w-[50%] text-left">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
