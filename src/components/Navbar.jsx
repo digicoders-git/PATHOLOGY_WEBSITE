@@ -229,7 +229,7 @@ const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className={({ isActive }) =>
                       `px-5 py-4 text-sm font-black tracking-widest rounded-xl transition-all flex items-center justify-between group ${isActive
-                        ? "bg-[#c32019] text-white"
+                        ? "bg-secondary text-white"
                         : "text-black hover:bg-background"
                       }`
                     }

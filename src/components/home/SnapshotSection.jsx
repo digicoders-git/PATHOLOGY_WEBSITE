@@ -31,7 +31,7 @@ const SnapshotSection = () => {
             viewport={{ once: true }}
             className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 uppercase tracking-tight"
           >
-            Digital <span className="text-[#c32019]">Core Mission</span>
+            Digital <span className="text-secondary">Core Mission</span>
           </motion.h2>
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}

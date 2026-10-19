@@ -115,9 +115,9 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="w-[225px] h-[450px] mt-8 bg-white rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden relative transform-none"
+              className="w-[225px] h-[450px] mt-8 bg-white rounded-[34px] border-[4px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden relative transform-none"
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-20"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-4.5 bg-black rounded-b-xl z-20"></div>
               <img
                 src="/splash-screen.png"
                 alt="Splash Screen"
@@ -132,9 +132,9 @@ const Hero = () => {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
-              className="w-[550px] h-[550px] mt-8 bg-black rounded-[36px] border-[8px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] overflow-hidden relative transform-none"
+              className="w-[550px] h-[550px] mt-8 bg-black rounded-[34px] border-[4px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] overflow-hidden relative transform-none"
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-20 pointer-events-none"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-4.5 bg-black rounded-b-xl z-20 pointer-events-none"></div>
               <AnimatePresence mode="wait">
                 <motion.img
                   key={currentScreen}
@@ -228,8 +228,8 @@ const Hero = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="w-[36%] flex justify-center z-20"
           >
-            <div className="w-[100px] h-[200px] bg-white rounded-[28px] border-[5px] border-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] overflow-hidden relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3 bg-black rounded-b-xl z-20"></div>
+            <div className="w-[100px] h-[200px] bg-white rounded-[26px] border-[3px] border-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] overflow-hidden relative">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-2.5 bg-black rounded-b-md z-20"></div>
               <img
                 src="/splash-screen.png"
                 alt="Splash Screen"
@@ -244,8 +244,8 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             className="w-[32%] flex justify-end items-center"
           >
-            <div className="w-[180px] h-[230px]  bg-black rounded-[22px] border-4 border-gray-950 shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] overflow-hidden relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-3 bg-gray-950 rounded-b-lg z-20 pointer-events-none"></div>
+            <div className="w-[180px] h-[230px]  bg-black rounded-[22px] border-[3px] border-black shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] overflow-hidden relative">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-2 bg-black rounded-b-md z-20 pointer-events-none"></div>
               <AnimatePresence mode="wait">
                 <motion.img
                   key={currentScreen}
