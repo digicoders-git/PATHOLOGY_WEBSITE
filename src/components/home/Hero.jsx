@@ -22,7 +22,7 @@ const APP_SCREENS = [
   },
   {
     id: "hero-screen-5",
-    src: "/app-screen.jpg",
+    src: "/app-screen.png",
     alt: "Live Reports & Test Details",
   },
   {
@@ -119,7 +119,7 @@ const Hero = () => {
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-4.5 bg-black rounded-b-xl z-20"></div>
               <img
-                src="/hero-small-mobile.png"
+                src="/splash-screen.png"
                 alt="Splash Screen"
                 className="w-full h-full object-cover"
               />
@@ -132,19 +132,19 @@ const Hero = () => {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
-              className="w-[550px] h-[550px] mt-8 bg-black rounded-[34px] border-[4px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] overflow-hidden relative transform-none"
+              className="w-[550px] h-[550px] mt-8 bg-white rounded-[34px] border-[4px] border-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] overflow-hidden relative transform-none"
             >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-4.5 bg-black rounded-b-xl z-20 pointer-events-none"></div>
-              <AnimatePresence mode="wait">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-4.5 bg-black rounded-b-xl z-30 pointer-events-none"></div>
+              <AnimatePresence initial={false}>
                 <motion.img
                   key={currentScreen}
                   src={APP_SCREENS[currentScreen].src}
                   alt={APP_SCREENS[currentScreen].alt}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.02 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="w-full h-full object-cover select-none"
+                  initial={{ x: "100%" }}
+                  animate={{ x: "0%" }}
+                  exit={{ x: "-100%" }}
+                  transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+                  className="absolute inset-0 w-full h-full object-cover bg-white select-none"
                 />
               </AnimatePresence>
             </motion.div>
@@ -231,7 +231,7 @@ const Hero = () => {
             <div className="w-[100px] h-[200px] bg-white rounded-[26px] border-[3px] border-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] overflow-hidden relative">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-2.5 bg-black rounded-b-md z-20"></div>
               <img
-                src="/hero-small-mobile.png"
+                src="/splash-screen.png"
                 alt="Splash Screen"
                 className="w-full h-full object-cover"
               />
@@ -244,21 +244,21 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             className="w-[32%] flex justify-end items-center"
           >
-            <div className="w-[180px] h-[230px]  bg-black rounded-[22px] border-[3px] border-black shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] overflow-hidden relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-2 bg-black rounded-b-md z-20 pointer-events-none"></div>
-              <AnimatePresence mode="wait">
+            <div className="w-[180px] h-[230px] bg-white rounded-[22px] border-[3px] border-black shadow-[0_20px_40px_-5px_rgba(0,0,0,0.4)] overflow-hidden relative">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-2 bg-black rounded-b-md z-30 pointer-events-none"></div>
+              <AnimatePresence initial={false}>
                 <motion.img
                   key={currentScreen}
                   src={APP_SCREENS[currentScreen].src}
                   alt={APP_SCREENS[currentScreen].alt}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="w-full h-full object-cover opacity-100 select-none"
+                  initial={{ x: "100%" }}
+                  animate={{ x: "0%" }}
+                  exit={{ x: "-100%" }}
+                  transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+                  className="absolute inset-0 w-full h-full object-cover bg-white select-none"
                 />
               </AnimatePresence>
-              <div className="absolute inset-x-0 bottom-0 py-1 bg-secondary text-white text-[5px] font-black text-center uppercase tracking-tighter z-10">
+              <div className="absolute inset-x-0 bottom-0 py-1 bg-secondary text-white text-[5px] font-black text-center uppercase tracking-tighter z-30">
                 Live Reports
               </div>
             </div>

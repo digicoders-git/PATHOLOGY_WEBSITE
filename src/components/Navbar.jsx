@@ -3,7 +3,6 @@ import { NavLink, Link } from "react-router-dom";
 import {
   FaFacebookF,
   FaInstagram,
-  FaTwitter,
   FaLinkedinIn,
   FaPhoneAlt,
   FaWhatsapp,
@@ -11,6 +10,7 @@ import {
   FaBars,
   FaMapMarkerAlt,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 // import logo removed
 
@@ -43,7 +43,7 @@ const Navbar = () => {
     { icon: <FaWhatsapp size={14} />, name: "whatsapp", href: "https://wa.me/918400800821" },
     { icon: <FaFacebookF size={14} />, name: "facebook", href: "#" },
     { icon: <FaInstagram size={14} />, name: "instagram", href: "#" },
-    { icon: <FaTwitter size={14} />, name: "twitter", href: "#" },
+    { icon: <FaXTwitter size={12} />, name: "x", href: "#" },
     { icon: <FaLinkedinIn size={14} />, name: "linkedin", href: "#" },
   ];
 

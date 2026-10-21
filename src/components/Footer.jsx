@@ -3,7 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 import {
   FaFacebookF,
   FaInstagram,
-  FaTwitter,
   FaLinkedinIn,
   FaPhoneAlt,
   FaEnvelope,
@@ -11,6 +10,7 @@ import {
   FaMapMarkerAlt,
   FaChevronRight,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 // import logo removed
 
 const Footer = () => {
@@ -30,8 +30,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Column 1: Lab Info */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-16 h-16 bg-gray-50 border border-gray-100 rounded-full flex items-center justify-center p-3 transition-transform group-hover:scale-110 shrink-0">
+            <Link to="/" className="flex items-center gap-3.5 group">
+              <div className="w-[72px] h-[72px] flex items-center justify-center transition-transform group-hover:scale-105 shrink-0">
                 <img
                   src="/image.png"
                   alt="Logo"
@@ -56,7 +56,7 @@ const Footer = () => {
                 { icon: FaWhatsapp, href: "https://wa.me/918400800821" },
                 { icon: FaFacebookF, href: "#" },
                 { icon: FaInstagram, href: "#" },
-                { icon: FaTwitter, href: "#" },
+                { icon: FaXTwitter, href: "#" },
                 { icon: FaLinkedinIn, href: "#" },
               ].map((item, i) => (
                 <a

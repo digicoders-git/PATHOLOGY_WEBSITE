@@ -16,7 +16,7 @@ const AppleComingSoonModal = ({ isOpen, onClose }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 bg-black/40"
           />
 
           {/* Modal Card */}

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaHospital,
@@ -16,6 +16,8 @@ import {
   FaBuilding,
   FaShieldAlt,
   FaLock,
+  FaSearch,
+  FaTimes,
 } from "react-icons/fa";
 import { getTestServices } from "../../apis/testService";
 import { createRegistration, getParents } from "../../apis/registration";
@@ -65,7 +67,7 @@ const Section = ({ title, icon: Icon, children, index, zIndex }) => (
 
 const ModernDropdown = ({
   label,
-  options,
+  options = [],
   value,
   onChange,
   error,
@@ -73,7 +75,9 @@ const ModernDropdown = ({
   idKey = "value",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef(null);
+  const searchInputRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -85,14 +89,46 @@ const ModernDropdown = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const displayValue = options.find((opt) =>
-    typeof opt === "object" ? opt[idKey] === value : opt === value,
-  );
-  const labelToShow = displayValue
-    ? typeof displayValue === "object"
-      ? displayValue[valueKey]
-      : displayValue
-    : `Select ${label}`;
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 60);
+      return () => clearTimeout(timer);
+    } else {
+      setSearchTerm("");
+    }
+  }, [isOpen]);
+
+  const getOptValue = (opt) => {
+    if (typeof opt === "object" && opt !== null) {
+      if (opt.value !== undefined) return opt.value;
+      if (opt[idKey] !== undefined) return opt[idKey];
+      if (opt._id !== undefined) return opt._id;
+    }
+    return opt;
+  };
+
+  const getOptLabel = (opt) => {
+    if (typeof opt === "object" && opt !== null) {
+      if (opt.label !== undefined) return opt.label;
+      if (opt[valueKey] !== undefined) return opt[valueKey];
+      if (opt.title !== undefined) return opt.title;
+      if (opt.name !== undefined) return opt.name;
+    }
+    return String(opt);
+  };
+
+  const selectedOpt = options.find((opt) => getOptValue(opt) === value);
+  const displayLabel = selectedOpt ? getOptLabel(selectedOpt) : `Select ${label}`;
+
+  const filteredOptions = useMemo(() => {
+    if (!searchTerm.trim()) return options;
+    const term = searchTerm.toLowerCase().trim();
+    return options.filter((opt) =>
+      getOptLabel(opt).toLowerCase().includes(term)
+    );
+  }, [options, searchTerm]);
 
   return (
     <div className={`relative ${isOpen ? 'z-[100]' : 'z-0'}`} ref={dropdownRef}>
@@ -103,46 +139,103 @@ const ModernDropdown = ({
       >
         <span
           className={
-            value ? "text-primary font-semibold" : "text-black/40 font-medium"
+            value ? "text-primary font-semibold truncate pr-2" : "text-black/40 font-medium truncate pr-2"
           }
         >
-          {labelToShow}
+          {displayLabel}
         </span>
         <FaChevronDown
-          className={`text-[10px] transition-transform duration-300 opacity-40 ${isOpen ? "rotate-180" : ""}`}
+          className={`text-[10px] shrink-0 transition-transform duration-300 opacity-40 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute z-[100] top-full left-0 w-full mt-1 bg-white border border-gray-100 rounded-lg shadow-xl overflow-hidden max-h-60 overflow-y-auto"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15 }}
+            className="absolute z-[100] top-full left-0 w-full mt-1.5 bg-white border border-gray-200 rounded-xl shadow-2xl overflow-hidden flex flex-col"
+            style={{ maxHeight: "300px" }}
           >
-            <div className="p-1">
-              {options.map((opt, idx) => {
-                const optLabel = typeof opt === "object" ? opt[valueKey] : opt;
-                const optValue = typeof opt === "object" ? opt[idKey] : opt;
-                const isSelected = value === optValue;
-                return (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => {
-                      onChange(optValue);
-                      setIsOpen(false);
+            {options.length > 3 && (
+              <div className="p-2 border-b border-gray-100 bg-gray-50/90 sticky top-0 z-10">
+                <div className="relative flex items-center">
+                  <FaSearch className="absolute left-3 text-gray-400 text-xs pointer-events-none" />
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onClick={(e) => e.stopPropagation()}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") {
+                        setIsOpen(false);
+                      }
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm font-semibold rounded-md transition-all duration-200 cursor-pointer mb-0.5 last:mb-0 ${isSelected
-                        ? "bg-primary text-white"
-                        : "text-gray-500 hover:bg-primary/5 hover:text-primary"
+                    placeholder={`Search ${label ? label.toLowerCase() : "option"}...`}
+                    className="w-full pl-8 pr-7 py-2 bg-white border border-gray-200 focus:border-primary/40 focus:ring-1 focus:ring-primary/10 rounded-lg text-xs font-semibold text-primary outline-none transition-all placeholder:text-gray-400"
+                  />
+                  {searchTerm && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSearchTerm("");
+                        searchInputRef.current?.focus();
+                      }}
+                      className="absolute right-2 text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
+                    >
+                      <FaTimes className="text-[10px]" />
+                    </button>
+                  )}
+                </div>
+                {searchTerm && (
+                  <div className="px-1 pt-1.5 flex justify-between items-center text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+                    <span>Results</span>
+                    <span>{filteredOptions.length} found</span>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className="p-1 overflow-y-auto flex-1 max-h-56">
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((opt, idx) => {
+                  const optValue = getOptValue(opt);
+                  const optLabel = getOptLabel(opt);
+                  const isSelected = value === optValue;
+                  return (
+                    <button
+                      key={optValue || idx}
+                      type="button"
+                      onClick={() => {
+                        onChange(optValue);
+                        setIsOpen(false);
+                        setSearchTerm("");
+                      }}
+                      className={`w-full text-left px-3.5 py-2.5 text-xs font-semibold rounded-lg transition-all duration-150 cursor-pointer mb-0.5 last:mb-0 flex items-center justify-between ${
+                        isSelected
+                          ? "bg-primary text-white shadow-xs"
+                          : "text-gray-700 hover:bg-primary/5 hover:text-primary"
                       }`}
-                  >
-                    {optLabel}
-                  </button>
-                );
-              })}
+                    >
+                      <span className="truncate pr-2">{optLabel}</span>
+                      {isSelected && (
+                        <FaCheckCircle className="text-white text-[10px] shrink-0" />
+                      )}
+                    </button>
+                  );
+                })
+              ) : (
+                <div className="py-6 px-3 text-center">
+                  <p className="text-xs font-semibold text-gray-400">
+                    No results found for{" "}
+                    <span className="text-gray-700 font-bold">"{searchTerm}"</span>
+                  </p>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
@@ -309,6 +402,8 @@ const ParentLabForm = () => {
     offer: "",
     nabl: false,
     nablCert: null,
+    gstin: "",
+    cmoCertificate: null,
     license: "",
     expiry: "",
     openTime: "",
@@ -366,6 +461,14 @@ const ParentLabForm = () => {
     if (!formData.labType) newErrors.labType = "Required";
     if (!formData.registrationNumber?.trim())
       newErrors.registrationNumber = "Required";
+    if (!formData.gstin?.trim()) {
+      newErrors.gstin = "GSTIN Number is required";
+    } else if (formData.gstin.trim().length !== 15) {
+      newErrors.gstin = "Invalid GSTIN (must be 15 characters)";
+    }
+    if (!formData.cmoCertificate) {
+      newErrors.cmoCertificate = "CMO Certificate is required";
+    }
     if (!formData.fullAddress?.trim()) newErrors.fullAddress = "Required";
     if (!formData.areaName?.trim()) newErrors.areaName = "Required";
     if (!formData.city?.trim()) newErrors.city = "Required";
@@ -508,7 +611,8 @@ const ParentLabForm = () => {
         password: formData.password,
         latitude: formData.latitude,
         longitude: formData.longitude,
-        nabl: formData.nabl,
+        nabl: formData.nablCert ? true : false,
+        gstin: formData.gstin ? formData.gstin.trim().toUpperCase() : "",
         status: true,
         source: "website",
       };
@@ -523,6 +627,8 @@ const ParentLabForm = () => {
       if (formData.labBanner) data.append("labBanner", formData.labBanner);
       if (formData.pathologyDocs)
         data.append("pathologyDocs", formData.pathologyDocs);
+      if (formData.cmoCertificate)
+        data.append("cmoCertificate", formData.cmoCertificate);
       if (formData.nablCert)
         data.append("nablCert", formData.nablCert);
 
@@ -654,6 +760,18 @@ const ParentLabForm = () => {
           onChange={handleChange}
           error={errors.registrationNumber}
           placeholder="e.g. REG123456"
+          required
+        />
+        <InputField
+          label="GSTIN Number"
+          name="gstin"
+          value={formData.gstin}
+          onChange={(e) => {
+            e.target.value = e.target.value.toUpperCase();
+            handleChange(e);
+          }}
+          error={errors.gstin}
+          placeholder="e.g. 09ABCDE1234F1Z5"
           required
         />
         <InputField
@@ -881,14 +999,7 @@ const ParentLabForm = () => {
           </div>
         </div>
 
-        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-8 mt-8 border-t border-gray-50">
-          <InputField
-            label="NABL Accreditation"
-            name="nabl"
-            type="checkbox"
-            value={formData.nabl}
-            onChange={handleChange}
-          />
+        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 mt-8 border-t border-gray-50">
           <InputField
             label="Clinical License Copy"
             name="pathologyDocs"
@@ -897,7 +1008,16 @@ const ParentLabForm = () => {
             onChange={handleChange}
           />
           <InputField
-            label="NABL Certificate"
+            label="CMO Certificate (Clinical Establishment ACT)"
+            name="cmoCertificate"
+            type="file"
+            value={formData.cmoCertificate}
+            onChange={handleChange}
+            error={errors.cmoCertificate}
+            required
+          />
+          <InputField
+            label="NABL Certificate (Optional)"
             name="nablCert"
             type="file"
             value={formData.nablCert}
@@ -922,7 +1042,8 @@ const ParentLabForm = () => {
             {formData.pricingItems.map((item, index) => (
               <div
                 key={index}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50/20 p-6 rounded-xl border border-gray-100 shadow-xs"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50/20 p-6 rounded-xl border border-gray-100 shadow-xs relative"
+                style={{ zIndex: formData.pricingItems.length - index + 10 }}
               >
                 <InputField
                   label="Medical Test"

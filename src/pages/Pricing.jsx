@@ -7,6 +7,16 @@ import {
 import { NavLink } from "react-router-dom";
 import api from "../apis/index";
 
+const getBadgeUrl = (badge) => {
+  if (!badge) return null;
+  let url = typeof badge === "string" ? badge : badge.cloudinary || badge.local || "";
+  if (!url) return null;
+  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:") || url.startsWith("blob:")) return url;
+  const baseUrl = (import.meta.env.VITE_API_BASE_URL || "https://api.laboindia.com").replace(/\/+$/, "");
+  const cleanPath = url.replace(/^\/+/, "");
+  return `${baseUrl}/${cleanPath}`;
+};
+
 const Pricing = () => {
   const [plans, setPlans] = useState([]);
   const [activeOffers, setActiveOffers] = useState([]);
@@ -185,41 +195,72 @@ const Pricing = () => {
                         Grow your lab with verified patient leads, digital bookings, and marketplace visibility.
                       </p>
 
-                      {/* Strikethrough Original Price (normally ₹...) */}
-                      <div className="min-h-[22px]">
-                        {originalPrice > plan.price ? (
-                          <p className="text-slate-400 text-xs sm:text-sm font-bold line-through decoration-red-500/80">
-                            normally ₹{originalPrice.toLocaleString("en-IN")}
-                          </p>
-                        ) : (
-                          <span className="text-transparent text-xs select-none">No Strikethrough</span>
-                        )}
-                      </div>
+                      {/* Price & Offer Badge Row */}
+                      {(() => {
+                        const badgeUrl = getBadgeUrl(plan.offerBadge);
+                        return (
+                          <div className="flex items-center justify-between gap-2 my-1">
+                            <div className="flex-1">
+                              {/* Strikethrough Original Price (normally ₹...) */}
+                              <div className="min-h-[22px]">
+                                {originalPrice > plan.price ? (
+                                  <p className="text-slate-400 text-xs sm:text-sm font-bold line-through decoration-red-500/80">
+                                    normally ₹{originalPrice.toLocaleString("en-IN")}
+                                  </p>
+                                ) : (
+                                  <span className="text-transparent text-xs select-none">No Strikethrough</span>
+                                )}
+                              </div>
 
-                      {/* Current Offer Price Display with continuous pulse animation */}
-                      <div className="flex items-baseline gap-1 my-1">
-                        <motion.div
-                          animate={{ scale: [1, 1.08, 1] }}
-                          transition={{
-                            duration: 1.8,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
-                          className="inline-flex items-baseline gap-1 text-[#FF0000] origin-left will-change-transform"
-                        >
-                          <span className="text-lg font-bold text-[#FF0000]">₹</span>
-                          <span className="text-4xl sm:text-5xl font-black text-[#FF0000] tracking-tight leading-none">
-                            {plan.price > 0 ? plan.price.toLocaleString("en-IN") : "0"}
-                          </span>
-                        </motion.div>
-                        <span className="text-xs sm:text-sm font-bold text-slate-500 ml-1.5">
-                          {plan.price === 0
-                            ? "/ month"
-                            : plan.priceLabel && plan.priceLabel !== "0"
-                            ? `/${plan.priceLabel.replace(/^\//, '').trim()}`
-                            : "/ month"}
-                        </span>
-                      </div>
+                              {/* Current Offer Price Display with continuous pulse animation */}
+                              <div className="flex items-baseline gap-1">
+                                <motion.div
+                                  animate={{ scale: [1, 1.08, 1] }}
+                                  transition={{
+                                    duration: 1.8,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                  }}
+                                  className="inline-flex items-baseline gap-1 text-[#FF0000] origin-left will-change-transform"
+                                >
+                                  <span className="text-lg font-bold text-[#FF0000]">₹</span>
+                                  <span className="text-4xl sm:text-5xl font-black text-[#FF0000] tracking-tight leading-none">
+                                    {plan.price > 0 ? plan.price.toLocaleString("en-IN") : "0"}
+                                  </span>
+                                </motion.div>
+                                <span className="text-xs sm:text-sm font-bold text-slate-500 ml-1.5 uppercase">
+                                  {plan.price === 0
+                                    ? "/ month"
+                                    : plan.priceLabel && plan.priceLabel !== "0"
+                                    ? `/${plan.priceLabel.replace(/^\//, '').trim()}`
+                                    : "/ month"}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Dynamic Offer Badge / Sticker (Uploaded from Admin Panel) */}
+                            {badgeUrl && (
+                              <motion.div
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                whileHover={{ scale: 1.1, rotate: [0, -3, 3, 0] }}
+                                transition={{ duration: 0.3 }}
+                                className="shrink-0 relative"
+                              >
+                                <img
+                                  src={badgeUrl}
+                                  alt="Offer Badge"
+                                  className="w-20 h-20 sm:w-24 sm:h-24 object-contain drop-shadow-md select-none pointer-events-none"
+                                  loading="lazy"
+                                  onError={(e) => {
+                                    e.target.style.display = "none";
+                                  }}
+                                />
+                              </motion.div>
+                            )}
+                          </div>
+                        );
+                      })()}
 
                       {/* ── HIGHLIGHTED YELLOW/GOLD OFFER BAR (Exact reference from user image) ── */}
                       {offerText ? (

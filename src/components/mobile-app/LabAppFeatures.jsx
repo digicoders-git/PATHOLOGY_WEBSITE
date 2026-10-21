@@ -118,22 +118,22 @@ const LabAppFeatures = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="w-[180px] sm:w-[220px] lg:w-[280px] aspect-[9/19] rounded-[36px] border-[8px] border-black shadow-[0_25px_35px_-15px_rgba(0,0,0,0.35)] overflow-hidden relative bg-black"
+              className="w-[180px] sm:w-[220px] lg:w-[280px] aspect-[9/19] rounded-[32px] border-[3.5px] border-black shadow-[0_25px_35px_-15px_rgba(0,0,0,0.35)] overflow-hidden relative bg-white"
             >
               {/* Dynamic Island / Notch */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl z-20 pointer-events-none"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-3.5 bg-black rounded-b-xl z-30 pointer-events-none"></div>
 
               {/* Auto Sliding Screens */}
-              <AnimatePresence mode="wait">
+              <AnimatePresence initial={false}>
                 <motion.img
                   key={currentScreen}
                   src={LAB_APP_SCREENS[currentScreen].src}
                   alt={LAB_APP_SCREENS[currentScreen].alt}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.02 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="w-full h-full object-cover select-none"
+                  initial={{ x: "100%" }}
+                  animate={{ x: "0%" }}
+                  exit={{ x: "-100%" }}
+                  transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+                  className="absolute inset-0 w-full h-full object-cover bg-white select-none"
                 />
               </AnimatePresence>
             </motion.div>
