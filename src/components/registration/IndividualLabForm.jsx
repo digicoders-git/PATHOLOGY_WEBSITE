@@ -385,6 +385,7 @@ const IndividualLabForm = () => {
     offer: "",
     nabl: false,
     nablCert: null,
+    isGstRegistered: false,
     gstin: "",
     cmoCertificate: null,
     license: "",
@@ -438,10 +439,12 @@ const IndividualLabForm = () => {
     if (!formData.labType) newErrors.labType = "Required";
     if (!formData.registrationNumber?.trim())
       newErrors.registrationNumber = "Required";
-    if (!formData.gstin?.trim()) {
-      newErrors.gstin = "GSTIN Number is required";
-    } else if (formData.gstin.trim().length !== 15) {
-      newErrors.gstin = "Invalid GSTIN (must be 15 characters)";
+    if (formData.isGstRegistered) {
+      if (!formData.gstin?.trim()) {
+        newErrors.gstin = "GSTIN Number is required";
+      } else if (formData.gstin.trim().length !== 15) {
+        newErrors.gstin = "Invalid GSTIN (must be 15 characters)";
+      }
     }
     if (!formData.cmoCertificate) {
       newErrors.cmoCertificate = "CMO Certificate is required";
@@ -586,7 +589,8 @@ const IndividualLabForm = () => {
         latitude: formData.latitude,
         longitude: formData.longitude,
         nabl: formData.nablCert ? true : false,
-        gstin: formData.gstin ? formData.gstin.trim().toUpperCase() : "",
+        isGstRegistered: formData.isGstRegistered ? true : false,
+        gstin: formData.isGstRegistered && formData.gstin ? formData.gstin.trim().toUpperCase() : "",
         status: true,
         source: "website",
       };
@@ -718,18 +722,97 @@ const IndividualLabForm = () => {
           placeholder="e.g. REG12345"
           required
         />
-        <InputField
-          label="GSTIN Number"
-          name="gstin"
-          value={formData.gstin}
-          onChange={(e) => {
-            e.target.value = e.target.value.toUpperCase();
-            handleChange(e);
-          }}
-          error={errors.gstin}
-          placeholder="e.g. 09ABCDE1234F1Z5"
-          required
-        />
+        {/* GSTIN Registered Lab Toggle */}
+        <div className="space-y-1.5">
+          <div className="flex justify-between items-end px-1">
+            <label className="text-black font-bold text-[9px] uppercase tracking-widest flex items-center gap-1.5 cursor-pointer select-none">
+              GST Registered Lab?
+            </label>
+            <span
+              className={`text-[9px] font-bold px-2 py-0.5 rounded-full transition-colors ${
+                formData.isGstRegistered
+                  ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
+                  : "bg-gray-100 text-gray-500 border border-gray-200"
+              }`}
+            >
+              {formData.isGstRegistered ? "GST Holder (ON)" : "Non-GST Lab (OFF)"}
+            </span>
+          </div>
+
+          <div
+            onClick={() => {
+              const nextVal = !formData.isGstRegistered;
+              setFormData((prev) => ({
+                ...prev,
+                isGstRegistered: nextVal,
+                gstin: nextVal ? prev.gstin : "",
+              }));
+              if (!nextVal) {
+                setErrors((prev) => {
+                  const newErr = { ...prev };
+                  delete newErr.gstin;
+                  return newErr;
+                });
+              }
+            }}
+            className={`flex items-center justify-between p-2.5 px-3 rounded-lg border transition-all duration-300 cursor-pointer shadow-xs select-none h-[46px] ${
+              formData.isGstRegistered
+                ? "bg-primary/[0.04] border-primary/40 ring-1 ring-primary/10"
+                : "bg-white border-gray-200 hover:border-primary/40"
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <div
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  formData.isGstRegistered ? "bg-emerald-500 animate-pulse" : "bg-gray-300"
+                }`}
+              />
+              <span
+                className={`text-xs font-bold transition-colors ${
+                  formData.isGstRegistered ? "text-primary font-extrabold" : "text-gray-600"
+                }`}
+              >
+                {formData.isGstRegistered ? "Yes, GST Registered" : "No, Non-GST Lab"}
+              </span>
+            </div>
+
+            {/* iOS style toggle switch */}
+            <div
+              className={`w-11 h-6 flex items-center rounded-full p-1 duration-300 cursor-pointer transition-colors ${
+                formData.isGstRegistered ? "bg-primary" : "bg-gray-300"
+              }`}
+            >
+              <div
+                className={`bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ease-in-out ${
+                  formData.isGstRegistered ? "translate-x-5" : "translate-x-0"
+                }`}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* GSTIN Number Input Field (Dynamically visible and mandatory when GST is ON) */}
+        {formData.isGstRegistered && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2 }}
+          >
+            <InputField
+              label="GSTIN Number"
+              name="gstin"
+              value={formData.gstin}
+              onChange={(e) => {
+                e.target.value = e.target.value.toUpperCase();
+                handleChange(e);
+              }}
+              error={errors.gstin}
+              placeholder="e.g. 09ABCDE1234F1Z5"
+              required
+            />
+          </motion.div>
+        )}
         <InputField
           label="Upload Lab Logo"
           name="labLogo"
