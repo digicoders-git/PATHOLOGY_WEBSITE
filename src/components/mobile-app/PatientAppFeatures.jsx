@@ -27,12 +27,12 @@ const APP_SCREENS = [
   },
   {
     id: "patient-screen-5",
-    src: "/app-screen.jpg",
+    src: "/app-screen.png",
     alt: "Live Reports & Test Details",
   },
   {
     id: "patient-screen-splash",
-    src: "/splash-screen.png",
+    src: "/lab-screen-3.png",
     alt: "Labo India Splash Welcome",
   },
 ];

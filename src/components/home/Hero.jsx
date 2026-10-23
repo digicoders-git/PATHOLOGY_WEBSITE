@@ -27,7 +27,7 @@ const APP_SCREENS = [
   },
   {
     id: "hero-screen-splash",
-    src: "/splash-screen.png",
+    src: "/lab-screen-3.png",
     alt: "Labo India Splash Welcome",
   },
 ];
@@ -119,7 +119,7 @@ const Hero = () => {
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-4.5 bg-black rounded-b-xl z-20"></div>
               <img
-                src="/splash-screen.png"
+                src="/lab-screen-3.png"
                 alt="Splash Screen"
                 className="w-full h-full object-cover"
               />

@@ -26,7 +26,7 @@ const APP_SCREENS = [
   },
   {
     id: "screen-splash",
-    src: "/splash-screen.png",
+    src: "/lab-screen-3.png",
     alt: "Labo India Splash Welcome",
   },
 ];
