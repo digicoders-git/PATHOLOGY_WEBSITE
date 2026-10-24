@@ -9,32 +9,28 @@ const AppleComingSoonModal = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-          {/* Backdrop with soft blur */}
+          {/* Backdrop - Clean, NO blur */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/40 backdrop-blur-md"
+            className="fixed inset-0 bg-black/40"
           />
 
-          {/* Modal Card - Transparent Frosted Glass */}
+          {/* Modal Card - Transparent Dark Glass without blur */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 20 }}
             transition={{ type: "spring", duration: 0.45, bounce: 0.15 }}
-            className="relative w-full max-w-lg bg-white/15 backdrop-blur-2xl text-white rounded-3xl border border-white/30 shadow-[0_30px_80px_rgba(0,0,0,0.5)] overflow-hidden z-10 p-6 sm:p-8"
+            className="relative w-full max-w-lg bg-black/80 text-white rounded-3xl border border-white/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] overflow-hidden z-10 p-6 sm:p-8"
           >
-            {/* Ambient Background Glow for Glass Effect */}
-            <div className="absolute -top-24 -left-24 w-60 h-60 bg-white/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -right-24 w-60 h-60 bg-red-500/20 rounded-full blur-3xl pointer-events-none" />
-
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 border border-white/25 flex items-center justify-center text-white/80 hover:text-white transition-all active:scale-95 shadow-sm"
+              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white/80 hover:text-white transition-all active:scale-95 shadow-sm"
               aria-label="Close modal"
             >
               <FaTimes size={15} />
@@ -43,15 +39,15 @@ const AppleComingSoonModal = ({ isOpen, onClose }) => {
             {/* Apple Header */}
             <div className="flex flex-col items-center text-center pt-2 pb-4">
               <div className="relative mb-5">
-                <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/35 flex items-center justify-center shadow-lg relative group">
-                  <FaApple className="text-4xl text-white drop-shadow-[0_2px_12px_rgba(255,255,255,0.6)]" />
+                <div className="w-20 h-20 rounded-2xl bg-white/15 border border-white/25 flex items-center justify-center shadow-lg relative group">
+                  <FaApple className="text-4xl text-white drop-shadow-[0_2px_12px_rgba(255,255,255,0.5)]" />
                 </div>
-                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-amber-400/90 text-slate-900 border border-white/50 text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full whitespace-nowrap flex items-center gap-1 shadow-md">
+                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 border border-white/40 text-[9px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full whitespace-nowrap flex items-center gap-1 shadow-md">
                   <FaClock size={8} /> Under Review
                 </span>
               </div>
 
-              <span className="text-[11px] font-black uppercase tracking-[0.25em] text-white/90 drop-shadow-sm mb-2">
+              <span className="text-[11px] font-black uppercase tracking-[0.25em] text-red-400 drop-shadow-sm mb-2">
                 Apple App Store
               </span>
               <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white drop-shadow-md leading-snug">
@@ -63,7 +59,7 @@ const AppleComingSoonModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Status Steps */}
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 my-4 space-y-2.5 text-xs shadow-inner">
+            <div className="bg-white/5 rounded-2xl p-4 border border-white/10 my-4 space-y-2.5 text-xs shadow-inner">
               <div className="flex items-center justify-between text-white font-medium">
                 <span className="flex items-center gap-2">
                   <span className="w-5 h-5 rounded-full bg-emerald-500/30 text-emerald-300 border border-emerald-400/40 flex items-center justify-center text-[10px] shadow-sm">
@@ -94,8 +90,8 @@ const AppleComingSoonModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Android Live Callout */}
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-3.5 flex items-center gap-3 mb-6 shadow-sm">
-              <div className="w-9 h-9 rounded-xl bg-white/20 border border-white/30 flex items-center justify-center text-white shrink-0 text-base shadow-sm">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3.5 flex items-center gap-3 mb-6 shadow-sm">
+              <div className="w-9 h-9 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center text-white shrink-0 text-base shadow-sm">
                 <FaGooglePlay />
               </div>
               <div className="text-left flex-1 min-w-0">
@@ -123,7 +119,7 @@ const AppleComingSoonModal = ({ isOpen, onClose }) => {
 
               <button
                 onClick={onClose}
-                className="sm:w-32 bg-white/15 hover:bg-white/25 text-white font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl border border-white/30 backdrop-blur-md transition-all active:scale-95 shadow-sm"
+                className="sm:w-32 bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl border border-white/20 transition-all active:scale-95 shadow-sm"
               >
                 Got It
               </button>
