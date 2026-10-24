@@ -4,6 +4,58 @@ import { FaCheckCircle, FaTag, FaFlask } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import api from "../../apis/index";
 
+// ── Test Avatar: Displays test image in the center circle or burner icon fallback ──
+const TestAvatar = ({ image, title }) => {
+  const getInitialUrl = (img) => {
+    if (!img) return null;
+    let url = typeof img === "string" ? img : img.cloudinary || img.local || "";
+    if (!url) return null;
+    if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) return url;
+    const cleanPath = url.replace(/^\/+/, "");
+    return `https://api.laboindia.com/${cleanPath}`;
+  };
+
+  const [imgSrc, setImgSrc] = useState(() => getInitialUrl(image));
+  const [hasError, setHasError] = useState(false);
+  const [triedFallback, setTriedFallback] = useState(false);
+
+  useEffect(() => {
+    setImgSrc(getInitialUrl(image));
+    setHasError(false);
+    setTriedFallback(false);
+  }, [image]);
+
+  const handleError = () => {
+    // If live domain 404s, try render fallback domain
+    if (!triedFallback && imgSrc && imgSrc.includes("api.laboindia.com")) {
+      setTriedFallback(true);
+      setImgSrc(imgSrc.replace("https://api.laboindia.com", "https://pathology-backend-live.onrender.com"));
+    } else {
+      // Fallback to burner icon
+      setHasError(true);
+    }
+  };
+
+  if (!imgSrc || hasError) {
+    return (
+      <div className="w-16 h-16 rounded-full bg-white/20 border border-white/30 flex items-center justify-center mb-1.5 shadow-inner">
+        <FaFlask className="text-white text-2xl" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-16 h-16 rounded-full bg-white p-0.5 shadow-lg border-2 border-white/80 flex items-center justify-center overflow-hidden mb-1.5">
+      <img
+        src={imgSrc}
+        alt=""
+        onError={handleError}
+        className="w-full h-full object-cover rounded-full"
+      />
+    </div>
+  );
+};
+
 const PricingSection = () => {
   const [packages, setPackages] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -28,7 +80,8 @@ const PricingSection = () => {
             setCategories(cats);
         }
 
-        const testRes = await api.get("/test-service/get");
+        // Fetch up to 1000 tests from live backend so all tests show
+        const testRes = await api.get("/test-service/get?limit=1000");
         if (testRes.data.success) {
           const mappedData = (testRes.data.data || []).map(item => ({
             _id: item._id,
@@ -46,6 +99,9 @@ const PricingSection = () => {
             ].filter(Boolean),
             isPopular: item.is_featured
           }));
+
+          // Sort popular / featured tests first
+          mappedData.sort((a, b) => (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0));
           setPackages(mappedData);
         }
       } catch (error) {
@@ -111,7 +167,7 @@ const PricingSection = () => {
               <button
                 key={cat._id}
                 onClick={() => setActiveCategory(cat.name)}
-                className={`flex-shrink-0 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.15em] rounded-full border transition-all duration-300 whitespace-nowrap whitespace-nowrap ${
+                className={`flex-shrink-0 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.15em] rounded-full border transition-all duration-300 whitespace-nowrap cursor-pointer ${
                   activeCategory === cat.name
                     ? "bg-black text-white border-black shadow-lg shadow-black/20 scale-105"
                     : "bg-white text-black/60 border-black/10 hover:border-black/40 hover:text-black"
@@ -141,7 +197,6 @@ const PricingSection = () => {
               {filtered.map((pkg, index) => {
                 const off = discount(pkg.actualPrice, pkg.discountPrice);
                 const isPopular = pkg.isPopular;
-                const thumb = pkg.image;
 
                 return (
                   <motion.div
@@ -168,23 +223,15 @@ const PricingSection = () => {
                       </div>
                     )}
 
+                    {/* Card Header: Solid Red Background with Center Test Image / Burner Icon */}
                     <NavLink
                       to={`/test/${pkg._id}`}
                       className="h-36 relative overflow-hidden block bg-secondary"
                     >
-                      {thumb ? (
-                        <img
-                          src={thumb.startsWith('http') ? thumb : `${import.meta.env.VITE_API_BASE_URL}/${thumb}`}
-                          alt={pkg.packageName}
-                          className="w-full h-full object-cover opacity-30"
-                        />
-                      ) : null}
                       <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-                        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-2">
-                          <FaFlask className="text-white text-xl" />
-                        </div>
+                        <TestAvatar image={pkg.image} title={pkg.packageName} />
                         {pkg.category && (
-                          <span className="text-white/70 text-[9px] font-black uppercase tracking-widest">
+                          <span className="text-white/90 text-[10px] font-black uppercase tracking-widest line-clamp-1">
                             {pkg.category}
                           </span>
                         )}
@@ -253,7 +300,7 @@ const PricingSection = () => {
                             href="https://play.google.com/store/apps/details?id=digi.coders.laboindia&pcampaignid=web_share"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-lg transition-all bg-black text-white hover:bg-black/90"
+                            className="text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-lg transition-all bg-black text-white hover:bg-black/90 cursor-pointer"
                           >
                             Book Now
                           </a>

@@ -7,6 +7,7 @@ const SnapshotSection = lazy(
 );
 const WhatWeOffer = lazy(() => import("../components/home/WhatWeOffer"));
 const PricingSection = lazy(() => import("../components/home/PricingSection"));
+const LabsSection = lazy(() => import("../components/home/LabsSection"));
 const MobileAppPromotion = lazy(
   () => import("../components/home/MobileAppPromotion"),
 );
@@ -40,6 +41,7 @@ const Home = () => {
         <SnapshotSection />
         <WhatWeOffer />
         <PricingSection />
+        <LabsSection />
         <MobileAppPromotion />
         <NetworkStrength />
         {/* <AboutSection /> */}

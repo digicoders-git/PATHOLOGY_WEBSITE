@@ -10,11 +10,14 @@ import api from "../apis/index";
 const getBadgeUrl = (badge) => {
   if (!badge) return null;
   let url = typeof badge === "string" ? badge : badge.cloudinary || badge.local || "";
-  if (!url) return null;
-  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:") || url.startsWith("blob:")) return url;
-  const baseUrl = (import.meta.env.VITE_API_BASE_URL || "https://api.laboindia.com").replace(/\/+$/, "");
+  if (!url || typeof url !== "string" || !url.trim()) return null;
+  url = url.trim();
+  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:") || url.startsWith("blob:")) {
+    return url;
+  }
   const cleanPath = url.replace(/^\/+/, "");
-  return `${baseUrl}/${cleanPath}`;
+  // Uploads from admin panel (multer) are stored on the live Render backend
+  return `https://pathology-backend-live.onrender.com/${cleanPath}`;
 };
 
 const Pricing = () => {
@@ -250,10 +253,17 @@ const Pricing = () => {
                                 <img
                                   src={badgeUrl}
                                   alt="Offer Badge"
-                                  className="w-20 h-20 sm:w-24 sm:h-24 object-contain drop-shadow-md select-none pointer-events-none"
+                                  className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md select-none pointer-events-none"
                                   loading="lazy"
                                   onError={(e) => {
-                                    e.target.style.display = "none";
+                                    const currentSrc = e.target.src;
+                                    if (currentSrc.includes("pathology-backend-live.onrender.com")) {
+                                      e.target.src = currentSrc.replace("https://pathology-backend-live.onrender.com", "https://api.laboindia.com");
+                                    } else if (currentSrc.includes("api.laboindia.com")) {
+                                      e.target.src = currentSrc.replace("https://api.laboindia.com", "https://pathology-backend-live.onrender.com");
+                                    } else {
+                                      e.target.style.display = "none";
+                                    }
                                   }}
                                 />
                               </motion.div>
@@ -264,9 +274,11 @@ const Pricing = () => {
 
                       {/* ── HIGHLIGHTED YELLOW/GOLD OFFER BAR (Exact reference from user image) ── */}
                       {offerText ? (
-                        <div className="w-full bg-[#FEF08A] border border-amber-300 text-amber-950 font-black text-xs sm:text-sm py-2.5 px-3.5 rounded-xl text-center shadow-xs flex items-center justify-center gap-1.5 my-3.5 transition-all">
+                        <div className="w-full bg-[#FEF08A] border border-amber-300 text-amber-950 font-black text-xs sm:text-sm py-2 px-3 rounded-xl text-center shadow-xs flex items-center justify-center gap-1.5 my-3 transition-all min-h-[42px]">
                           <FaTag size={12} className="text-amber-700 shrink-0" />
-                          <span className="truncate">{offerText}</span>
+                          <span className="text-center font-extrabold text-[11px] sm:text-xs leading-snug line-clamp-2">
+                            {offerText}
+                          </span>
                         </div>
                       ) : (
                         <div className="h-2 my-2" />

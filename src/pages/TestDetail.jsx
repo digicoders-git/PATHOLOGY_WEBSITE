@@ -71,9 +71,16 @@ const TestDetail = () => {
                 <div className="h-48 md:h-64 relative bg-primary flex items-center justify-center overflow-hidden">
                    {thumb ? (
                        <img 
-                        src={thumb.startsWith('http') ? thumb : `${import.meta.env.VITE_API_BASE_URL}/${thumb}`} 
+                        src={thumb.startsWith('http') ? thumb : `https://api.laboindia.com/${thumb.replace(/^\/+/, '')}`} 
                         className="w-full h-full object-cover opacity-80" 
-                        alt={test.title} 
+                        alt="" 
+                        onError={(e) => {
+                          if (e.target.src.includes('api.laboindia.com')) {
+                            e.target.src = e.target.src.replace('https://api.laboindia.com', 'https://pathology-backend-live.onrender.com');
+                          } else {
+                            e.target.style.display = 'none';
+                          }
+                        }}
                        />
                    ) : (
                        <FaFlask className="text-white/20 text-8xl" />
