@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
@@ -9,13 +9,15 @@ import WelcomeScreen from "./components/WelcomeScreen";
 import { AppModalProvider } from "./context/AppModalContext";
 
 const App = () => {
+  const [isWelcomeActive, setIsWelcomeActive] = useState(true);
+
   return (
     <AppModalProvider>
       <div>
-        <WelcomeScreen />
+        <WelcomeScreen onComplete={() => setIsWelcomeActive(false)} />
         <Navbar />
-        <FixedAppDownload />
-        <FloatingWhatsApp />
+        {!isWelcomeActive && <FixedAppDownload />}
+        {!isWelcomeActive && <FloatingWhatsApp />}
         <Routes>
           {appRoute.map((route, index) => {
             const Com = route.element;

@@ -1,11 +1,15 @@
 import React from "react";
-import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const FloatingWhatsApp = () => {
   return (
-    <aside
+    <motion.aside
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       aria-label="Quick Support Contacts"
-      className="fixed bottom-6 right-6 z-[9990] flex flex-col items-end gap-2.5"
+      className="fixed bottom-6 right-6 z-[90] flex flex-col items-end gap-2.5 pointer-events-auto"
     >
       {/* WhatsApp Floating Button */}
       <a
@@ -26,7 +30,7 @@ const FloatingWhatsApp = () => {
           </span>
         </div>
       </a>
-    </aside>
+    </motion.aside>
   );
 };
 
