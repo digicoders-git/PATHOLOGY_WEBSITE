@@ -22,15 +22,13 @@ import { getTestServices } from "../../apis/testService";
 import { createRegistration } from "../../apis/registration";
 import MapPicker from "./MapPicker";
 
-const CERT_OPTIONS = [
-  "NABL (ISO 15189 / ISO/IEC 17025)",
-  "NABH (Diagnostic Quality & Safety)",
-  "CAP (International Standards)",
-  "GLP (Good Laboratory Practice)",
-  "FSSAI Notification",
-  "ISO 15189",
-  "ISO/IEC 17025",
-  "BIS Recognition"
+const CERT_DEFINITIONS = [
+  { id: "NABL", label: "NABL", desc: "National Accreditation Board for Testing and Calibration Laboratories" },
+  { id: "NABH", label: "NABH", desc: "National Accreditation Board for Hospitals & Healthcare Providers" },
+  { id: "ISO", label: "ISO", desc: "International Organization for Standardization Certificate" },
+  { id: "Clinical Health Licence", label: "Clinical Health Licence", desc: "State Health Dept / Clinical Establishment Act Licence" },
+  { id: "CMO", label: "CMO", desc: "Chief Medical Officer Registration / Certificate" },
+  { id: "Other", label: "Other", desc: "Any other official laboratory registration or quality certificate" },
 ];
 
 const Section = ({ title, icon: Icon, children, index, zIndex }) => (
@@ -387,6 +385,7 @@ const IndividualLabForm = () => {
     nablCert: null,
     isGstRegistered: false,
     gstin: "",
+    gstCertificate: null,
     cmoCertificate: null,
     license: "",
     expiry: "",
@@ -408,6 +407,15 @@ const IndividualLabForm = () => {
     pricingItems: [{ test: "", price: "", discountPercent: "", discountPrice: "" }],
     ambulanceService: false,
     password: "",
+  });
+
+  const [certList, setCertList] = useState({
+    NABL: { checked: false, file: null },
+    NABH: { checked: false, file: null },
+    ISO: { checked: false, file: null },
+    "Clinical Health Licence": { checked: false, file: null },
+    CMO: { checked: false, file: null },
+    Other: { checked: false, name: "", file: null },
   });
 
   const [availableTests, setAvailableTests] = useState([]);
@@ -446,8 +454,8 @@ const IndividualLabForm = () => {
         newErrors.gstin = "Invalid GSTIN (must be 15 characters)";
       }
     }
-    if (!formData.cmoCertificate) {
-      newErrors.cmoCertificate = "CMO Certificate is required";
+    if (certList.Other?.checked && !certList.Other?.name?.trim()) {
+      newErrors.otherCertName = "Please enter Certificate Name";
     }
     if (!formData.fullAddress?.trim()) newErrors.fullAddress = "Required";
     if (!formData.areaName?.trim()) newErrors.areaName = "Required";
@@ -514,12 +522,38 @@ const IndividualLabForm = () => {
     }));
   };
 
-  const handleCertToggle = (cert) => {
-    setFormData((prev) => ({
+  const handleCertToggle = (id) => {
+    setCertList((prev) => {
+      const isChecked = !prev[id]?.checked;
+      return {
+        ...prev,
+        [id]: {
+          ...prev[id],
+          checked: isChecked,
+          file: isChecked ? prev[id]?.file : null,
+          name: isChecked ? prev[id]?.name : "",
+        },
+      };
+    });
+  };
+
+  const handleCertFile = (id, file) => {
+    setCertList((prev) => ({
       ...prev,
-      certifications: prev.certifications.includes(cert)
-        ? prev.certifications.filter((c) => c !== cert)
-        : [...prev.certifications, cert],
+      [id]: {
+        ...prev[id],
+        file: file,
+      },
+    }));
+  };
+
+  const handleOtherCertName = (name) => {
+    setCertList((prev) => ({
+      ...prev,
+      Other: {
+        ...prev.Other,
+        name: name,
+      },
     }));
   };
 
@@ -588,7 +622,7 @@ const IndividualLabForm = () => {
         password: formData.password,
         latitude: formData.latitude,
         longitude: formData.longitude,
-        nabl: formData.nablCert ? true : false,
+        nabl: certList.NABL?.checked ? true : false,
         isGstRegistered: formData.isGstRegistered ? true : false,
         gstin: formData.isGstRegistered && formData.gstin ? formData.gstin.trim().toUpperCase() : "",
         status: true,
@@ -603,12 +637,10 @@ const IndividualLabForm = () => {
 
       if (formData.labLogo) data.append("labLogo", formData.labLogo);
       if (formData.labBanner) data.append("labBanner", formData.labBanner);
-      if (formData.pathologyDocs)
-        data.append("pathologyDocs", formData.pathologyDocs);
-      if (formData.cmoCertificate)
-        data.append("cmoCertificate", formData.cmoCertificate);
-      if (formData.nablCert)
-        data.append("nablCert", formData.nablCert);
+      if (formData.isGstRegistered && formData.gstCertificate) {
+        data.append("gstCertificate", formData.gstCertificate);
+        data.append("gstDoc", formData.gstCertificate);
+      }
 
       if (formData.selectedTests.length > 0) {
         data.append("selectedTests", JSON.stringify(formData.selectedTests));
@@ -624,9 +656,41 @@ const IndividualLabForm = () => {
         }));
       data.append("test", JSON.stringify(testArray));
 
-      if (formData.certifications.length > 0) {
-        const certData = formData.certifications.map((name) => ({ name }));
-        data.append("Certification", JSON.stringify(certData));
+      // Dynamic Certifications & Document Uploads
+      const certArray = [];
+      const certFiles = [];
+      const certFileNames = [];
+
+      Object.entries(certList).forEach(([key, val]) => {
+        if (val?.checked) {
+          let finalName = key;
+          if (key === "Other") {
+            finalName = val.name?.trim() ? val.name.trim() : "Other Certificate";
+          }
+          certArray.push({ name: finalName });
+          if (val.file) {
+            certFiles.push(val.file);
+            certFileNames.push(finalName);
+
+            // Backward compatibility mapping
+            if (key === "CMO") {
+              data.append("cmoCertificate", val.file);
+            }
+            if (key === "Clinical Health Licence") {
+              data.append("pathologyDocs", val.file);
+            }
+          }
+        }
+      });
+
+      if (certArray.length > 0) {
+        data.append("Certification", JSON.stringify(certArray));
+      }
+      if (certFileNames.length > 0) {
+        data.append("certificationFileNames", JSON.stringify(certFileNames));
+        certFiles.forEach((file) => {
+          data.append("certificationFiles", file);
+        });
       }
 
       const resData = await createRegistration(data);
@@ -746,6 +810,7 @@ const IndividualLabForm = () => {
                 ...prev,
                 isGstRegistered: nextVal,
                 gstin: nextVal ? prev.gstin : "",
+                gstCertificate: nextVal ? prev.gstCertificate : null,
               }));
               if (!nextVal) {
                 setErrors((prev) => {
@@ -791,13 +856,14 @@ const IndividualLabForm = () => {
           </div>
         </div>
 
-        {/* GSTIN Number Input Field (Dynamically visible and mandatory when GST is ON) */}
+        {/* GSTIN Details & Document Upload (Dynamically visible when GST is ON) */}
         {formData.isGstRegistered && (
           <motion.div
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-3.5"
           >
             <InputField
               label="GSTIN Number"
@@ -811,6 +877,64 @@ const IndividualLabForm = () => {
               placeholder="e.g. 09ABCDE1234F1Z5"
               required
             />
+
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center px-1">
+                <label className="text-black font-bold text-[9px] uppercase tracking-widest flex items-center gap-1.5">
+                  GST Certificate Document
+                </label>
+                {formData.gstCertificate && (
+                  <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                    ✓ Attached
+                  </span>
+                )}
+              </div>
+              <div className="relative">
+                <input
+                  type="file"
+                  id="gstCertificate"
+                  name="gstCertificate"
+                  accept=".pdf,.jpg,.jpeg,.png,.webp"
+                  onChange={handleChange}
+                  className="hidden"
+                />
+                <label
+                  htmlFor="gstCertificate"
+                  className={`flex items-center justify-between p-2.5 px-3 rounded-lg border border-dashed transition-all cursor-pointer h-[46px] select-none ${
+                    formData.gstCertificate
+                      ? "bg-emerald-50/50 border-emerald-300 text-emerald-800"
+                      : "bg-white border-gray-300 hover:border-primary/50 text-gray-600"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 overflow-hidden pr-2">
+                    <FaUpload className={`text-xs shrink-0 ${formData.gstCertificate ? "text-emerald-600" : "text-gray-400"}`} />
+                    <span className="text-xs truncate font-medium">
+                      {formData.gstCertificate
+                        ? `${formData.gstCertificate.name} (${(formData.gstCertificate.size / 1024).toFixed(1)} KB)`
+                        : "Upload GST Certificate (PDF/Image)"}
+                    </span>
+                  </div>
+                  {formData.gstCertificate ? (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setFormData((p) => ({ ...p, gstCertificate: null }));
+                      }}
+                      className="text-red-500 hover:text-red-700 text-xs font-bold shrink-0 ml-1 hover:bg-red-50 p-1 rounded"
+                      title="Remove file"
+                    >
+                      <FaTimes />
+                    </button>
+                  ) : (
+                    <span className="text-[10px] font-bold uppercase text-primary shrink-0 bg-primary/10 px-2.5 py-1 rounded">
+                      Browse
+                    </span>
+                  )}
+                </label>
+              </div>
+            </div>
           </motion.div>
         )}
         <InputField
@@ -1011,60 +1135,142 @@ const IndividualLabForm = () => {
         </div>
       </Section>
 
-      <Section title="Certifications & Files" icon={FaCertificate} index={5}>
-        <div className="md:col-span-3 space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {CERT_OPTIONS.map((cert) => {
-              const isSelected = formData.certifications.includes(cert);
+      <Section title="Certifications & Licences" icon={FaCertificate} index={5}>
+        <div className="md:col-span-3 space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-2 border-b border-gray-100">
+            <div>
+              <h4 className="text-xs font-bold text-primary uppercase tracking-wider">
+                Select & Upload Certifications / Licences
+              </h4>
+              <p className="text-[11px] text-gray-500 mt-0.5">
+                Tick the applicable checkbox to upload the certificate or licence document.
+              </p>
+            </div>
+            {errors.otherCertName && (
+              <span className="text-[10px] font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded border border-red-200">
+                {errors.otherCertName}
+              </span>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {CERT_DEFINITIONS.map((item) => {
+              const state = certList[item.id] || { checked: false, file: null, name: "" };
+              const isChecked = state.checked;
+
               return (
                 <div
-                  key={cert}
-                  onClick={() => handleCertToggle(cert)}
-                  className={`p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer flex items-center justify-between shadow-sm relative group ${
-                    isSelected
-                      ? "bg-primary/[0.04] border-secondary shadow-md scale-[1.02]"
-                      : "bg-white border-gray-100 hover:border-primary/30"
+                  key={item.id}
+                  className={`rounded-xl border transition-all duration-300 p-4 flex flex-col justify-between ${
+                    isChecked
+                      ? "bg-primary/[0.02] border-secondary shadow-md ring-1 ring-secondary/20"
+                      : "bg-white border-gray-100 hover:border-gray-300"
                   }`}
                 >
-                  <span className={`text-[10px] font-extrabold uppercase tracking-widest leading-tight pr-4 ${
-                    isSelected ? "text-primary" : "text-black/40 group-hover:text-primary/60"
-                  }`}>
-                    {cert}
-                  </span>
-                  <div className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center transition-all ${
-                    isSelected ? "bg-secondary border-secondary shadow-primary/20 shadow-sm" : "border-gray-100"
-                  }`}>
-                    {isSelected && <FaCheckCircle className="text-white text-[10px]" />}
+                  {/* Header Row with Checkbox */}
+                  <div
+                    onClick={() => handleCertToggle(item.id)}
+                    className="flex items-start gap-3 cursor-pointer select-none"
+                  >
+                    <div className="mt-0.5 shrink-0">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => {}} // handled by parent div onClick
+                        className="w-4 h-4 text-secondary rounded border-gray-300 focus:ring-secondary cursor-pointer"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className={`text-xs font-black tracking-wide ${isChecked ? "text-primary" : "text-gray-800"}`}>
+                          {item.label}
+                        </span>
+                        {isChecked && (
+                          <span className="text-[9px] font-bold px-2 py-0.5 bg-secondary/10 text-secondary rounded-full shrink-0">
+                            Active
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[10px] text-gray-500 mt-0.5 leading-snug">
+                        {item.desc}
+                      </p>
+                    </div>
                   </div>
+
+                  {/* Dynamic Upload Feature when Checked */}
+                  {isChecked && (
+                    <div className="mt-4 pt-3 border-t border-gray-100 space-y-2.5">
+                      {item.id === "Other" && (
+                        <div>
+                          <label className="text-[9px] font-bold uppercase tracking-wider text-gray-600 block mb-1">
+                            Certificate / Licence Name *
+                          </label>
+                          <input
+                            type="text"
+                            value={state.name || ""}
+                            onChange={(e) => handleOtherCertName(e.target.value)}
+                            placeholder="e.g. Biomedical Waste Authorization, Fire NOC"
+                            className="w-full text-xs font-semibold px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-secondary focus:bg-white transition-all"
+                          />
+                        </div>
+                      )}
+
+                      {/* Document File Selector */}
+                      <div>
+                        <label className="text-[9px] font-bold uppercase tracking-wider text-gray-600 block mb-1">
+                          Upload Document (PDF / Image)
+                        </label>
+
+                        {state.file ? (
+                          <div className="flex items-center justify-between p-2.5 bg-emerald-50/60 border border-emerald-200 rounded-lg">
+                            <div className="flex items-center gap-2 min-w-0">
+                              <FaCheckCircle className="text-emerald-600 text-sm shrink-0" />
+                              <div className="min-w-0">
+                                <p className="text-xs font-bold text-gray-800 truncate max-w-[170px]">
+                                  {state.file.name}
+                                </p>
+                                <p className="text-[9px] text-gray-400">
+                                  {(state.file.size / 1024).toFixed(1)} KB
+                                </p>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleCertFile(item.id, null)}
+                              className="p-1 hover:bg-emerald-100 rounded text-red-500 transition-colors shrink-0 ml-2"
+                              title="Remove file"
+                            >
+                              <FaTimes size={12} />
+                            </button>
+                          </div>
+                        ) : (
+                          <label className="border-2 border-dashed border-gray-200 hover:border-secondary rounded-lg p-3 flex flex-col items-center justify-center cursor-pointer bg-gray-50/50 hover:bg-secondary/[0.02] transition-all text-center">
+                            <input
+                              type="file"
+                              accept=".pdf,.png,.jpg,.jpeg"
+                              className="hidden"
+                              onChange={(e) => {
+                                if (e.target.files?.[0]) {
+                                  handleCertFile(item.id, e.target.files[0]);
+                                }
+                              }}
+                            />
+                            <FaUpload className="text-gray-400 text-sm mb-1" />
+                            <span className="text-[10px] font-bold text-primary">
+                              Click to Browse Document
+                            </span>
+                            <span className="text-[8.5px] text-gray-400">
+                              PDF, JPG, PNG up to 10MB
+                            </span>
+                          </label>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
-
-        <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 mt-6 border-t border-gray-50">
-          <InputField
-            label="Upload Pathology License"
-            name="pathologyDocs"
-            type="file"
-            value={formData.pathologyDocs}
-            onChange={handleChange}
-          />
-          <InputField
-            label="CMO Certificate (Clinical Establishment ACT)"
-            name="cmoCertificate"
-            type="file"
-            value={formData.cmoCertificate}
-            onChange={handleChange}
-            error={errors.cmoCertificate}
-            required
-          />
-          <InputField
-            label="Upload NABL/Cert Doc (Optional)"
-            name="nablCert"
-            type="file"
-            value={formData.nablCert}
-            onChange={handleChange}
-          />
         </div>
 
         <div className="md:col-span-3 space-y-8 pt-8 mt-8 border-t border-gray-50">
@@ -1144,8 +1350,7 @@ const IndividualLabForm = () => {
             ))}
             </div>
           </div>
-        </div>
-      </Section>
+        </Section>
 
       <Section title="Operational Hours" icon={FaClock} index={6}>
         <InputField

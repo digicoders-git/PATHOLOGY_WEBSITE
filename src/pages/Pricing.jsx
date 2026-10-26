@@ -16,8 +16,7 @@ const getBadgeUrl = (badge) => {
     return url;
   }
   const cleanPath = url.replace(/^\/+/, "");
-  // Uploads from admin panel (multer) are stored on the live Render backend
-  return `https://pathology-backend-live.onrender.com/${cleanPath}`;
+  return `https://api.laboindia.com/${cleanPath}`;
 };
 
 const Pricing = () => {
