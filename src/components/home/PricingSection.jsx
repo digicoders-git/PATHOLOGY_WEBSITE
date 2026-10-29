@@ -4,11 +4,11 @@ import { FaCheckCircle, FaTag, FaFlask } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import api from "../../apis/index";
 
-// ── Test Avatar: Displays test image in the center circle or burner icon fallback ──
-const TestAvatar = ({ image, title }) => {
+// ── Test Banner: Full-width image like lab banner ──
+const TestBanner = ({ image, category }) => {
   const getInitialUrl = (img) => {
     if (!img) return null;
-    let url = typeof img === "string" ? img : img.cloudinary || img.local || "";
+    let url = typeof img === "string" ? img : img.local || "";
     if (!url) return null;
     if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) return url;
     const cleanPath = url.replace(/^\/+/, "");
@@ -26,32 +26,43 @@ const TestAvatar = ({ image, title }) => {
   }, [image]);
 
   const handleError = () => {
-    // If live domain 404s, try render fallback domain
     if (!triedFallback && imgSrc && imgSrc.includes("api.laboindia.com")) {
       setTriedFallback(true);
       setImgSrc(imgSrc.replace("https://api.laboindia.com", "https://pathology-backend-live.onrender.com"));
     } else {
-      // Fallback to burner icon
       setHasError(true);
     }
   };
 
   if (!imgSrc || hasError) {
     return (
-      <div className="w-16 h-16 rounded-full bg-white/20 border border-white/30 flex items-center justify-center mb-1.5 shadow-inner">
-        <FaFlask className="text-white text-2xl" />
+      <div className="h-36 w-full bg-gradient-to-br from-secondary to-rose-700 flex flex-col items-center justify-center relative overflow-hidden">
+        <FaFlask className="text-white/10 text-7xl absolute -right-2 -bottom-2" />
+        {category && (
+          <span className="relative z-10 text-white/90 text-[10px] font-black uppercase tracking-widest">
+            {category}
+          </span>
+        )}
       </div>
     );
   }
 
   return (
-    <div className="w-16 h-16 rounded-full bg-white p-0.5 shadow-lg border-2 border-white/80 flex items-center justify-center overflow-hidden mb-1.5">
+    <div className="h-36 w-full relative overflow-hidden bg-slate-900">
       <img
         src={imgSrc}
         alt=""
         onError={handleError}
-        className="w-full h-full object-cover rounded-full"
+        className="w-full h-full object-cover opacity-90"
       />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      {category && (
+        <div className="absolute bottom-3 left-3 z-10">
+          <span className="text-white/90 text-[10px] font-black uppercase tracking-widest bg-black/30 px-2 py-0.5 rounded">
+            {category}
+          </span>
+        </div>
+      )}
     </div>
   );
 };
@@ -91,7 +102,7 @@ const PricingSection = () => {
             description: cleanStr(item.short_description || item.overview || "Diagnostic Test"),
             actualPrice: item.mrp,
             discountPrice: item.price,
-            image: item.image?.cloudinary || item.image?.local,
+            image: item.image?.local ? (item.image.local.startsWith('http') ? item.image.local : `https://api.laboindia.com/${(item.image.local || "").replace(/^\/+/, "")}`) : null,
             tests: [
                 cleanStr(item.sample_type) ? `Sample: ${cleanStr(item.sample_type)}` : null,
                 cleanStr(item.report_time) ? `Report: ${cleanStr(item.report_time)}` : null,
@@ -223,19 +234,9 @@ const PricingSection = () => {
                       </div>
                     )}
 
-                    {/* Card Header: Solid Red Background with Center Test Image / Burner Icon */}
-                    <NavLink
-                      to={`/test/${pkg._id}`}
-                      className="h-36 relative overflow-hidden block bg-secondary"
-                    >
-                      <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-                        <TestAvatar image={pkg.image} title={pkg.packageName} />
-                        {pkg.category && (
-                          <span className="text-white/90 text-[10px] font-black uppercase tracking-widest line-clamp-1">
-                            {pkg.category}
-                          </span>
-                        )}
-                      </div>
+                    {/* Card Header: Full-width test image like lab banner */}
+                    <NavLink to={`/test/${pkg._id}`} className="block">
+                      <TestBanner image={pkg.image} category={pkg.category} />
                     </NavLink>
 
                     <div className="flex flex-col flex-1 p-6 bg-white">

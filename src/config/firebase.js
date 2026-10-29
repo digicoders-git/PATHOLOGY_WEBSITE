@@ -18,6 +18,7 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
 // VAPID Key
+const BACKEND_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.laboindia.com';
 const VAPID_KEY = 'BPERg2BAS_k4Bq2pvQc4CWQq0RJNn_OSPv-qXNSkiYnqi15qWctR8Ha8cBxki22nE7NQi5J2rL1LzDNHHT8Cf3M';
 
 // Request notification permission and get FCM token
@@ -84,7 +85,7 @@ export const setupMessageListener = (callback) => {
 // Save FCM token to backend
 export const saveFCMTokenToBackend = async (token, authToken) => {
   try {
-    const response = await fetch('/api/notifications/save-token', {
+    const response = await fetch(`${BACKEND_URL}/notifications/save-token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -105,7 +106,7 @@ export const saveFCMTokenToBackend = async (token, authToken) => {
 // Remove FCM token from backend
 export const removeFCMTokenFromBackend = async (token, authToken) => {
   try {
-    const response = await fetch('/api/notifications/remove-token', {
+    const response = await fetch(`${BACKEND_URL}/notifications/remove-token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -126,7 +127,7 @@ export const removeFCMTokenFromBackend = async (token, authToken) => {
 // Send test notification
 export const sendTestNotification = async (authToken) => {
   try {
-    const response = await fetch('/api/notifications/test-notification', {
+    const response = await fetch(`${BACKEND_URL}/notifications/test-notification`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

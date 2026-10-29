@@ -45,7 +45,9 @@ const TestDetail = () => {
   }
 
   const discount = test.mrp && test.price ? Math.round(((test.mrp - test.price) / test.mrp) * 100) : 0;
-  const thumb = test.image?.cloudinary || test.image?.local;
+  const cloudinaryUrl = null;
+  const localUrl = test.image?.local ? (test.image.local.startsWith('http') ? test.image.local : `https://api.laboindia.com/${(test.image.local || "").replace(/^\/+/, "")}`) : null;
+  const thumb = localUrl;
 
   return (
     <>
