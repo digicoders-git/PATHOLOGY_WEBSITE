@@ -7,6 +7,10 @@ import TermsOfService from "../pages/TermsOfService";
 import MobileApp from "../pages/MobileApp";
 import Pricing from "../pages/Pricing";
 import TestDetail from "../pages/TestDetail";
+import VideoTutorial from "../pages/VideoTutorial";
+import Presentation from "../pages/Presentation";
+import Catalogue from "../pages/Catalogue";
+import MediaEvent from "../pages/MediaEvent";
 
 const appRoute = [
   { path: "/", element: Home },
@@ -14,6 +18,14 @@ const appRoute = [
   { path: "/mobile-app", element: MobileApp },
   { path: "/pricing", element: Pricing },
   { path: "/registration", element: Registration },
+  { path: "/video-tutorial", element: VideoTutorial },
+  { path: "/video-tutorials", element: VideoTutorial },
+  { path: "/presentation", element: Presentation },
+  { path: "/presentations", element: Presentation },
+  { path: "/catalogue", element: Catalogue },
+  { path: "/catalogues", element: Catalogue },
+  { path: "/media", element: MediaEvent },
+  { path: "/media-event", element: MediaEvent },
   { path: "/test/:id", element: TestDetail },
   { path: "/contact", element: Contact },
   { path: "/privacy-policy", element: PrivacyPolicy },

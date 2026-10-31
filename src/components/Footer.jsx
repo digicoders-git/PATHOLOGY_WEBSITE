@@ -9,9 +9,9 @@ import {
   FaWhatsapp,
   FaMapMarkerAlt,
   FaChevronRight,
+  FaVideo,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-// import logo removed
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -24,8 +24,16 @@ const Footer = () => {
     { name: "Contact Us", path: "/contact" },
   ];
 
+  const supportLinks = [
+    { name: "Video Tutorial", path: "/video-tutorial" },
+    { name: "Presentation", path: "/presentation" },
+    { name: "Catalogue", path: "/catalogue" },
+    { name: "Media", path: "/media", isNew: true },
+    { name: "Mobile App", path: "/mobile-app" },
+  ];
+
   return (
-    <footer className="bg-white text-black pt-20 pb-10">
+    <footer className="bg-white text-black pt-20 pb-10 border-t border-gray-100">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Column 1: Lab Info */}
@@ -84,9 +92,9 @@ const Footer = () => {
                 <li key={i}>
                   <Link
                     to={link.path}
-                    className="text-black hover:text-gray-600 text-sm font-bold flex items-center gap-2 transition-all hover:translate-x-2 group"
+                    className="text-black hover:text-secondary text-sm font-bold flex items-center gap-2 transition-all hover:translate-x-2 group"
                   >
-                    <FaChevronRight className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <FaChevronRight className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-secondary" />
                     {link.name}
                   </Link>
                 </li>
@@ -94,31 +102,33 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3: Legal Links */}
+          {/* Column 3: Support & Tutorials */}
           <div>
             <h4 className="text-lg font-black uppercase tracking-widest mb-8 flex items-center gap-2">
-              <span className="w-6 h-[2px] bg-black"></span>
-              Legal Links
+              <span className="w-6 h-[2px] bg-secondary"></span>
+              Support
             </h4>
             <ul className="space-y-4">
-              {[
-                { name: "Privacy Policy", path: "/privacy-policy" },
-                { name: "Terms of Conditions", path: "/terms-of-service" },
-              ].map((link, i) => (
+              {supportLinks.map((link, i) => (
                 <li key={i}>
                   <Link
                     to={link.path}
-                    className="text-black hover:text-gray-600 text-sm font-bold flex items-center gap-2 transition-all hover:translate-x-2 group"
+                    className="text-black hover:text-secondary text-sm font-bold flex items-center gap-2 transition-all hover:translate-x-2 group"
                   >
-                    <FaChevronRight className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {link.name}
+                    <FaChevronRight className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-secondary" />
+                    <span>{link.name}</span>
+                    {link.isNew && (
+                      <span className="bg-secondary text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full shadow-xs">
+                        New
+                      </span>
+                    )}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 4: Contact Info (Added for Professionalism) */}
+          {/* Column 4: Contact Info */}
           <div>
             <h4 className="text-lg font-black uppercase tracking-widest mb-8 flex items-center gap-2">
               <span className="w-6 h-[2px] bg-black"></span>
@@ -182,18 +192,33 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+        <div className="border-t border-gray-200 pt-8 flex flex-col lg:flex-row justify-between items-center gap-4 text-center">
           <p className="text-black text-xs font-bold uppercase tracking-widest">
-            © {currentYear} Crafter with ❤️ by{" "}
-            <a
-              href="https://digicoders.in"
-              target="_blank"
-              className="hover:text-gray-600"
-            >
-              #TeamDigiCoders
-            </a>
-            .
+            © {currentYear} Labo India. All Rights Reserved.
           </p>
+
+          {/* Crafted by Team DigiCoders */}
+          <p className="text-xs font-bold text-gray-600 flex items-center justify-center gap-1.5">
+            <span>Crafted with</span>
+            <span className="text-secondary text-sm">❤️</span>
+            <span>by</span>
+            <a
+              href="https://digicoders.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-secondary font-black hover:underline transition-all"
+            >
+              Team DigiCoders
+            </a>
+          </p>
+
+          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-xs font-bold text-gray-500">
+            <Link to="/privacy-policy" className="hover:text-secondary transition-colors">Privacy Policy</Link>
+            <span>•</span>
+            <Link to="/terms-of-service" className="hover:text-secondary transition-colors">Terms & Conditions</Link>
+            <span>•</span>
+            <Link to="/contact" className="hover:text-secondary transition-colors">Help & Support</Link>
+          </div>
         </div>
       </div>
     </footer>
