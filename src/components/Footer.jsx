@@ -28,7 +28,7 @@ const Footer = () => {
     { name: "Video Tutorial", path: "/video-tutorial" },
     { name: "Presentation", path: "/presentation" },
     { name: "Catalogue", path: "/catalogue" },
-    { name: "Media", path: "/media", isNew: true },
+    { name: "Media", path: "/media" },
     { name: "Mobile App", path: "/mobile-app" },
   ];
 
