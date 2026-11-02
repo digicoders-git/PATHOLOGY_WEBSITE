@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes, FaFilePdf, FaFilePowerpoint, FaCalendarAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { resolvePresentationImageUrl } from "../../apis/presentationService";
 
 const PresentationModal = ({ presentation, onClose }) => {
   const [currentSlide, setCurrentSlide] = useState(1);
   if (!presentation) return null;
 
   const totalPages = parseInt(presentation.pages) || 20;
+  const bannerSrc = resolvePresentationImageUrl(presentation.banner || presentation.bannerUrl);
 
   return (
     <AnimatePresence>
@@ -42,11 +44,11 @@ const PresentationModal = ({ presentation, onClose }) => {
             </button>
           </div>
 
-          {/* Presentation Slide View Area (Clean Light Background - NO Black) */}
+          {/* Presentation Slide View Area */}
           <div className="relative flex-1 bg-gradient-to-b from-gray-50 via-slate-50 to-gray-100 border-y border-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden min-h-[320px]">
             <div className="relative w-full max-w-2xl aspect-[16/9] bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-200/80">
               <img
-                src={presentation.banner}
+                src={bannerSrc}
                 alt={presentation.title}
                 className="w-full h-full object-cover"
               />
@@ -57,7 +59,7 @@ const PresentationModal = ({ presentation, onClose }) => {
               </div>
             </div>
 
-            {/* Slide Navigation Controls (Clean Light Style) */}
+            {/* Slide Navigation Controls */}
             <div className="flex items-center gap-3 mt-4 select-none">
               <button
                 onClick={() => setCurrentSlide((prev) => Math.max(1, prev - 1))}
@@ -81,7 +83,7 @@ const PresentationModal = ({ presentation, onClose }) => {
             </div>
           </div>
 
-          {/* Footer Details (NO Download Button) */}
+          {/* Footer Details */}
           <div className="p-5 px-6 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <h3 className="text-lg sm:text-xl font-black text-gray-900 leading-snug">
@@ -89,7 +91,7 @@ const PresentationModal = ({ presentation, onClose }) => {
               </h3>
               <div className="flex items-center gap-4 text-xs text-gray-500 font-semibold mt-1">
                 <span className="flex items-center gap-1.5">
-                  <FaCalendarAlt className="text-secondary" /> {presentation.date}
+                  <FaCalendarAlt className="text-secondary" /> {presentation.date || "Recent"}
                 </span>
                 <span>• Official Labo India Resource</span>
               </div>

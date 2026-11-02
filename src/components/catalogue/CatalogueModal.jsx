@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaTimes, FaFilePdf, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaTimes, FaBookOpen, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { resolveCatalogueImageUrl } from "../../apis/catalogueService";
 
 const CatalogueModal = ({ catalogue, onClose }) => {
   const [currentPage, setCurrentPage] = useState(1);
   if (!catalogue) return null;
 
   const totalPages = parseInt(catalogue.pages) || 24;
+  const coverSrc = resolveCatalogueImageUrl(catalogue.cover || catalogue.banner || catalogue.coverUrl);
 
   return (
     <AnimatePresence>
@@ -25,12 +27,14 @@ const CatalogueModal = ({ catalogue, onClose }) => {
           <div className="flex items-center justify-between p-4 px-6 border-b border-gray-100 bg-white">
             <div className="flex items-center gap-3">
               <span className="inline-flex items-center gap-1.5 bg-red-50 text-secondary text-xs font-black uppercase px-3 py-1 rounded-full border border-red-100">
-                <FaFilePdf className="text-secondary" />
+                <FaBookOpen className="text-secondary" />
                 {catalogue.title}
               </span>
-              <span className="text-xs font-semibold text-gray-500">
-                {catalogue.pages}
-              </span>
+              {catalogue.subtitle && (
+                <span className="text-xs font-semibold text-gray-500 hidden sm:inline">
+                  {catalogue.subtitle}
+                </span>
+              )}
             </div>
 
             <button
@@ -46,8 +50,12 @@ const CatalogueModal = ({ catalogue, onClose }) => {
           <div className="relative flex-1 bg-gradient-to-b from-gray-50 via-slate-50 to-gray-100 border-y border-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden min-h-[350px]">
             <div className="relative w-full max-w-sm sm:max-w-md aspect-[94/153] max-h-[460px] bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-200/80">
               <img
-                src={`${catalogue.cover}?v=2`}
+                src={coverSrc}
                 alt={catalogue.title}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "/catalogue-hero.png";
+                }}
                 className="w-full h-full object-contain bg-white"
               />
 
@@ -81,14 +89,14 @@ const CatalogueModal = ({ catalogue, onClose }) => {
             </div>
           </div>
 
-          {/* Footer Details (NO Download Button) */}
+          {/* Footer Details */}
           <div className="p-5 px-6 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <h3 className="text-lg sm:text-xl font-black text-gray-900 leading-snug">
                 {catalogue.title}
               </h3>
               <p className="text-xs text-gray-500 font-medium mt-0.5">
-                {catalogue.description}
+                {catalogue.description || catalogue.subtitle}
               </p>
             </div>
 

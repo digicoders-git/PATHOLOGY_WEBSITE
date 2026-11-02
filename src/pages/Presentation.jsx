@@ -3,35 +3,79 @@ import { Toaster } from "react-hot-toast";
 import PresentationHero from "../components/presentation/PresentationHero";
 import PresentationCategories from "../components/presentation/PresentationCategories";
 import PresentationSearchBar from "../components/presentation/PresentationSearchBar";
-import PresentationCards, { PRESENTATIONS_DATA } from "../components/presentation/PresentationCards";
+import PresentationCards from "../components/presentation/PresentationCards";
 import DiscoverCTA from "../components/presentation/DiscoverCTA";
 import PresentationModal from "../components/presentation/PresentationModal";
+import { getActivePresentations } from "../apis/presentationService";
 
 const Presentation = () => {
+  const [presentations, setPresentations] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPresentation, setSelectedPresentation] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const loadPresentations = async () => {
+      try {
+        setLoading(true);
+        const data = await getActivePresentations();
+        if (Array.isArray(data) && data.length > 0) {
+          setPresentations(data);
+        } else {
+          setPresentations([]);
+        }
+      } catch (err) {
+        console.warn("Backend not available, showing empty state:", err.message);
+        setPresentations([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPresentations();
   }, []);
 
+  // Compute dynamic categories strictly from loaded presentations
+  const dynamicCategories = useMemo(() => {
+    if (!presentations || presentations.length === 0) return [];
+
+    const catMap = new Map();
+    presentations.forEach((p) => {
+      if (p.category && p.category.trim()) {
+        const cat = p.category.trim();
+        catMap.set(cat, (catMap.get(cat) || 0) + 1);
+      }
+    });
+
+    return Array.from(catMap.entries()).map(([title, count]) => ({
+      title,
+      count,
+    }));
+  }, [presentations]);
+
   const filteredPresentations = useMemo(() => {
-    return PRESENTATIONS_DATA.filter((item) => {
+    if (!presentations || presentations.length === 0) return [];
+
+    return presentations.filter((item) => {
       const matchCat =
         activeCategory === "All" ||
-        item.category.toLowerCase() === activeCategory.toLowerCase();
+        (item.category &&
+          item.category.trim().toLowerCase() ===
+            activeCategory.trim().toLowerCase());
 
       const query = searchQuery.trim().toLowerCase();
       const matchQuery =
         !query ||
-        item.title.toLowerCase().includes(query) ||
-        item.description.toLowerCase().includes(query) ||
-        item.category.toLowerCase().includes(query);
+        (item.title && item.title.toLowerCase().includes(query)) ||
+        (item.description && item.description.toLowerCase().includes(query)) ||
+        (item.category && item.category.toLowerCase().includes(query));
 
       return matchCat && matchQuery;
     });
-  }, [activeCategory, searchQuery]);
+  }, [presentations, activeCategory, searchQuery]);
 
   const handleResetFilters = () => {
     setActiveCategory("All");
@@ -42,25 +86,31 @@ const Presentation = () => {
     <main className="bg-white min-h-screen">
       <Toaster position="top-right" />
 
-      {/* 1. Hero Section with Projector and Podium Graphic */}
+      {/* 1. Hero Section */}
       <PresentationHero />
 
-      {/* 2. Category Tab Pills */}
-      <PresentationCategories
-        activeCategory={activeCategory}
-        onSelectCategory={setActiveCategory}
-      />
+      {/* 2. Category Tab Pills (Dynamic - only shown when categories exist) */}
+      {dynamicCategories.length > 0 && (
+        <PresentationCategories
+          categories={dynamicCategories}
+          activeCategory={activeCategory}
+          onSelectCategory={setActiveCategory}
+        />
+      )}
 
-      {/* 3. Search Bar */}
-      <PresentationSearchBar
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        onSearchSubmit={() => {}}
-      />
+      {/* 3. Search Bar (Only shown when presentations exist) */}
+      {presentations.length > 0 && (
+        <PresentationSearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          onSearchSubmit={() => {}}
+        />
+      )}
 
-      {/* 4. Presentation Cards Grid (3x3 / 3-per-row layout) */}
+      {/* 4. Presentation Cards Grid (Purely from Backend) */}
       <PresentationCards
         presentations={filteredPresentations}
+        loading={loading}
         onViewPresentation={(item) => setSelectedPresentation(item)}
         onResetFilters={handleResetFilters}
       />
@@ -68,7 +118,7 @@ const Presentation = () => {
       {/* 5. Discover Labo India CTA Banner */}
       <DiscoverCTA />
 
-      {/* 6. Interactive Presentation Slide Viewer Modal */}
+      {/* 6. Interactive Slide Viewer Modal */}
       {selectedPresentation && (
         <PresentationModal
           presentation={selectedPresentation}

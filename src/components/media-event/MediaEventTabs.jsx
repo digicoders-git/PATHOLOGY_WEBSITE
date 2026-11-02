@@ -1,22 +1,45 @@
 import React from "react";
-import { FaPlay, FaCalendarAlt, FaRegFileAlt, FaShareAlt } from "react-icons/fa";
+import { FaPlay, FaCalendarAlt, FaRegFileAlt, FaShareAlt, FaThLarge } from "react-icons/fa";
 
-export const MEDIA_CATEGORIES = [
-  { id: "all", label: "All Updates", icon: null },
-  { id: "media", label: "Media", icon: FaPlay },
-  { id: "event", label: "Event", icon: FaCalendarAlt },
-  { id: "press", label: "Press Note", icon: FaRegFileAlt },
-  { id: "social", label: "Social Media", icon: FaShareAlt },
-];
+const getCategoryIcon = (label = "") => {
+  const l = label.toLowerCase();
+  if (l.includes("media") || l.includes("gallery") || l.includes("photo")) return FaPlay;
+  if (l.includes("event") || l.includes("conclave") || l.includes("meet")) return FaCalendarAlt;
+  if (l.includes("press") || l.includes("news") || l.includes("note")) return FaRegFileAlt;
+  if (l.includes("social") || l.includes("follow") || l.includes("community")) return FaShareAlt;
+  return FaThLarge;
+};
 
-const MediaEventTabs = ({ activeTab = "all", onSelectTab }) => {
+const MediaEventTabs = ({
+  categories = [],
+  activeTab = "all",
+  onSelectTab,
+}) => {
+  // If categories array is provided dynamically, use it; otherwise fallback to default list
+  const tabList = [
+    { id: "all", label: "All Updates", icon: null },
+    ...categories.map((c) => {
+      const label = typeof c === "string" ? c : c.category || c.label;
+      const id = typeof c === "string" ? c.toLowerCase().replace(/[^a-z0-9]/g, "") : c.categoryKey || c.id || label.toLowerCase().replace(/[^a-z0-9]/g, "");
+      return {
+        id,
+        label,
+        icon: getCategoryIcon(label),
+      };
+    }),
+  ];
+
+  if (tabList.length <= 1) return null;
+
   return (
     <section className="pt-10 pb-4 bg-white">
       <div className="container mx-auto px-6 lg:px-16 max-w-[1360px]">
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 select-none">
-          {MEDIA_CATEGORIES.map((tab) => {
+          {tabList.map((tab) => {
             const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
+            const isActive =
+              activeTab === tab.id ||
+              (tab.id !== "all" && activeTab.toLowerCase() === tab.label.toLowerCase());
 
             return (
               <button

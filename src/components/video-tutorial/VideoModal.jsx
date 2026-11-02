@@ -5,6 +5,13 @@ import { FaTimes, FaCalendarAlt, FaEye, FaYoutube } from "react-icons/fa";
 const VideoModal = ({ video, onClose }) => {
   if (!video) return null;
 
+  const effectiveYoutubeId =
+    video.youtubeId ||
+    (video.videoUrl &&
+      video.videoUrl.match(
+        /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+      )?.[1]);
+
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
@@ -22,10 +29,10 @@ const VideoModal = ({ video, onClose }) => {
           <div className="flex items-center justify-between p-4 px-6 border-b border-gray-100 bg-white">
             <div className="flex items-center gap-3">
               <span className="bg-red-50 text-secondary text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full border border-red-100">
-                {video.category}
+                {video.category || "Tutorial"}
               </span>
               <span className="text-xs font-semibold text-gray-500">
-                Duration: {video.duration}
+                Duration: {video.duration || "03:30"}
               </span>
             </div>
 
@@ -40,10 +47,10 @@ const VideoModal = ({ video, onClose }) => {
 
           {/* Video Player Area */}
           <div className="relative w-full aspect-video bg-gray-900 flex items-center justify-center">
-            {video.youtubeId ? (
+            {effectiveYoutubeId ? (
               <iframe
                 className="w-full h-full"
-                src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&rel=0`}
+                src={`https://www.youtube-nocookie.com/embed/${effectiveYoutubeId}?autoplay=1&rel=0`}
                 title={video.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -56,13 +63,14 @@ const VideoModal = ({ video, onClose }) => {
                 </div>
                 <h4 className="text-lg font-bold mb-1">{video.title}</h4>
                 <p className="text-xs text-gray-300 max-w-md">
-                  Official Labo India Tutorial Video. Connecting pathology labs across India.
+                  {video.description ||
+                    "Official Labo India Tutorial Video. Connecting pathology labs across India."}
                 </p>
                 <a
-                  href="https://www.youtube.com/@laboindia"
+                  href={video.videoUrl || "https://www.youtube.com/@laboindia"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 bg-secondary hover:bg-red-700 text-white text-xs font-bold px-6 py-2.5 rounded-full transition-colors inline-flex items-center gap-2"
+                  className="mt-4 bg-secondary hover:bg-red-700 text-white text-xs font-bold px-6 py-2.5 rounded-full transition-colors inline-flex items-center gap-2 cursor-pointer"
                 >
                   <FaYoutube className="text-sm" /> Watch on YouTube Channel
                 </a>
@@ -78,10 +86,10 @@ const VideoModal = ({ video, onClose }) => {
               </h3>
               <div className="flex flex-wrap items-center gap-5 text-xs text-gray-500 font-medium">
                 <span className="flex items-center gap-1.5">
-                  <FaCalendarAlt className="text-secondary" /> {video.date}
+                  <FaCalendarAlt className="text-secondary" /> {video.date || "Recent"}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <FaEye className="text-secondary" /> {video.views}
+                  <FaEye className="text-secondary" /> {video.views || "1.0K Views"}
                 </span>
                 <span className="text-gray-400">• Labo India Official Guide</span>
               </div>
