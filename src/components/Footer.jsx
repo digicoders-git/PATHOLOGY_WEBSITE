@@ -62,10 +62,10 @@ const Footer = () => {
             <div className="flex items-center gap-3">
               {[
                 { icon: FaWhatsapp, href: "https://wa.me/918400800821" },
-                { icon: FaFacebookF, href: "#" },
-                { icon: FaInstagram, href: "#" },
-                { icon: FaXTwitter, href: "#" },
-                { icon: FaLinkedinIn, href: "#" },
+                { icon: FaFacebookF, href: "https://www.facebook.com/share/198QGVMN5q/" },
+                { icon: FaInstagram, href: "https://www.instagram.com/laboindia?utm_source=qr&psln=MThnaTM2ZXVlemJ4dw==" },
+                { icon: FaXTwitter, href: "https://x.com/LABOINDIA" },
+                { icon: FaLinkedinIn, href: "https://lnkd.in/p/gx4DQQTy" },
               ].map((item, i) => (
                 <a
                   key={i}

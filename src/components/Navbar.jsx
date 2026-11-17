@@ -41,10 +41,10 @@ const Navbar = () => {
 
   const socialLinks = [
     { icon: <FaWhatsapp size={14} />, name: "whatsapp", href: "https://wa.me/918400800821" },
-    { icon: <FaFacebookF size={14} />, name: "facebook", href: "#" },
-    { icon: <FaInstagram size={14} />, name: "instagram", href: "#" },
-    { icon: <FaXTwitter size={12} />, name: "x", href: "#" },
-    { icon: <FaLinkedinIn size={14} />, name: "linkedin", href: "#" },
+    { icon: <FaFacebookF size={14} />, name: "facebook", href: "https://www.facebook.com/share/198QGVMN5q/" },
+    { icon: <FaInstagram size={14} />, name: "instagram", href: "https://www.instagram.com/laboindia?utm_source=qr&psln=MThnaTM2ZXVlemJ4dw==" },
+    { icon: <FaXTwitter size={12} />, name: "x", href: "https://x.com/LABOINDIA" },
+    { icon: <FaLinkedinIn size={14} />, name: "linkedin", href: "https://lnkd.in/p/gx4DQQTy" },
   ];
 
   return (
